@@ -23,7 +23,7 @@ by RMIT SEPM Team #32
 - Do as many commits as you like. Make sure your commits doesn't involve other folders or files that are not assigned to you.
 - When you finish, push your branch to github.
 - ReactJS is optional. Example ReactJS code written in <code>mockups/src/js/home</code>.
-- Do you modifications in src folder, HTML files and package.json.
+- Do your modifications in src folder, HTML files and package.json.
 - This mockups project is compiled with something called <code>Laravel Mix</code>.
 
 ## docs folder
