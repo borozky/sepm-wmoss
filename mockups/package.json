@@ -1,0 +1,29 @@
+{
+  "name": "wmoss-mockups",
+  "version": "1.0.0",
+  "description": "HTML Mockups for Web-based Movie Search System",
+  "main": "index.js",
+  "author": "Joshua Orozco",
+  "license": "ISC",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "hot": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+  },
+  "devDependencies": {
+    "babel-preset-react": "^6.24.1",
+    "cross-env": "^5.0.1",
+    "laravel-mix": "^2.0.0"
+  },
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "bootstrap-sass": "^3.3.7",
+    "jquery": "^1.11.3",
+    "jquery-validation": "^1.17.0",
+    "jquery-validation-unobtrusive": "3.2.6",
+    "laravel-mix": "^2.1.11",
+    "react": "^16.3.1",
+    "react-dom": "^16.3.1"
+  }
+}

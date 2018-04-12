@@ -1,0 +1,10 @@
+@import "_variables";
+@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+@import "common";
+@import "site-header";
+@import "site-body";
+@import "site-footer";
+
+@import "./Pages/HomePage";
+@import "./Pages/MovieDetailsPage";
