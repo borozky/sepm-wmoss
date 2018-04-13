@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
@@ -10,6 +11,7 @@ namespace WMoSS.Entities
     {
         public int MovieSessionId { get; set; }
         public MovieSession MovieSession { get; set; }
+        public int TicketQty { get; set; }
         public IEnumerable<Ticket> Tickets { get; set; }
     }
 
@@ -19,7 +21,6 @@ namespace WMoSS.Entities
         public Movie Movie;
 
         public IEnumerable<CartItem> CartItemsByMovieSession { get; set; }
-        
     }
 
     
