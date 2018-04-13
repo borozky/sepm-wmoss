@@ -1,0 +1,20 @@
+﻿@page
+@model WMoSS.Web.Pages.FaqModel
+@{
+    ViewData["Title"] = "Faq";
+    ViewBag.Title = "Frequently Asked Questions";
+}
+
+@section EntryHeader {
+    <div class="entry-header">
+        <div class="container clearfix">
+            <h3>@ViewBag.Title</h3>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<h3>Some thing</h3>

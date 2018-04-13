@@ -1,0 +1,23 @@
+﻿@page
+@model WMoSS.Web.Pages.Movies.ComingSoonModel
+@{
+    ViewData["Title"] = "ComingSoon";
+    ViewBag.EntryTitle = "Coming Soon";
+}
+
+@section EntryHeader {
+    <div class="entry-header">
+        <div class="container clearfix">
+            <h3>@ViewBag.EntryTitle</h3>
+        </div>
+    </div>
+}
+
+<div class="container clearfix">
+    <p>'Coming Soon' movies should be placed here</p>
+    <p>'Coming Soon' movies should never have movie sessions. Also they should have release dates in the future.</p>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
