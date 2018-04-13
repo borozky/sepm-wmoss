@@ -7,7 +7,7 @@ using WMoSS.Entities;
 
 namespace WMoSS.Repositories.Excel
 {
-    class MovieSessionExcelRepository : IMovieSessionRepository
+    public class MovieSessionExcelRepository : IMovieSessionRepository
     {
         private ExcelPackage excelPackage;
         private ExcelWorksheet sessionWorksheet;
