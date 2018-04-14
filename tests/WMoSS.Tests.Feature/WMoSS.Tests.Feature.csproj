@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Bogus" Version="22.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="2.0.2" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0-preview-20170628-02" />
     <PackageReference Include="xunit" Version="2.2.0" />
@@ -16,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\WMoSS.Web\WMoSS.Web.csproj" />
     <ProjectReference Include="..\..\src\WMoSS\WMoSS.csproj" />
+    <ProjectReference Include="..\WMoSS.Tests\WMoSS.Tests.csproj" />
   </ItemGroup>
   
   <Target Name="CopyDepsFiles" AfterTargets="Build" Condition="'$(TargetFramework)'!=''">
