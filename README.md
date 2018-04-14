@@ -11,7 +11,7 @@ by RMIT SEPM Team #32
 
 ## mockups folder
 - Please make sure <u>you are not working on the master branch</u>. Create and use another branch.
-- Master branch will always be updated. Always pull from master branch using <code>git pull</code>.
+- Master branch will always be updated. Always pull from master branch using <code>git pull origin master</code>.
 - Talk to another person about which HTML pages they would like to work on. 
 - Try not to work on same HTML page with another person.
 - Open mockups folder in Visual Studio Code.
@@ -28,7 +28,7 @@ by RMIT SEPM Team #32
 
 ## docs folder
 - You may add HTML, PDF, DOCX or Markdown files
-- You can commit on master branch as long as your commits does not involve modifications in other folders.
+- Please make your commits on separate branch. (eg. 'docs' branch)
 
 
 ## src folder
@@ -41,7 +41,7 @@ by RMIT SEPM Team #32
 - Compile CSS and JS assets using <code>npm run dev</code>
 - Open the .sln file in Visual Studio 2017.
 - Click the 'IIS Express' play button. Wait for 20 minutes.
-- You browser will open automatically.
+- Your browser will open automatically.
 
 
 ## tests folder
