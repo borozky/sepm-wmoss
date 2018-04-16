@@ -38,7 +38,7 @@ namespace WMoSS.Tests.Repositories.Excel
             {
                 Id = id,
                 Title = moviesSheet.Cells[id, 1].GetValue<string>(),
-                ReleaseYear = moviesSheet.Cells[id, 2].GetValue<int?>(),
+                ReleaseDate = moviesSheet.Cells[id, 2].GetValue<string>(),
                 Genre = moviesSheet.Cells[id, 3].GetValue<string>(),
                 Classification = moviesSheet.Cells[id, 4].GetValue<string>(),
                 Rating = moviesSheet.Cells[id, 5].GetValue<double?>(),
@@ -72,7 +72,7 @@ namespace WMoSS.Tests.Repositories.Excel
             var movie = new Movie
             {
                 Title = "Hello World",
-                ReleaseYear = 2018,
+                ReleaseDate = String.Format("{0:yyyy-MM-dd}", DateTime.Now),
                 Genre = "Education",
                 Classification = null,
                 Rating = null,
@@ -82,7 +82,7 @@ namespace WMoSS.Tests.Repositories.Excel
             };
 
             moviesSheet.Cells[newRowId, 1].Value = movie.Title;
-            moviesSheet.Cells[newRowId, 2].Value = movie.ReleaseYear;
+            moviesSheet.Cells[newRowId, 2].Value = movie.ReleaseDate;
             moviesSheet.Cells[newRowId, 3].Value = movie.Genre;
             moviesSheet.Cells[newRowId, 4].Value = movie.Classification;
             moviesSheet.Cells[newRowId, 5].Value = movie.Rating;
@@ -126,7 +126,7 @@ namespace WMoSS.Tests.Repositories.Excel
             var movie = new Movie
             {
                 Title = "Hello World",
-                ReleaseYear = 2018,
+                ReleaseDate = String.Format("{0:yyyy-MM-dd}", DateTime.Now),
                 Genre = "Fiction",
                 Classification = null,
                 Rating = null,
@@ -149,7 +149,7 @@ namespace WMoSS.Tests.Repositories.Excel
             var movie = new Movie
             {
                 Title = "Hello World 2",
-                ReleaseYear = 2018,
+                ReleaseDate = String.Format("{0:yyyy-MM-dd}", DateTime.Now),
                 Genre = "Fiction",
                 Classification = null,
                 Rating = null,
@@ -174,7 +174,7 @@ namespace WMoSS.Tests.Repositories.Excel
             var movie = new Movie
             {
                 Title = "Hello World 3",
-                ReleaseYear = 2018,
+                ReleaseDate = String.Format("{0:yyyy-MM-dd}", DateTime.Now),
                 Genre = "Fiction",
                 Classification = null,
                 Rating = null,
@@ -194,7 +194,7 @@ namespace WMoSS.Tests.Repositories.Excel
             var movie = new Movie
             {
                 Title = "Hello World 4",
-                ReleaseYear = 2018,
+                ReleaseDate = String.Format("{0:yyyy-MM-dd}", DateTime.Now),
                 Genre = "Fiction",
                 Classification = null,
                 Rating = null,
