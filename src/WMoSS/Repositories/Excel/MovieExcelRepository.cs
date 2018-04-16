@@ -66,7 +66,7 @@ namespace WMoSS.Repositories.Excel
                 moviesSheet.InsertRow(newRowId, 1);
 
                 moviesSheet.Cells[newRowId, 1].Value = movie.Title;
-                moviesSheet.Cells[newRowId, 2].Value = movie.ReleaseYear;
+                moviesSheet.Cells[newRowId, 2].Value = movie.ReleaseDate;
                 moviesSheet.Cells[newRowId, 3].Value = movie.Genre;
                 moviesSheet.Cells[newRowId, 4].Value = movie.Classification;
                 moviesSheet.Cells[newRowId, 5].Value = movie.Rating;
@@ -103,7 +103,7 @@ namespace WMoSS.Repositories.Excel
                 var movieRowIds = moviesSheet.Cells.Select(cell => cell.Start.Row).Distinct().OrderBy(x => x).Skip(1);
 
                 moviesSheet.Cells[movieId, 1].Value = movie.Title;
-                moviesSheet.Cells[movieId, 2].Value = movie.ReleaseYear;
+                moviesSheet.Cells[movieId, 2].Value = movie.ReleaseDate;
                 moviesSheet.Cells[movieId, 3].Value = movie.Genre;
                 moviesSheet.Cells[movieId, 4].Value = movie.Classification;
                 moviesSheet.Cells[movieId, 5].Value = movie.Rating;
@@ -139,7 +139,7 @@ namespace WMoSS.Repositories.Excel
             {
                 Id = rowId,
                 Title = moviesSheet.Cells[rowId, 1].GetValue<string>(),
-                ReleaseYear = moviesSheet.Cells[rowId, 2].GetValue<int?>(),
+                ReleaseDate = moviesSheet.Cells[rowId, 2].GetValue<string>(),
                 Genre = moviesSheet.Cells[rowId, 3].GetValue<string>(),
                 Classification = moviesSheet.Cells[rowId, 4].GetValue<string>(),
                 Rating = moviesSheet.Cells[rowId, 5].GetValue<double?>(),
