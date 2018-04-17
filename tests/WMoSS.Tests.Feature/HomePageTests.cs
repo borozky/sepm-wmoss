@@ -21,7 +21,8 @@ namespace WMoSS.Tests.Feature
     {
 
         public HomePageTests() : base()
-        { 
+        {
+            SeedData();
         }
 
         [Fact]

@@ -15,6 +15,8 @@ using WMoSS.Entities;
 using Bogus;
 using System.Linq;
 using WMoSS.Tests.TestUtils;
+using WMoSS.Repositories.Excel;
+using OfficeOpenXml;
 
 namespace WMoSS.Tests.Feature
 {
@@ -37,13 +39,17 @@ namespace WMoSS.Tests.Feature
     {
         protected readonly TestServer server;
         protected readonly HttpClient client;
+        protected readonly string sourceFolder;
+        protected readonly string webfolder;
+        protected readonly IWebHostBuilder webhostBuilder;
 
         private IEntityFactory factory;
 
         protected TestCase()
         {
-            var webfolder = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\..\src", @"WMoSS.Web");
-            var webhostBuilder = new WebHostBuilder()
+            sourceFolder = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\..\src");
+            webfolder = Path.Combine(sourceFolder, @"WMoSS.Web");
+            webhostBuilder = new WebHostBuilder()
                 .UseEnvironment("Testing")
                 .UseContentRoot(webfolder)
                 .UseStartup<WMoSS.Web.Startup>();
@@ -61,12 +67,7 @@ namespace WMoSS.Tests.Feature
             factory.Define<T>(definition);
         }
 
-        public void Dispose()
-        {
-            client.Dispose();
-            server.Dispose();
-        }
-
+        
         protected T Make<T>() where T : class
         {
             return Make<T>(1).FirstOrDefault();
@@ -167,6 +168,85 @@ namespace WMoSS.Tests.Feature
                 .Generate();
             });
         }
+
+        protected void SeedData()
+        {
+            var excelTestFile = Path.Combine(sourceFolder, "WMOSS-EXCELDB-TEST.xlsx");
+            var excelFile = new FileInfo(excelTestFile);
+            var excelPackage = new ExcelPackage(excelFile);
+
+            var theaters = Make<Theater>(5);
+            var worksheet = excelPackage.Workbook.Worksheets["THEATERS"];
+            var rowIds = worksheet.Cells.Select(cell => cell.Start.Row).Distinct().OrderBy(id => id).Skip(1);
+            foreach (var theater in theaters)
+            {
+                var lastRowId = rowIds.Count() > 0 ? rowIds.Max() : 1;
+                var newRowId = lastRowId + 1;
+                worksheet.InsertRow(newRowId, 1);
+                worksheet.Cells[newRowId, 1].Value = theater.Name;
+                worksheet.Cells[newRowId, 2].Value = theater.Capacity;
+                worksheet.Cells[newRowId, 3].Value = theater.Address;
+                theater.Id = newRowId;
+            }
+
+            var movies = Make<Movie>(10);
+            worksheet = excelPackage.Workbook.Worksheets["MOVIES"];
+            rowIds = worksheet.Cells.Select(cell => cell.Start.Row).Distinct().OrderBy(id => id).Skip(1);
+            foreach(var movie in movies)
+            {
+                var lastRowId = rowIds.Count() > 0 ? rowIds.Max() : 1;
+                var newRowId = lastRowId + 1;
+                worksheet.InsertRow(newRowId, 1);
+                worksheet.Cells[newRowId, 1].Value = movie.Title;
+                worksheet.Cells[newRowId, 2].Value = movie.ReleaseDate;
+                worksheet.Cells[newRowId, 3].Value = movie.Genre;
+                worksheet.Cells[newRowId, 4].Value = movie.Classification;
+                worksheet.Cells[newRowId, 5].Value = movie.Rating;
+                worksheet.Cells[newRowId, 6].Value = movie.PosterFileName;
+                worksheet.Cells[newRowId, 7].Value = movie.RuntimeMinutes;
+                worksheet.Cells[newRowId, 8].Value = movie.Description;
+                movie.Id = newRowId;
+            }
+
+            var movieSessions = Make<MovieSession>(100);
+            worksheet = excelPackage.Workbook.Worksheets["MOVIESESSIONS"];
+            rowIds = worksheet.Cells.Select(cell => cell.Start.Row).Distinct().OrderBy(id => id).Skip(1);
+            foreach (var movieSession in movieSessions)
+            {
+                var theaterIds = theaters.Select(t => t.Id).ToArray();
+                var index = new Random().Next(theaterIds.Length);
+                movieSession.TheaterId = theaterIds[index];
+
+                var movieIds = movies.Select(m => m.Id).ToArray();
+                var movieIndex = new Random().Next(movieIds.Length);
+                movieSession.MovieId = movieIds[movieIndex];
+
+                var lastRowId = rowIds.Count() > 0 ? rowIds.Max() : 1;
+                var newRowId = lastRowId + 1;
+                worksheet.InsertRow(newRowId, 1);
+                worksheet.Cells[newRowId, 1].Value = movieSession.MovieId;
+                worksheet.Cells[newRowId, 2].Value = movieSession.TheaterId;
+                worksheet.Cells[newRowId, 3].Value = movieSession.ScheduledAt;
+                worksheet.Cells[newRowId, 4].Value = movieSession.TicketPrice;
+                worksheet.Cells[newRowId, 5].Value = movieSession.ScheduledById;
+                worksheet.Cells[newRowId, 6].Value = movieSession.CreatedAt;
+                movieSession.Id = newRowId;
+            }
+
+            excelPackage.Save();
+            excelPackage.Dispose();
+        }
+
+        public void Dispose()
+        {
+            var excelSampleFile = Path.Combine(sourceFolder, "WMOSS-EXCELDB-SAMPLE.xlsx");
+            var excelTestFile = Path.Combine(sourceFolder, "WMOSS-EXCELDB-TEST.xlsx");
+            File.Copy(excelSampleFile, excelTestFile, true);
+
+            client.Dispose();
+            server.Dispose();
+        }
+
     }
-    
+
 }

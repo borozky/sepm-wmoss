@@ -32,14 +32,12 @@ namespace WMoSS.Web
             {
                 var rootPath = Env.ContentRootPath; 
                 var excelFilePath = Path.Combine(rootPath, @"..\", @"WMOSS-EXCELDB.xlsx");
-
+                var fileInfo = new FileInfo(excelFilePath);
                 if (Env.IsEnvironment("Testing"))
                 {
-                    var excelSamplePath = Path.Combine(rootPath, @"..\", @"WMOSS-EXCELDB-SAMPLE.xlsx");
                     var excelTestPath = Path.Combine(rootPath, @"..\", @"WMOSS-EXCELDB-TEST.xlsx");
-                    File.Copy(excelFilePath, excelTestPath, true);
+                    fileInfo = new FileInfo(excelTestPath);
                 }
-                var fileInfo = new FileInfo(excelFilePath);
                 if (fileInfo.Exists == false)
                 {
                     throw new Exception("Excel file doesn't exists");
