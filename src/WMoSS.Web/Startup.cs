@@ -11,6 +11,7 @@ using WMoSS.Repositories;
 using WMoSS.Repositories.Excel;
 using System.IO;
 using WMoSS.Services;
+using Newtonsoft.Json;
 
 namespace WMoSS.Web
 {
@@ -55,7 +56,29 @@ namespace WMoSS.Web
             services.AddTransient<IUserRepository, UserExcelRepository>();
             services.AddTransient<IExpressBookingDataProvider, ExpressBookingDataProvider>();
 
-            services.AddMvc();
+            // Cache in memory
+            services.AddDistributedMemoryCache();
+
+            // Sessions
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(600);
+                options.Cookie.HttpOnly = true;
+            });
+
+            // MVC and Razor pages
+            services.AddMvc()
+
+            // enable TempData for MVC
+            .AddSessionStateTempDataProvider()
+            
+            // Ignore circular references
+            .AddJsonOptions(options => 
+            {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                options.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.Objects;
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -72,6 +95,8 @@ namespace WMoSS.Web
             }
 
             app.UseStaticFiles();
+
+            app.UseSession();
 
             app.UseMvc(routes =>
             {
