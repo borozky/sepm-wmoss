@@ -41,7 +41,7 @@ namespace WMoSS.Tests.Feature
                 .RuleFor(m => m.Id, f => movieId++)
                 .RuleFor(m => m.Title, f => f.Lorem.Text())
                 .RuleFor(m => m.Genre, f => f.Lorem.Word())
-                .RuleFor(m => m.ReleaseDate, f => String.Format("{0:yyyy-MM-dd}", DateTime.UtcNow.AddDays(f.Random.Int(1, 365))))
+                .RuleFor(m => m.ReleaseDate, f => DateTime.UtcNow.AddDays(f.Random.Int(1, 365)))
                 .RuleFor(m => m.RuntimeMinutes, f => f.Random.Number(100, 200))
                 .RuleFor(m => m.Description, f => f.Lorem.Paragraph())
                 .RuleFor(m => m.PosterFileName, f => f.Image.Image())
@@ -62,7 +62,7 @@ namespace WMoSS.Tests.Feature
                 return new Faker<MovieSession>()
                 .RuleFor(ms => ms.Id, f => movieSessionId++)
                 .RuleFor(ms => ms.TicketPrice, f => 20.00)
-                .RuleFor(ms => ms.ScheduledAt, f => scheduleStr)
+                .RuleFor(ms => ms.ScheduledAt, f => DateTime.UtcNow.AddDays(f.Random.Int(1, 365)))
                 .RuleFor(ms => ms.TheaterId, f => f.Random.Int(2, 6))
                 .Generate();
             });
