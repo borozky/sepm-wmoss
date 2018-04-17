@@ -44,7 +44,7 @@ namespace WMoSS.Tests.Feature
         {
             var webfolder = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\..\src", @"WMoSS.Web");
             var webhostBuilder = new WebHostBuilder()
-                .UseEnvironment("Development")
+                .UseEnvironment("Testing")
                 .UseContentRoot(webfolder)
                 .UseStartup<WMoSS.Web.Startup>();
 
