@@ -1,11 +1,26 @@
-﻿@page
+﻿@page "{id:int}"
+@using Newtonsoft.Json
 @model WMoSS.Web.Pages.Movies.DetailsModel
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = String.Format("{0} ({1:yyyy})", Model.Movie.Title, Model.Movie.ReleaseDate);
 }
 
-<h2>Details</h2>
+@section EntryHeader {
+    <div class="entry-header">
+        <div class="container clearfix">
+            <h3>@String.Format("{0} ({1:yyyy})", Model.Movie.Title, Model.Movie.ReleaseDate)</h3>
+        </div>
+    </div>
+}
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+
+<div class="container clearfix">
+    <b>Movie</b>
+    <pre>@JsonConvert.SerializeObject(Model.Movie, Formatting.Indented)</pre>
+    <b>Movie Sessions</b>
+    <pre>@JsonConvert.SerializeObject(Model.MovieSessions, Formatting.Indented)</pre>
+</div>
