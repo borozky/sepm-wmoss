@@ -13,10 +13,10 @@ namespace WMoSS.Entities
         public IEnumerable<Movie> Movies =>
             MovieSessions.Select(ms => ms.Movie).GroupBy(m => m.Id).Select(g => g.First());
 
-        public IEnumerable<MovieSession> MovieSessions => 
+        public IEnumerable<MovieSession> MovieSessions =>
             Tickets.Select(t => t.MovieSession).GroupBy(m => m.Id).Select(g => g.First());
 
-        public IEnumerable<int> MovieSessionIds => 
+        public IEnumerable<int> MovieSessionIds =>
             Tickets.Select(t => t.MovieSessionId).Distinct();
 
         public IEnumerable<IGrouping<int, MovieSession>> MovieSessionByMovieId =>
@@ -35,7 +35,8 @@ namespace WMoSS.Entities
                 {
                     MovieSessionId = g.Key,
                     MovieSession = movieSessionsFromTickets.FirstOrDefault(ms => ms.Id == g.Key),
-                    Tickets = g.AsEnumerable()
+                    Tickets = g.AsEnumerable(),
+                    TicketQty = g.AsEnumerable().Count()
                 });
             }
         }
