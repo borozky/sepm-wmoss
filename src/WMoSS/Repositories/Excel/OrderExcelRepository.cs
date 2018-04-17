@@ -65,7 +65,7 @@ namespace WMoSS.Repositories.Excel
                 TotalPrice = ordersWorksheet.Cells[rowId, 4].GetValue<double?>(),
                 CardNumber = ordersWorksheet.Cells[rowId, 5].GetValue<string>(),
                 Expiry = ordersWorksheet.Cells[rowId, 6].GetValue<string>(),
-                CreatedAt = ordersWorksheet.Cells[rowId, 7].GetValue<string>()
+                CreatedAt = ordersWorksheet.Cells[rowId, 7].GetValue<DateTime?>()
             };
         }
 

@@ -139,13 +139,13 @@ namespace WMoSS.Repositories.Excel
             {
                 Id = rowId,
                 Title = moviesSheet.Cells[rowId, 1].GetValue<string>(),
-                ReleaseDate = moviesSheet.Cells[rowId, 2].GetValue<string>(),
+                ReleaseDate = moviesSheet.Cells[rowId, 2].GetValue<DateTime?>(),
                 Genre = moviesSheet.Cells[rowId, 3].GetValue<string>(),
                 Classification = moviesSheet.Cells[rowId, 4].GetValue<string>(),
                 Rating = moviesSheet.Cells[rowId, 5].GetValue<double?>(),
                 PosterFileName = moviesSheet.Cells[rowId, 6].GetValue<string>(),
                 RuntimeMinutes = moviesSheet.Cells[rowId, 7].GetValue<int?>(),
-                Description = moviesSheet.Cells[rowId, 8].GetValue<string>()
+                Description = moviesSheet.Cells[rowId, 8].GetValue<string>(),
             };
         }
     }

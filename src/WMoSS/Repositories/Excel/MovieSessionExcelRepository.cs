@@ -103,10 +103,10 @@ namespace WMoSS.Repositories.Excel
                 Id = rowId,
                 MovieId = sessionWorksheet.Cells[rowId, 1].GetValue<int>(),
                 TheaterId = sessionWorksheet.Cells[rowId, 2].GetValue<int>(),
-                ScheduledAt = sessionWorksheet.Cells[rowId, 3].GetValue<string>(),
+                ScheduledAt = sessionWorksheet.Cells[rowId, 3].GetValue<DateTime?>(),
                 TicketPrice = sessionWorksheet.Cells[rowId, 4].GetValue<double>(),
                 ScheduledById = sessionWorksheet.Cells[rowId, 5].GetValue<int>(),
-                CreatedAt = sessionWorksheet.Cells[rowId, 6].GetValue<string>()
+                CreatedAt = sessionWorksheet.Cells[rowId, 6].GetValue<DateTime?>()
             };
         }
 

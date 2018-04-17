@@ -14,7 +14,7 @@ namespace WMoSS.Entities
         public double? TotalPrice { get; set; }
         public string CardNumber { get; set; }
         public string Expiry { get; set; }
-        public string CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
 
         public IEnumerable<Ticket> Tickets { get; set; }
     }
