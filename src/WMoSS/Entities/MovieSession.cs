@@ -10,7 +10,7 @@ namespace WMoSS.Entities
 
         public int Id { get; set; }
         public double TicketPrice { get; set; } = DEFAULT_TICKET_PRICE;
-        public string ScheduledAt { get; set; }
+        public DateTime? ScheduledAt { get; set; }
 
         public int TheaterId { get; set; }
         public Theater Theater { get; set; }
@@ -21,6 +21,6 @@ namespace WMoSS.Entities
         public int ScheduledById { get; set; }
         public ApplicationUser ScheduledBy { get; set; }
 
-        public string CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
     }
 }
