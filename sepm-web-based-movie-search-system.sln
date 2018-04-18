@@ -3,24 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{695DE482-06CF-42F5-8AD7-492948E6195C}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{7AF85E48-C5F3-497A-B727-43671B8CD647}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WMoSS", "src\WMoSS\WMoSS.csproj", "{D3662497-DDD6-4780-BD2A-E357321E9BB7}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WMoSS.Web", "src\WMoSS.Web\WMoSS.Web.csproj", "{3C13DA5D-3CE6-402A-BC3F-D6932761E959}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WMoSS.Tests", "tests\WMoSS.Tests\WMoSS.Tests.csproj", "{4F0B553D-B8BF-4583-9DD4-A5A4B7C080CE}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A2ABA797-44BB-4A82-BACB-968267B63A55}"
-	ProjectSection(SolutionItems) = preProject
-		src\WMOSS-EXCELDB-SAMPLE.xlsx = src\WMOSS-EXCELDB-SAMPLE.xlsx
-		src\WMOSS-EXCELDB-TEST.xlsx = src\WMOSS-EXCELDB-TEST.xlsx
-		src\WMOSS-EXCELDB.xlsx = src\WMOSS-EXCELDB.xlsx
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WMoSS.Tests.Feature", "tests\WMoSS.Tests.Feature\WMoSS.Tests.Feature.csproj", "{5076DD4E-30AA-4A7D-8871-ED41836912B5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WMoSS", "src\WMoSS\WMoSS.csproj", "{4256759A-0BBA-4980-8157-D98693DC9E6A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,31 +11,13 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D3662497-DDD6-4780-BD2A-E357321E9BB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D3662497-DDD6-4780-BD2A-E357321E9BB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D3662497-DDD6-4780-BD2A-E357321E9BB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D3662497-DDD6-4780-BD2A-E357321E9BB7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3C13DA5D-3CE6-402A-BC3F-D6932761E959}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3C13DA5D-3CE6-402A-BC3F-D6932761E959}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3C13DA5D-3CE6-402A-BC3F-D6932761E959}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3C13DA5D-3CE6-402A-BC3F-D6932761E959}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4F0B553D-B8BF-4583-9DD4-A5A4B7C080CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4F0B553D-B8BF-4583-9DD4-A5A4B7C080CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4F0B553D-B8BF-4583-9DD4-A5A4B7C080CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4F0B553D-B8BF-4583-9DD4-A5A4B7C080CE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5076DD4E-30AA-4A7D-8871-ED41836912B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5076DD4E-30AA-4A7D-8871-ED41836912B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5076DD4E-30AA-4A7D-8871-ED41836912B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5076DD4E-30AA-4A7D-8871-ED41836912B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4256759A-0BBA-4980-8157-D98693DC9E6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4256759A-0BBA-4980-8157-D98693DC9E6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4256759A-0BBA-4980-8157-D98693DC9E6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4256759A-0BBA-4980-8157-D98693DC9E6A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{D3662497-DDD6-4780-BD2A-E357321E9BB7} = {695DE482-06CF-42F5-8AD7-492948E6195C}
-		{3C13DA5D-3CE6-402A-BC3F-D6932761E959} = {695DE482-06CF-42F5-8AD7-492948E6195C}
-		{4F0B553D-B8BF-4583-9DD4-A5A4B7C080CE} = {7AF85E48-C5F3-497A-B727-43671B8CD647}
-		{5076DD4E-30AA-4A7D-8871-ED41836912B5} = {7AF85E48-C5F3-497A-B727-43671B8CD647}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BD05048F-45E7-442B-B3C3-E640E25B51EF}
