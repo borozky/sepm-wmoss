@@ -8,13 +8,12 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 using WMoSS.Data;
 
-namespace WMoSS.Data.Migrations
+namespace WMoSS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180418120342_CreatedEntities")]
-    partial class CreatedEntities
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
