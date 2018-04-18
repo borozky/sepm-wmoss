@@ -10,7 +10,7 @@ namespace WMoSS.Tests.Feature
     {
         public CartPageTests() : base()
         {
-
+            SeedData();
         }
 
         [Fact]
@@ -18,6 +18,19 @@ namespace WMoSS.Tests.Feature
         {
             var response = await client.GetAsync("/Cart");
             response.EnsureSuccessStatusCode();
+        }
+
+        [Fact]
+        public async Task Test_AddToCart_Works()
+        {
+            var data = new Dictionary<string, string>();
+            data["MovieSessionId"] = "2";
+            data["TicketQty"] = "1";
+
+            var formData = await TestCase.GetRequestContentAsync(client, "/Movie/Details/2", data);
+
+            var response = await client.PostAsync("/Cart", formData);
+
         }
     }
 }
