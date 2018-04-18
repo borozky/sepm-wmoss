@@ -42,6 +42,7 @@ namespace WMoSS.Tests.Feature
         protected readonly string sourceFolder;
         protected readonly string webfolder;
         protected readonly IWebHostBuilder webhostBuilder;
+        protected readonly ExcelPackage excelPackage;
 
         private IEntityFactory factory;
 
@@ -60,6 +61,10 @@ namespace WMoSS.Tests.Feature
             factory = new ExcelEntityFactory();
 
             DefineEntities();
+
+            var excelTestFile = Path.Combine(sourceFolder, "WMOSS-EXCELDB-TEST.xlsx");
+            var excelFile = new FileInfo(excelTestFile);
+            excelPackage = new ExcelPackage(excelFile);
         }
 
         protected void Define<T>(Func<T> definition) where T : class
@@ -171,10 +176,6 @@ namespace WMoSS.Tests.Feature
 
         protected void SeedData()
         {
-            var excelTestFile = Path.Combine(sourceFolder, "WMOSS-EXCELDB-TEST.xlsx");
-            var excelFile = new FileInfo(excelTestFile);
-            var excelPackage = new ExcelPackage(excelFile);
-
             var theaters = Make<Theater>(5);
             var worksheet = excelPackage.Workbook.Worksheets["THEATERS"];
             var rowIds = worksheet.Cells.Select(cell => cell.Start.Row).Distinct().OrderBy(id => id).Skip(1);
@@ -235,6 +236,48 @@ namespace WMoSS.Tests.Feature
 
             excelPackage.Save();
             excelPackage.Dispose();
+        }
+
+
+        /// <summary>
+        /// Converts dictionary into url-encoded form data. See
+        /// https://docs.microsoft.com/en-us/aspnet/core/testing/razor-pages-testing?view=aspnetcore-2.1
+        /// </summary>
+        /// <param name="_client"></param>
+        /// <param name="path"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static async Task<FormUrlEncodedContent> GetRequestContentAsync(
+            HttpClient _client, string path, IDictionary<string, string> data)
+        {
+            // Make a request for the resource.
+            var getResponse = await _client.GetAsync(path);
+
+            // Set the response's antiforgery cookie on the HttpClient.
+            _client.DefaultRequestHeaders.Add("Cookie",
+                getResponse.Headers.GetValues("Set-Cookie"));
+
+            // Obtain the request verification token from the response.
+            // Any <form> element in the response contains a token, and
+            // they're all the same within a single response.
+            //
+            // This method uses Regex to parse the element and its value
+            // from the response markup. A better approach in a production
+            // app would be to use an HTML parser (for example, 
+            // HtmlAgilityPack: http://html-agility-pack.net/).
+            var responseMarkup = await getResponse.Content.ReadAsStringAsync();
+            var regExp_RequestVerificationToken = new Regex(
+                "<input name=\"__RequestVerificationToken\" type=\"hidden\" value=\"(.*?)\" \\/>",
+                RegexOptions.Compiled);
+            var matches = regExp_RequestVerificationToken.Matches(responseMarkup);
+            // Group[1] represents the captured characters, represented
+            // by (.*?) in the Regex pattern string.
+            var token = matches?.FirstOrDefault().Groups[1].Value;
+
+            // Add the token to the form data for the request.
+            data.Add("__RequestVerificationToken", token);
+
+            return new FormUrlEncodedContent(data);
         }
 
         public void Dispose()
