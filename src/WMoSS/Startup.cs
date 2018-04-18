@@ -46,7 +46,7 @@ namespace WMoSS
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationDbContext dbContext)
         {
             if (env.IsDevelopment())
             {
@@ -69,6 +69,8 @@ namespace WMoSS
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
             });
+
+            //DbInitializer.Initialize(dbContext);
         }
     }
 }
