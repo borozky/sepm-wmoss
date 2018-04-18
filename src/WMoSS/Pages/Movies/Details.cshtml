@@ -1,12 +1,43 @@
-﻿@page
+﻿@page "{id:int}"
 @using Newtonsoft.Json
 @model WMoSS.Pages.Movies.DetailsModel
 @{
     ViewData["Title"] = "Details";
+
+    var releaseYear = " ";
+    if (Model.Movie.ReleaseDate.HasValue)
+    {
+        releaseYear += "(";
+        releaseYear += Model.Movie.ReleaseDate.Value.ToString("yyyy");
+        releaseYear += ")";
+    }
+
+    var movieTitle = Model.Movie.Title + releaseYear;
 }
 
-<h2>Details</h2>
+@section EntryHeader {
+    <div class="entry-header">
+        <div class="container clearfix">
+            <h3>@movieTitle</h3>
+        </div>
+    </div>
+}
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+<div class="container clearfix">
+    <h2>@Model.Movie.Title @releaseYear</h2>
+
+    @if(Model.MovieSessionsOptions != null && Model.MovieSessionsOptions.Count() > 0)
+    {
+    <form asp-page="/Cart/Index" method="post">
+        <label>Select session</label><br/>
+        <select asp-for="CartItem.MovieSessionId" asp-items="@Model.MovieSessionsOptions"></select><br/>
+        <label>Number of tickets</label> 
+        <input asp-for="CartItem.TicketQuantity" value="1"/><br/>
+        <button type="submit">Add to cart</button>
+    </form>
+    }
+</div>
