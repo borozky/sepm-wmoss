@@ -32,7 +32,7 @@ namespace WMoSS.Entities
         public Movie Movie { get; set; }
 
         [ForeignKey("ScheduledBy")]
-        public int? ScheduledById { get; set; }
+        public string ScheduledById { get; set; }
         public ApplicationUser ScheduledBy { get; set; }
 
 
