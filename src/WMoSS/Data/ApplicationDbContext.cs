@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using WMoSS.Entities;
 
 namespace WMoSS.Data
 {
@@ -21,5 +22,11 @@ namespace WMoSS.Data
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
         }
+
+        public DbSet<Movie> Movies { get; set; }
+        public DbSet<MovieSession> MovieSessions { get; set; }
+        public DbSet<Theater> Theaters { get; set; }
+        public DbSet<Order> Order { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
     }
 }
