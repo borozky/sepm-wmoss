@@ -1,0 +1,24 @@
+﻿
+body {
+    font-size: 14px;
+}
+
+.container {
+    width: auto;
+    max-width: 960px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.site-wrapper {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.site-body {
+    flex: 1;
+}

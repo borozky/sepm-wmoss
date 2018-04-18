@@ -1,0 +1,32 @@
+﻿@page
+@model WMoSS.Pages.Cart.IndexModel
+@{
+    ViewData["Title"] = "Cart";
+    ViewBag.EntryTitle = ViewData["Title"];
+}
+@section EntryHeader {
+    <div class="entry-header">
+        <div class="container clearfix">
+            <h3>@ViewBag.EntryTitle</h3>
+        </div>
+    </div>
+}
+<div class="container clearfix">
+    <p>Cart page should display cart items based on movie sessions.</p>
+    <p>Cart item should have the following:</p>
+    <ul>
+        <li>Session date</li>
+        <li>Session title</li>
+        <li>Movie Title</li>
+        <li>Theater Venue</li>
+        <li>Input to adjust number of tickets</li>
+        <li>Link to remove the cart item</li>
+        <li>Overall price</li>
+
+    </ul>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
