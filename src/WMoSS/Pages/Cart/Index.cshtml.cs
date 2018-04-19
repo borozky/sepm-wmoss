@@ -92,9 +92,30 @@ namespace WMoSS.Pages.Cart
             cart.SaveTo(HttpContext.Session);
             TempData["Success"] = "Cart successfully updated.";
             return RedirectToPage("/Cart/Index");
-            
 
+        }
 
+        public IActionResult OnPostRemoveFromCart(CartItem cartItem)
+        {
+            if (!ModelState.IsValid)
+            {
+                var error = ModelState.Values.Select(v => v.Errors).FirstOrDefault();
+                TempData["Danger"] = error;
+                return Page();
+            }
+
+            var cart = Entities.Cart.GetFrom(HttpContext.Session);
+            var isRemoved = cart.Remove(cartItem.MovieSessionId.HasValue ? cartItem.MovieSessionId.Value : 0);
+            if (isRemoved == false)
+            {
+                var error = "Failed to remove movie session from the cart";
+                TempData["Danger"] = error;
+                return Page();
+            }
+
+            cart.SaveTo(HttpContext.Session);
+            TempData["Success"] = "Successfully removed item from the cart";
+            return RedirectToPage("/Cart/Index");
         }
 
 

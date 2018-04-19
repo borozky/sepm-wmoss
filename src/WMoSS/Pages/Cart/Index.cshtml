@@ -25,6 +25,11 @@
                     <span asp-validation-for="CartItem.TicketQuantity" class="text-danger"></span><br/>
                     <button type="submit">Update cart</button>
                 </form>
+                <form asp-page="/Cart/Index" asp-page-handler="RemoveFromCart">
+                    <input type="hidden" asp-for="CartItem.MovieSessionId" value="@cartItem.MovieSessionId" />
+                    <input type="hidden" asp-for="CartItem.TicketQuantity" value="@cartItem.TicketQuantity"/>
+                    <button type="submit">Remove</button>
+                </form>
             </li>
         }
         </ul>
