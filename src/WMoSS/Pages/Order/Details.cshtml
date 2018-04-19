@@ -20,6 +20,83 @@
 
 <div class="container clearfix">
 
-    <p>Order details</p>
+    <p>
+        <b>Cinema Aurora</b><br/>Luxury Cinema Services
+    </p>
+    <p>
+        123 Lygon Street<br/>
+        Melbourne VIC 3000<br/>
+        PO Box 91823<br/>
+        Tel. 03 8898 8910<br/>
+        info@cinemaaurora.com.au<br/>
+        ABN: 48 150 248 927<br/>
+    </p>
+
+    <p>
+        Date: @string.Format("{0: dd MMMM yyyy}", Model.OrderDetails.Order.CreatedAt)
+        Order No. @Model.OrderDetails.Order.Id
+    </p>
+
+    <p>
+        <b>Billed to:</b><br/>
+        @Model.OrderDetails.Order.FullName<br />
+        @Model.OrderDetails.Order.MailingAddress<br/>
+        @Model.OrderDetails.Order.EmailAddress
+    </p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Session ID</th>
+                <th>Booking Information</th>
+                <th>Tickets</th>
+                <th>Item Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var orderItem in Model.OrderDetails.OrderItems)
+            {
+                <tr>
+                    <td>@orderItem.MovieSession.Id</td>
+                    <td>
+                        <b>@string.Format("{0:h:mm tt dddd, dd MMMM yyyy}", orderItem.MovieSession.ScheduledAt)</b><br/>
+                        <span>Movie: @string.Format("{0}({1:yyyy})", orderItem.MovieSession.Movie.Title, orderItem.MovieSession.Movie.ReleaseDate)</span><br/>
+                        <span>at <i>@string.Format("Cinema Aurora {0}", orderItem.MovieSession.Theater.Name)</i></span><br/><br/>
+                        <i>
+                            Seats: <b>@string.Join(", ",orderItem.Tickets.Select(t => t.SeatNumber))</b>
+                        </i>
+                    </td>
+                    <td>
+                        @string.Format("{0} tickets x {1:C2} each", orderItem.Tickets.Count(), orderItem.MovieSession.TicketPrice)
+                    </td>
+                    <td>
+                        @string.Format("{0:C2}", orderItem.MovieSession.TicketPrice)
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td colspan="2">
+                    <b>Additional Notes:</b><br/>
+                    -
+                </td>
+                <td colspan="2">
+                    <span>
+                        @string.Format("{0}% GST (Included):", Model.OrderDetails.GstRate * 100)
+                        <i>@string.Format("{0:C2}", Model.OrderDetails.GstAmount)</i>
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>
+        <b>Delivery Information:</b><br/>
+        @Model.OrderDetails.DeliveryInformation
+    </p>
+
+    <p>
+        <b>Payment Information:</b><br/>
+        @Model.OrderDetails.PaymentInformation
+    </p>
 
 </div>
