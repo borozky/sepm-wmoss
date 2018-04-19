@@ -37,8 +37,11 @@
         <p>
             @string.Format("Total: {0:C2}", Model.Cart.TotalPrice) <br/>
             <a asp-page="/Checkout/Index">Proceed to Checkout</a>
-
         </p>
+
+        <form asp-page="/Cart/Index" asp-page-handler="ClearCart" method="post">
+            <button type="submit">Clear Cart</button>
+        </form>
     }
     else
     {

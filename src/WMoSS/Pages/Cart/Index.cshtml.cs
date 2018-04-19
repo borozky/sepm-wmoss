@@ -118,6 +118,12 @@ namespace WMoSS.Pages.Cart
             return RedirectToPage("/Cart/Index");
         }
 
+        public IActionResult OnPostClearCart()
+        {
+            HttpContext.Session.Set<Entities.Cart>("cart", null);
+            return RedirectToPage("/Cart/Index");
+        }
+
 
         private IActionResult RedirectToLocal(string returnUrl)
         {
