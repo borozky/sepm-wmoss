@@ -12,10 +12,15 @@ namespace WMoSS.Entities
     {
         public static Cart GetFrom(ISession session)
         {
-            return session.Get<Cart>("cart") ?? new Entities.Cart
+            var cart = session.Get<Cart>("cart");
+            if (cart == null)
             {
-                CartItems = new List<CartItem>()
-            };
+                cart = new Entities.Cart
+                {
+                    CartItems = new List<CartItem>()
+                };
+            }
+            return cart;
         }
 
         public IList<CartItem> CartItems { get; set; }

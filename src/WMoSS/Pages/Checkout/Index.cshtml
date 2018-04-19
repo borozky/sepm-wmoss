@@ -1,11 +1,39 @@
 ﻿@page
 @model WMoSS.Pages.Checkout.IndexModel
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Checkout";
+    ViewBag.EntryTitle = ViewData["Title"];
 }
 
-<h2>Index</h2>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+@section EntryHeader {
+    <div class="entry-header">
+        <div class="container clearfix">
+            <h3>@ViewBag.EntryTitle</h3>
+        </div>
+    </div>
 }
+
+<div class="container clearfix">
+
+    <form asp-page="/Checkout/Index" method="post">
+
+        <h4>Enter your details</h4>
+        <input type="hidden" asp-for="Order.TotalPrice" value="@Model.Cart.TotalPrice" />
+        <input asp-for="Order.FullName"  placeholder="Full name"/><br/>
+        <span asp-validation-for="Order.FullName" class="text-danger"></span><br/>
+        <input asp-for="Order.MailingAddress" placeholder="Mailing address"/><br/>
+        <span asp-validation-for="Order.MailingAddress" class="text-danger"></span><br/>
+        <input asp-for="Order.EmailAddress" placeholder="Email address"/><br/>
+        <span asp-validation-for="Order.EmailAddress" class="text-danger"></span><br />
+        <input asp-for="Order.CardNumber" placeholder="Card number"/><br/>
+        <span asp-validation-for="Order.CardNumber" class="text-danger"></span><br />
+        <input asp-for="Order.Expiry" placeholder="MM/YY"/><br/>
+        <span asp-validation-for="Order.Expiry" class="text-danger"></span><br />
+        <input asp-for="CVV" placeholder="CVV" required /><br/>
+
+        <button type="submit">Submit</button>
+
+    </form>
+
+</div>

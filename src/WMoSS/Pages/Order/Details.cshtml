@@ -1,11 +1,25 @@
-﻿@page
+﻿@page "{id:int}"
 @model WMoSS.Pages.Order.DetailsModel
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Order Details";
+    ViewData["EntryTitle"] = ViewData["Title"];
 }
 
-<h2>Details</h2>
+@section EntryHeader {
+    <div class="entry-header">
+        <div class="container clearfix">
+            <h3>@ViewData["EntryTitle"]</h3>
+        </div>
+    </div>
+}
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
 }
+
+
+<div class="container clearfix">
+
+    <p>Order details</p>
+
+</div>
