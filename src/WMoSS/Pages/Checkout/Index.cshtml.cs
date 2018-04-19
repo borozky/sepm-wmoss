@@ -38,16 +38,16 @@ namespace WMoSS.Pages.Checkout
                 return RedirectToPage("/Cart/Index");
             }
 
-            // If a seat is missing, redirect back to cart page
-            var hasSelectedAllSeats = cart.CartItems.All(
-                ci => ci.Seats != null && 
-                ci.Seats.Count(s => !string.IsNullOrWhiteSpace(s)) == ci.TicketQuantity
-            );
-            if (hasSelectedAllSeats == false)
-            {
-                TempData["Danger"] = "You can only proceed to cart after you have selected all your seats";
-                return RedirectToPage("/Cart/Index");
-            }
+            //// If a seat is missing, redirect back to cart page
+            //var hasSelectedAllSeats = cart.CartItems.All(
+            //    ci => ci.Seats != null && 
+            //    ci.Seats.Count(s => !string.IsNullOrWhiteSpace(s)) == ci.TicketQuantity
+            //);
+            //if (hasSelectedAllSeats == false)
+            //{
+            //    TempData["Danger"] = "You can only proceed to cart after you have selected all your seats";
+            //    return RedirectToPage("/Cart/Index");
+            //}
 
             // Get all movie sessions
             var movieSessionIds = cart.CartItems.Select(ci => ci.MovieSessionId);
@@ -101,9 +101,9 @@ namespace WMoSS.Pages.Checkout
                     var ticket = new Ticket
                     {
                         MovieSessionId = cartItem.MovieSessionId.Value,
-                        MovieSession = movieSessions.FirstOrDefault(ms => ms.Id == cartItem.MovieSessionId.Value),
-                        SeatNumber = cartItem.Seats[i]
+                        SeatNumber = "A1" // TODO: Change this
                     };
+                    tickets.Add(ticket);
                 }
             }
 
@@ -114,7 +114,7 @@ namespace WMoSS.Pages.Checkout
             await _context.SaveChangesAsync();
 
             // clear the cart
-            HttpContext.Session.Set("cart", null);
+            HttpContext.Session.Remove("cart");
 
             TempData["Success"] = "Successfully booked";
             return RedirectToPage($"/Order/Details/{Order.Id}");
