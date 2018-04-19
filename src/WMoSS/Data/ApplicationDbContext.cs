@@ -26,7 +26,7 @@ namespace WMoSS.Data
         public DbSet<Movie> Movies { get; set; }
         public DbSet<MovieSession> MovieSessions { get; set; }
         public DbSet<Theater> Theaters { get; set; }
-        public DbSet<Order> Order { get; set; }
+        public DbSet<Order> Orders { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
     }
 }

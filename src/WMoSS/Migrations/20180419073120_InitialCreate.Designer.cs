@@ -11,7 +11,7 @@ using WMoSS.Data;
 namespace WMoSS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180418120924_InitialCreate")]
+    [Migration("20180419073120_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -260,7 +260,7 @@ namespace WMoSS.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Order");
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("WMoSS.Entities.Theater", b =>

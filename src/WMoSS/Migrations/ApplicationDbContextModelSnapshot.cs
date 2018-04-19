@@ -259,7 +259,7 @@ namespace WMoSS.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Order");
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("WMoSS.Entities.Theater", b =>
