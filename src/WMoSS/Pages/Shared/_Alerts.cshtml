@@ -1,0 +1,39 @@
+﻿@if (TempData.ContainsKey("Success"))
+{
+    <div class="alert alert-success alert-dismissible" id="SiteNotification" role="alert">
+        <div class="container">
+            <button type="button" data-dismiss="alert" aria-label="Close" class="close">&times;</button>
+            @TempData["Success"]
+        </div>
+    </div>
+}
+
+@if (TempData.ContainsKey("Danger"))
+{
+    <div class="alert alert-danger alert-dismissible" id="SiteNotification" role="alert">
+        <div class="container">
+            <button type="button" data-dismiss="alert" aria-label="Close" class="close">&times;</button>
+            @TempData["Danger"]
+        </div>
+    </div>
+}
+
+@if (TempData.ContainsKey("Info"))
+{
+    <div class="alert alert-info alert-dismissible" id="SiteNotification" role="alert">
+        <div class="container">
+            <button type="button" data-dismiss="alert" aria-label="Close" class="close">&times;</button>
+            @TempData["Info"]
+        </div>
+    </div>
+}
+
+@if (TempData.ContainsKey("Warning"))
+{
+    <div class="alert alert-warning alert-dismissible" id="SiteNotification" role="alert">
+        <div class="container">
+            <button type="button" data-dismiss="alert" aria-label="Close" class="close">&times;</button>
+            @TempData["Warning"]
+        </div>
+    </div>
+}

@@ -9,6 +9,8 @@ using WMoSS.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Http;
+using WMoSS.Extensions;
 
 namespace WMoSS.Pages.Movies
 {
@@ -22,9 +24,12 @@ namespace WMoSS.Pages.Movies
         }
         
         public Movie Movie { get; private set; }
-        public CartItem CartItem { get; set; }
+        public CartItem cartItem { get; set; }
         public IEnumerable<MovieSession> MovieSessions { get; private set; }
         public List<SelectListItem> MovieSessionsOptions { get; private set; }
+
+        [TempData]
+        public string ReturnPath { get; set; }
 
         public async Task<IActionResult> OnGet(int id, CancellationToken ct)
         {
@@ -45,7 +50,61 @@ namespace WMoSS.Pages.Movies
                 Value = ms.Id.ToString(),
                 Text = String.Format("{0:ddd dd MMM yyyy hh:mm tt} at {1}", ms.ScheduledAt, ms.Theater.Name)
             }).ToList();
+
+            MovieSessionsOptions.Insert(0, new SelectListItem
+            {
+                Value = null,
+                Text = "Select movie sessions",
+                Disabled = true,
+                Selected = true
+            });
+
+            ReturnPath = Request.Path;
+
             return Page();
+        }
+
+        // Add to cart functionality actually handled from '../Movie/Details.cshtml.cs:OnPostAddToCart()
+        [BindProperty]
+        public CartItem CartItem { get; set; }
+
+        [BindProperty]
+        public string ReturnUrl { get; set; }
+
+        public IActionResult OnPostAddToCart()
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return RedirectToLocal(ReturnUrl);
+            }
+
+            var cart = HttpContext.Session.Get<Entities.Cart>("cart");
+            if (cart == null)
+            {
+                cart = new Entities.Cart
+                {
+                    CartItems = new List<CartItem>()
+                };
+
+            }
+            cart.Add(CartItem);
+            cart.SaveTo(HttpContext.Session);
+
+            TempData["Success"] = "Successfully added movie session to cart";
+            return RedirectToPage("/Cart/Index");
+
+        }
+        private IActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToPage("/");
+            }
         }
     }
 }

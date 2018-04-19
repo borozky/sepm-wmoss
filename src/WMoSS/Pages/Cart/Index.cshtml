@@ -12,18 +12,34 @@
     </div>
 }
 <div class="container clearfix">
-    <p>Cart page should display cart items based on movie sessions.</p>
-    <p>Cart item should have the following:</p>
-    <ul>
-        <li>Session date</li>
-        <li>Session title</li>
-        <li>Movie Title</li>
-        <li>Theater Venue</li>
-        <li>Input to adjust number of tickets</li>
-        <li>Link to remove the cart item</li>
-        <li>Overall price</li>
+    @if (Model.Cart.CartItems.Count > 0) {
+        <ul>
+        @foreach (var cartItem in Model.Cart.CartItems)
+        {
+            <li>
+                <form asp-page="/Cart/Index" asp-page-handler="ModifyCart">
+                    @string.Format("{0: ddd - dd MMM yyyy hh:mm tt} at {1}", cartItem.MovieSession.ScheduledAt, cartItem.MovieSession.Theater.Name) <br/>
+                    @string.Format("{0} tickets", cartItem.TicketQuantity) @string.Format("{0:C2}", cartItem.TotalPrice) <br/>
+                    <input type="hidden" asp-for="CartItem.MovieSessionId" value="@cartItem.MovieSessionId"/>
+                    Modify tickets: <input asp-for="CartItem.TicketQuantity" value="@cartItem.TicketQuantity" /><br/>
+                    <span asp-validation-for="CartItem.TicketQuantity" class="text-danger"></span><br/>
+                    <button type="submit">Update cart</button>
+                </form>
+            </li>
+        }
+        </ul>
 
-    </ul>
+        <p>
+            @string.Format("Total: {0:C2}", Model.Cart.TotalPrice) <br/>
+            <a asp-page="/Checkout/Index">Proceed to Checkout</a>
+
+        </p>
+    }
+    else
+    {
+        <h4>There are no items in the cart</h4>
+
+    }
 </div>
 
 @section Scripts {

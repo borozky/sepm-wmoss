@@ -16,12 +16,14 @@ namespace WMoSS
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment hostingEnvironment)
         {
             Configuration = configuration;
+            HostingEnvironment = hostingEnvironment;
         }
 
         public IConfiguration Configuration { get; }
+        public IHostingEnvironment HostingEnvironment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -33,7 +35,20 @@ namespace WMoSS
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(600);
+                options.Cookie.HttpOnly = true;
+            });
+
             services.AddMvc()
+                .AddSessionStateTempDataProvider()
+                .AddJsonOptions(options =>
+                {
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                    options.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;
+                })
                 .AddRazorPagesOptions(options =>
                 {
                     options.Conventions.AuthorizeFolder("/Account/Manage");
@@ -43,6 +58,8 @@ namespace WMoSS
             // Register no-op EmailSender used by account confirmation and password reset during development
             // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
             services.AddSingleton<IEmailSender, EmailSender>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,6 +77,7 @@ namespace WMoSS
             }
 
             app.UseStaticFiles();
+            app.UseSession();
 
             app.UseAuthentication();
 
