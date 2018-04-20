@@ -1,0 +1,20 @@
+﻿@page
+@model WMoSS.Pages.Movies.NowShowingModel
+@{
+    ViewData["Title"] = "Now Showing";
+    ViewBag.EntryTitle = "Now Showing";
+}
+@section EntryHeader {
+    <div class="entry-header">
+        <div class="container clearfix">
+            <h3>@ViewBag.EntryTitle</h3>
+        </div>
+    </div>
+}
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<div class="container clearfix">
+    <h2>Now showing movies</h2>
+</div>

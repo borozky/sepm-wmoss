@@ -259,3 +259,8 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+
+
+# SEPM WMOSS archive files
+src-with-excel-as-datasource/
+tests-with-excel-as-datasource/

@@ -1,0 +1,56 @@
+﻿@page
+@model WMoSS.Pages.Cart.IndexModel
+@{
+    ViewData["Title"] = "Cart";
+    ViewBag.EntryTitle = ViewData["Title"];
+}
+@section EntryHeader {
+    <div class="entry-header">
+        <div class="container clearfix">
+            <h3>@ViewBag.EntryTitle</h3>
+        </div>
+    </div>
+}
+<div class="container clearfix">
+    @if (Model.Cart.CartItems.Count > 0) {
+        <ul>
+        @foreach (var cartItem in Model.Cart.CartItems)
+        {
+            <li>
+                <form asp-page="/Cart/Index" asp-page-handler="ModifyCart">
+                    @string.Format("{0: ddd - dd MMM yyyy hh:mm tt} at {1}", cartItem.MovieSession.ScheduledAt, cartItem.MovieSession.Theater.Name) <br/>
+                    @string.Format("{0} tickets", cartItem.TicketQuantity) @string.Format("{0:C2}", cartItem.TotalPrice) <br/>
+                    <input type="hidden" asp-for="CartItem.MovieSessionId" value="@cartItem.MovieSessionId"/>
+                    Modify tickets: <input asp-for="CartItem.TicketQuantity" value="@cartItem.TicketQuantity" /><br/>
+                    <span asp-validation-for="CartItem.TicketQuantity" class="text-danger"></span><br/>
+                    <button type="submit">Update cart</button>
+                </form>
+                <form asp-page="/Cart/Index" asp-page-handler="RemoveFromCart">
+                    <input type="hidden" asp-for="CartItem.MovieSessionId" value="@cartItem.MovieSessionId" />
+                    <input type="hidden" asp-for="CartItem.TicketQuantity" value="@cartItem.TicketQuantity"/>
+                    <button type="submit">Remove</button>
+                </form>
+            </li>
+        }
+        </ul>
+
+        <p>
+            @string.Format("Total: {0:C2}", Model.Cart.TotalPrice) <br/>
+            <a asp-page="/Checkout/Index">Proceed to Checkout</a>
+        </p>
+
+        <form asp-page="/Cart/Index" asp-page-handler="ClearCart" method="post">
+            <button type="submit">Clear Cart</button>
+        </form>
+    }
+    else
+    {
+        <h4>There are no items in the cart</h4>
+
+    }
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

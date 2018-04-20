@@ -1,57 +1,132 @@
-﻿
+﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
+using System.Threading.Tasks;
+using WMoSS.Extensions;
 
 namespace WMoSS.Entities
 {
     public class Cart
     {
-        public ICollection<Ticket> Tickets { get; set; }
-
-        public IEnumerable<Movie> Movies =>
-            MovieSessions.Select(ms => ms.Movie).GroupBy(m => m.Id).Select(g => g.First());
-
-        public IEnumerable<MovieSession> MovieSessions => 
-            Tickets.Select(t => t.MovieSession).GroupBy(m => m.Id).Select(g => g.First());
-
-        public IEnumerable<int> MovieSessionIds => 
-            Tickets.Select(t => t.MovieSessionId).Distinct();
-
-        public IEnumerable<IGrouping<int, MovieSession>> MovieSessionByMovieId =>
-            MovieSessions.GroupBy(ms => ms.MovieId);
-
-        public IEnumerable<IGrouping<int, Ticket>> TicketsByMovieSessionId =>
-            Tickets.GroupBy(ticket => ticket.MovieSessionId);
-
-
-        public IEnumerable<CartItem> CartItems
+        public static Cart GetFrom(ISession session)
         {
-            get
+            var cart = session.Get<Cart>("cart");
+            if (cart == null)
             {
-                var movieSessionsFromTickets = MovieSessions;
-                return TicketsByMovieSessionId.Select(g => new CartItem
+                cart = new Entities.Cart
                 {
-                    MovieSessionId = g.Key,
-                    MovieSession = movieSessionsFromTickets.FirstOrDefault(ms => ms.Id == g.Key),
-                    Tickets = g.AsEnumerable()
-                });
+                    CartItems = new List<CartItem>()
+                };
+            }
+            return cart;
+        }
+
+        public IList<CartItem> CartItems { get; set; }
+
+        public void Add(CartItem cartItem)
+        {
+            var foundCartItem = CartItems.FirstOrDefault(ci => ci.MovieSessionId == cartItem.MovieSessionId);
+            if (foundCartItem != null)
+            {
+                foundCartItem.TicketQuantity += cartItem.TicketQuantity;
+                foundCartItem.Seats = cartItem.Seats;
+            }
+            else
+            {
+                CartItems.Add(cartItem);
             }
         }
 
-        public IEnumerable<CartItemByMovie> CartItemsByMovie
+        public void Add(int movieSessionId, int quantity, string[] seats)
+        {
+            Add(new CartItem
+            {
+                MovieSessionId = movieSessionId,
+                TicketQuantity = quantity,
+                Seats = seats.ToList()
+            });
+        }
+
+        public bool Modify(int movieSessionId, CartItem cartItem)
+        {
+            if (movieSessionId != cartItem.MovieSessionId)
+            {
+                return false;
+            }
+
+            if (cartItem.TicketQuantity <= 0)
+            {
+                return false;
+            }
+
+            var foundCartItem = CartItems.FirstOrDefault(ci => ci.MovieSessionId == movieSessionId);
+            if (foundCartItem == null)
+            {
+                return false;
+            }
+
+            foundCartItem.TicketQuantity = cartItem.TicketQuantity;
+            foundCartItem.Seats = cartItem.Seats;
+            return true;
+        }
+
+        public bool Remove(int movieSessionId)
+        {
+            var foundCartItem = CartItems.FirstOrDefault(ci => ci.MovieSessionId == movieSessionId);
+            if (foundCartItem != null)
+            {
+                CartItems.Remove(foundCartItem);
+                return true;
+            }
+
+            return false;
+        }
+
+        public double TotalPrice
         {
             get
             {
-                var movies = Movies;
-                return CartItems.GroupBy(c => c.MovieSession.MovieId).Select(g => new CartItemByMovie
-                {
-                    MovieId = g.Key,
-                    Movie = movies.FirstOrDefault(m => m.Id == g.Key),
-                    CartItemsByMovieSession = g.ToList()
-                });
+                return CartItems.Sum(ci => ci.TotalPrice);
+            }
+        }
 
+        public void SaveTo(ISession session)
+        {
+            session.Set("cart", this);
+        }
+    }
+
+    public class CartItem
+    {
+        [Required]
+        public int? MovieSessionId { get; set; }
+        public MovieSession MovieSession { get; set; }
+
+        [Required]
+        [Range(1, int.MaxValue)]
+        public int? TicketQuantity { get; set; }
+
+        public IList<string> Seats { get; set; }
+
+        public double TotalPrice
+        {
+            get
+            {
+                var unitPrice = MovieSession.DEFAULT_TICKET_PRICE;
+                if (MovieSession != null)
+                {
+                    unitPrice = MovieSession.TicketPrice;
+                }
+
+                var ticketQty = 0;
+                if (TicketQuantity.HasValue)
+                {
+                    ticketQty = TicketQuantity.Value;
+                }
+
+                return unitPrice * ticketQty;
             }
         }
     }

@@ -1,0 +1,11 @@
+﻿@page
+@model WMoSS.Pages.Search.MoviesModel
+@{
+    ViewData["Title"] = "Movies";
+}
+
+<h2>Movies</h2>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

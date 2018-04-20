@@ -1,0 +1,47 @@
+﻿@page "{id:int}"
+@using Newtonsoft.Json
+@model WMoSS.Pages.Movies.DetailsModel
+@{
+    ViewData["Title"] = "Details";
+
+    var releaseYear = " ";
+    if (Model.Movie.ReleaseDate.HasValue)
+    {
+        releaseYear += "(";
+        releaseYear += Model.Movie.ReleaseDate.Value.ToString("yyyy");
+        releaseYear += ")";
+    }
+
+    var movieTitle = Model.Movie.Title + releaseYear;
+}
+
+@section EntryHeader {
+    <div class="entry-header">
+        <div class="container clearfix">
+            <h3>@movieTitle</h3>
+        </div>
+    </div>
+}
+
+@section Scripts {
+
+}
+
+<div class="container clearfix">
+    <h2>@Model.Movie.Title @releaseYear</h2>
+
+    @if(Model.MovieSessionsOptions != null && Model.MovieSessionsOptions.Count() > 0)
+    {
+    <form asp-page="/Cart/Index" asp-page-handler="AddToCart" method="post">
+        <label>Select session</label><br/>
+        <select asp-for="cartItem.MovieSessionId" asp-items="@Model.MovieSessionsOptions"></select><br/>
+        <span class="text-danger" asp-validation-for="cartItem.MovieSessionId"></span>
+        <br/>
+        <label>Number of tickets</label> 
+        <input asp-for="cartItem.TicketQuantity" value="1"/><br/>
+        <span class="text-danger" asp-validation-for="cartItem.TicketQuantity"></span><br/>
+        <input type="hidden" asp-for="ReturnPath"/>
+        <button type="submit" >Add to cart</button>
+    </form>
+    }
+</div>
