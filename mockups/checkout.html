@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cinema Aurora</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="public/css/app.css">
+</head>
+<body class="end-user-page">
+    <div class="site-wrapper">
+
+        <div class="site-header">
+            <nav id="NavTop">
+                <div class="container clearfix">
+                    <ul id="NavTop-left" class="pull-left">
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact-us.html">Contact Us</a></li>
+                    </ul>
+                    <ul id="NavTop-right" class="pull-right">
+                        <li>
+                            <a href="cart.html" class="btn btn-success btn-xs" id="ShoppingCartButton">
+                                <i class="fa fa-shopping-cart"></i> &nbsp; Edit my cart (0)
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <nav class="navbar navbar-inverse">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="index.html">Cinema Aurora</a>
+                    </div>
+                    <div id="navbar" class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li><a href="now-showing.html">Now Showing</a></li>
+                            <li><a href="coming-soon.html">Coming Soon</a></li>
+                            <li><a href="all-movies.html">All Movies</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Theaters <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="theaters.html">All Theaters</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="theater-movies.html">Theater #1</a></li>
+                                    <li><a href="theater-movies.html">Theater #2</a></li>
+                                    <li><a href="theater-movies.html">Theater #3</a></li>
+                                    <li><a href="theater-movies.html">Theater #4</a></li>
+                                    <li><a href="theater-movies.html">Theater #5</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <form action="search-results.html" method="GET" class="navbar-form navbar-right">
+                            <div class="form-group">
+                                <input type="text" name="s" class="form-control input-sm" placeholder="Search">
+                            </div>
+                        </form>
+                    </div><!--/.nav-collapse -->
+                </div>
+            </nav>
+
+        </div>
+        <div class="site-body">
+
+            <div class="alert alert-danger alert-dismissible" id="SiteNotification" role="alert">
+                <div class="container">
+                    <button type="button" data-dismiss="alert" aria-label="Close" class="close">&times;</button>
+                    Invalid fields have been detected
+                </div>
+            </div>
+
+            <div class="entry-header">
+                <div class="container clearfix">
+                        <h3>Checkout</h3>
+                        <h5>Only credit card payments are accepted. 
+                            Your seats will be determined automatically after successful purchase.</h5>
+                </div>
+            </div>
+
+            <div class="container">
+                    <div class="col-md-6">
+                        <form>
+                            <h4>Please enter your contact details</h4>
+                            <div class="form-group">
+                                <label for="inputFirstName">First Name</label>
+                                <input type="text" class="form-control" id="inputFirstName" placeholder="Enter your name">
+                            </div>
+                             <div class="form-group">
+                                <label for="inputLastName">Last Name</label>
+                                <input type="text" class="form-control" id="inputLastName" placeholder="Enter your last name">
+                            </div>
+                            <div>
+                                <label for="inputEmail">Email address</label>
+                                <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="email@example.com">
+                                <small id="emailHelp" class="form-text text-muted">required</small>
+                            </div>
+
+                            <h4>Please enter your payment details</h4>
+                            <div class="form-group">
+                                <label for="inputCreditCard">Credit Card number:</label>
+                                <input type="text" class="form-control" id="inputCreditCard" placeholder="Enter your card number">
+                            </div>
+                             <div class="form-group">
+                                <label for="inputExpiry">Expiry</label>
+                                <input type="month" class="form-control" id="inputExpiry">
+                            </div>
+                            <div>
+                                <label for="inputCVV">CVV</label>
+                                <input type="text" class="form-control" id="inputCVV" placeholder="000">
+                            </div>
+
+                            <div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+    
+                        </div> 
+                            <div class="col-md-6">
+                                <div class="container">
+                                    <div class="row">
+                                        <h3>Cart Summary</h3>
+                                            <div class="col-sm-3">
+                                                <img src="public/assets/black_pantha.jpg" class="img-responsive" style="width:100%" alt="Image">
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <h4><strong>7:30pm Wednesday 26 September 2018</strong></h4>
+                                                <p><strong>Movie: Black Panther (2018)</strong></p>
+                                                <p>Cinema Theater #4 <p/>
+                                                <p class="text-right">1 ticket x $20.00 each		$ 20.00</p>
+                                            </div>
+                                    </div> 
+                                </div>
+                             </div> 
+                        </div> 
+                    </div>
+                </div> 
+            
+        
+
+        
+
+         
+      
+
+
+        </div>
+        <div class="site-footer">
+            <div id="FooterTop">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-4 col-xs-12 footer-section">
+                            <h2>Cinema Aurora<br/><small>Luxury Cinema Services</small></h2>
+                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eveniet modi totam id porro commodi repudiandae est, expedita nulla eius perspiciatis.</p>
+                        </div>
+                        <div class="col-sm-4 col-xs-12 footer-section"></div>
+                        <div class="col-sm-4 col-xs-12 footer-section"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="FooterBottom">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6">
+                            Copyright &copy; 2018 Cinema Aurora Inc.
+                        </div>
+                        <div class="col-xs-12 col-sm-6 text-right">
+                            Designed by RMIT SEPM Team #32
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="public/js/app.js"></script>
+</body>
+</html>
