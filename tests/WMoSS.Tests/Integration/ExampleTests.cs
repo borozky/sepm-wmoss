@@ -3,19 +3,30 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using WMoSS.Data;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace WMoSS.Tests.Integration
 {
     public class ExampleTests : TestFixture<Startup>
     {
+        ApplicationDbContext db;
+        HttpClient client;
+        
+        public ExampleTests(): base()
+        {
+            client = Client;
+            db = Server.Host.Services.GetService<ApplicationDbContext>();
+            DbInitializer.Initialize(db);
+        }
 
         [Fact]
         public async Task SmokeTest_GetRequest()
         {
             var response = await Client.GetAsync("/");
+            var content = await response.Content.ReadAsStringAsync();
             response.EnsureSuccessStatusCode();
-            //var content = await response.Content.ReadAsStringAsync();
         }
 
 
