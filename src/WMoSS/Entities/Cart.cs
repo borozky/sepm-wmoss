@@ -96,6 +96,9 @@ namespace WMoSS.Entities
         {
             session.Set("cart", this);
         }
+
+        public double GstRate { get; set; } = 0.1;
+        public double GstPrice => TotalPrice * GstRate;
     }
 
     public class CartItem
