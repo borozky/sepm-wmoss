@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using WMoSS.Data;
 using WMoSS.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
 
 namespace WMoSS.Pages
 {
@@ -24,6 +25,13 @@ namespace WMoSS.Pages
         public void OnGet()
         {
             Movies = _context.Movies.ToList();
+        }
+
+
+        // For testing setup
+        public IActionResult OnPost(IFormCollection formData)
+        {
+            return new JsonResult(formData);
         }
     }
 }
