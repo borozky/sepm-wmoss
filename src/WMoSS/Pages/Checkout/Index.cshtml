@@ -37,3 +37,70 @@
     </form>
 
 </div>
+
+<div class="container clearfix">
+    <div class="col-md-6">
+        <form asp-page="/Checkout/Index" method="post">
+            <input type="hidden" asp-for="Order.TotalPrice" value="@Model.Cart.TotalPrice" />
+
+            <h4>Please enter your contact details</h4>
+            <div class="form-group">
+                <label for="inputFirstName">First Name</label>
+                <input asp-for="Order.FullName" class="form-control" placeholder="Full name" /><br />
+                <span asp-validation-for="Order.FullName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Order.MailingAddress">Mailing Address</label>
+                <input asp-for="Order.MailingAddress" class="form-control" placeholder="Mailing address" /><br />
+                <span asp-validation-for="Order.MailingAddress" class="text-danger"></span><br />
+            </div>
+            <div>
+                <label asp-for="Order.EmailAddress">Email</label>
+                <input asp-for="Order.EmailAddress" class="form-control" placeholder="Email address" /><br />
+                <span asp-validation-for="Order.EmailAddress" class="text-danger"></span>
+            </div>
+
+            <h4>Please enter your payment details</h4>
+            <div class="form-group">
+                <label asp-for="Order.CardNumber">Card Number</label>
+                <input asp-for="Order.CardNumber" class="form-control" placeholder="Enter your card number" /><br />
+                <span asp-validation-for="Order.CardNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Order.Expiry">Expiry</label>
+                <input asp-for="Order.Expiry" class="form-control" placeholder="MM/YY" /><br />
+                <span asp-validation-for="Order.Expiry" class="text-danger"></span>
+            </div>
+            <div>
+                <label asp-for="CVV">CVV</label>
+                <input asp-for="CVV" placeholder="CVV" required />
+            </div>
+
+            <div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+
+    </div>
+    <div class="col-md-6">
+        <div class="container">
+            <div class="row">
+                <h3>Cart Summary</h3>
+
+                @foreach(var cartItem in Model.Cart.CartItems)
+                {
+                    <div class="col-sm-3">
+                        <img src="http://placehold.it/270x400" class="img-responsive" style="width:100%" alt="Image">
+                    </div>
+                    <div class="col-sm-9">
+                        <h4><strong>@string.Format("{0:h:mmtt ddd dd MMMM yyyy}", cartItem.MovieSession.ScheduledAt) 7:30pm Wednesday 26 September 2018</strong></h4>
+                        <p><strong>@string.Format("Movie: {0}{1:(yyyy)}", cartItem.MovieSession.Movie.Title, cartItem.MovieSession.Movie.ReleaseDate) </strong></p>
+                        <p>@cartItem.MovieSession.Theater.Name<p />
+                        <p class="text-right">@string.Format("{0} tickets x {1:C2} each - {2:C2}", cartItem.TicketQuantity, cartItem.MovieSession.TicketPrice, cartItem.TotalPrice)</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+</div>

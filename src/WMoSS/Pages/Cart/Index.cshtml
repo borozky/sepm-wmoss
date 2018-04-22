@@ -3,6 +3,16 @@
 @{
     ViewData["Title"] = "Cart";
     ViewBag.EntryTitle = ViewData["Title"];
+
+    //var releaseYear = " ";
+    //if (Model.Movie.ReleaseDate.HasValue)
+    //{
+    //    releaseYear += "(";
+    //    releaseYear += Model.Movie.ReleaseDate.Value.ToString("yyyy");
+    //    releaseYear += ")";
+    //}
+
+    //var movieTitle = Model.Movie.Title + releaseYear;
 }
 @section EntryHeader {
     <div class="entry-header">
@@ -11,7 +21,9 @@
         </div>
     </div>
 }
-<div class="container clearfix">
+@*<div class="container clearfix">
+
+
     @if (Model.Cart.CartItems.Count > 0) {
         <ul>
         @foreach (var cartItem in Model.Cart.CartItems)
@@ -46,6 +58,85 @@
     else
     {
         <h4>There are no items in the cart</h4>
+
+    }
+</div>*@
+
+
+<div class="container">
+
+    @if (Model.Cart.CartItems.Count > 0)
+    {
+        <div class="row">
+            <div class="col-md-8">
+
+                @foreach (var cartItem in Model.Cart.CartItems)
+                {
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <img src="http://placehold.it/400x270" class="img-responsive" style="width:100%" alt="Image">
+                            </div>
+                            <div class="col-sm-4">
+                                <h4><strong>@cartItem.MovieSession.Movie.Title @string.Format("({0:yyyy})", cartItem.MovieSession.Movie.ReleaseDate.GetValueOrDefault())</strong></h4>
+                                <p><strong>@string.Format("{0:h:mm tt}", cartItem.MovieSession.ScheduledAt) |  @string.Format("{0:h \\hour\\s m \\minu\\te\\s}", DateTime.Today.AddMinutes(cartItem.MovieSession.Movie.RuntimeMinutes.HasValue ? cartItem.MovieSession.Movie.RuntimeMinutes.Value : 0))</strong></p>
+                                <p>@string.Format("{0:ddd, dd MMMM yyyy} {1}", cartItem.MovieSession.ScheduledAt, cartItem.MovieSession.Theater.Name)</p>
+                            </div>
+                            <div class="col-sm-2">
+                                <form asp-page="/Cart/Index" asp-page-handler="RemoveFromCart">
+                                    <input type="hidden" asp-for="CartItem.MovieSessionId" value="@cartItem.MovieSessionId" />
+                                    <input type="hidden" asp-for="CartItem.TicketQuantity" value="@cartItem.TicketQuantity" />
+                                    <p><br /><br /><button type="submit">Remove</button></p>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <form asp-page="/Cart/Index" asp-page-handler="ModifyCart">
+                                <input type="hidden" asp-for="CartItem.MovieSessionId" value="@cartItem.MovieSessionId" />
+                                <div class="col-md-2"></div>
+                                <div class="flex-item">
+                                    <div class="movieTickets">
+                                        <!-- <span id="price">$20.00</span> -->
+                                        <label class="input">Modify tickets: </label>
+                                        <input type="hidden" asp-for="CartItem.MovieSessionId" value="@cartItem.MovieSessionId" /><br/>
+                                        <input asp-for="CartItem.TicketQuantity" value="@cartItem.TicketQuantity" /><br/>
+                                        <span asp-validation-for="CartItem.TicketQuantity" class="text-danger"></span><br />
+                                        <button type="submit">Update cart</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                }
+
+            </div>
+            <div class="col-md-4">
+                <h2><strong>Cart Summary</strong></h2>
+                @foreach (var cartItem in Model.Cart.CartItems)
+                {
+                    <h4><strong>@cartItem.MovieSession.Movie.Title @string.Format("({0:yyyy})", cartItem.MovieSession.Movie.ReleaseDate.GetValueOrDefault())</strong></h4>
+                    <p>@string.Format("{0} x Ticket {1:C2}", cartItem.TicketQuantity, cartItem.MovieSession.TicketPrice)</p>
+                    <br />
+                }
+
+                <br />
+                <h4>GST (Included): @string.Format("{0:C2}", Model.Cart.GstPrice)</h4>
+                <h3 class="text-right">Total: @string.Format("{0:C2}", Model.Cart.TotalPrice)</h3>
+                <a asp-page="/Checkout/Index" class="btn btn-lg btn-success">Proceed to Checkout</a><br/>
+
+                <form asp-page="/Cart/Index" asp-page-handler="ClearCart" method="post" name="ClearCart">
+                    <button type="submit">Clear Cart</button>
+                </form>
+
+            </div>
+        </div>
+
+    }
+    else
+    {
+    <h4>There are no items in the cart</h4>
 
     }
 </div>

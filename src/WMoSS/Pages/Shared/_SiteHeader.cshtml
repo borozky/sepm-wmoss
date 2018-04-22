@@ -9,9 +9,7 @@
             </ul>
             <ul id="NavTop-right" class="pull-right">
                 <li>
-                    <a asp-page="/Cart/Index" class="btn btn-success btn-xs" id="ShoppingCartButton">
-                        <i class="fa fa-shopping-cart"></i> &nbsp; Edit my cart (0)
-                    </a>
+                    @await Component.InvokeAsync("CartButton")
                 </li>
             </ul>
         </div>
