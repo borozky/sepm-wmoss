@@ -31,7 +31,7 @@ namespace WMoSS.Pages.Movies
         [TempData]
         public string ReturnPath { get; set; }
 
-        public async Task<IActionResult> OnGet(int id, CancellationToken ct)
+        public async Task<IActionResult> OnGetAsync(int id, CancellationToken ct)
         {
             Movie = await _dbcontext.Movies
                 .Include(m => m.MovieSessions)
