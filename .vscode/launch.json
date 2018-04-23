@@ -10,9 +10,9 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/WMoSS/bin/Debug/netcoreapp2.0/WMoSS.dll",
+            "program": "${workspaceFolder}/src/WMoSS/bin/Debug/netcoreapp2.0/WMoSS.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/WMoSS",
+            "cwd": "${workspaceFolder}/src/WMoSS",
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart",
             "launchBrowser": {
