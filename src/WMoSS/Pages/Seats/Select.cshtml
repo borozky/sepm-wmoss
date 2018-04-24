@@ -1,0 +1,68 @@
+﻿@page
+@model WMoSS.Pages.Seats.SelectModel
+@{
+    ViewData["Title"] = "Selecy your seats";
+    ViewBag.EntryTitle = ViewData["Title"];
+}
+
+@section EntryHeader {
+    <div class="entry-header">
+        <div class="container clearfix">
+            <h3>@ViewBag.EntryTitle</h3>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<div class="container clearfix">
+
+    <form method="post">
+
+        <div id="SeatBlockLeft">
+            @for (char row = 'A'; row <= 'E'; row++)
+            {
+                @for(int col = 1; col <= 5; col++)
+                {
+                    @if (Model.UnavailableSeats.Contains(row.ToString() + col.ToString()))
+                    {
+                        <span class="unavailable">
+                            <input type="checkbox" asp-for="CartItem.Seats" value="@row@col" disabled="disabled" />
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="available">
+                            <input type="checkbox" asp-for="CartItem.Seats" value="@row@col" />
+                        </span>
+                    }
+                }
+            }
+        </div>
+
+        <div id="SeatBlockRight">
+            @for (char row = 'A'; row <= 'E'; row++)
+            {
+                @for (int col = 6; col <= 10; col++)
+                {
+                    @if (Model.UnavailableSeats.Contains(row.ToString() + col.ToString()))
+                    {
+                        <span class="unavailable">
+                            <input type="checkbox" asp-for="CartItem.Seats" value="@row@col" disabled="disabled" />
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="available">
+                            <input type="checkbox" asp-for="CartItem.Seats" value="@row@col" />
+                        </span>
+                    }
+                }
+            }
+        </div>
+    </form>
+
+
+</div>
