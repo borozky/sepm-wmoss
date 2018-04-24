@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cinema Aurora</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="src/scss/Pages/orderSummary.scss">
+    <link rel="stylesheet" href="public/css/app.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    
+
+</head>
+<body class="end-user-page">
+    <div class="site-wrapper">
+
+        <div class="site-header">
+            <nav id="NavTop">
+                <div class="container clearfix">
+                    <ul id="NavTop-left" class="pull-left">
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact-us.html">Contact Us</a></li>
+                    </ul>
+                    <ul id="NavTop-right" class="pull-right">
+                        <li>
+                            <a href="cart.html" class="btn btn-success btn-xs" id="ShoppingCartButton">
+                                <i class="fa fa-shopping-cart"></i> &nbsp; Edit my cart (0)
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <nav class="navbar navbar-inverse">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="index.html">Cinema Aurora</a>
+                    </div>
+                    <div id="navbar" class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li><a href="now-showing.html">Now Showing</a></li>
+                            <li><a href="coming-soon.html">Coming Soon</a></li>
+                            <li><a href="all-movies.html">All Movies</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Theaters <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="theaters.html">All Theaters</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="theater-movies.html">Theater #1</a></li>
+                                    <li><a href="theater-movies.html">Theater #2</a></li>
+                                    <li><a href="theater-movies.html">Theater #3</a></li>
+                                    <li><a href="theater-movies.html">Theater #4</a></li>
+                                    <li><a href="theater-movies.html">Theater #5</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <form action="search-results.html" method="GET" class="navbar-form navbar-right">
+                            <div class="form-group">
+                                <input type="text" name="s" class="form-control input-sm" placeholder="Search">
+                            </div>
+                            <button type="button" class="btn btn-primary btn-sm">Search</button>
+
+                        </form>
+                    </div><!--/.nav-collapse -->
+                </div>
+            </nav>
+
+        </div>
+        <div class="site-body">
+
+            <div class="alert alert-success alert-dismissible" id="SiteNotification" role="alert">
+                <div class="container">
+                    <button type="button" data-dismiss="alert" aria-label="Close" class="close">&times;</button>
+                    Booking successful. Seats for each sessions are automatically selected for you.	
+                </div>
+            </div>
+
+            <div class="entry-header">
+                <div class="container clearfix">
+                    <h3>Your booking order was created</h3>
+                    <h5>Your order receipt and tickets are emailed to you. You can also download your order receipt for future reference</h5>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                        <br>
+                            <div class="row">
+                                <div class="col-xs-12 col-md-6">
+                                            <div class="panel panel-default height">
+                                                <div class="panel-heading">Cinema Aurora Inc.
+                                                    <br>
+                                                    <small class="text-muted">Luxury Cinema Services</small>
+                                                </div>
+                                                <div class="panel-body">
+                                                        123 Lygon Street <br>
+                                                        Melbourne VIC 3000 <br>
+                                                        PO Box. 91823 <br>
+                                                        Tel. 03 8898 8910 <br>
+                                                        info@cinemaaurora.com.au<br>
+                                                        ABN: 48 150 248 927
+                                                </div>
+                                            </div>
+                                        </div>
+                                <div class="col-xs-12 col-md-6 pull-left">
+                                    <div class="panel panel-default height">
+                                        <div class="panel-heading">Billing Details
+                                            <br>
+                                                <small class="text-muted">Customer And Payment Information</small>
+                                        </div>
+                                        <div class="panel-body">
+                                            <strong>John Doe</strong><br>
+                                            john.doe@gmail.com
+                                            <hr>
+                                            <strong>Card Type:</strong> Visa<br>
+                                            <strong>Card Name:</strong> John Doe<br>
+                                            <strong>Card Number:</strong> ***** 332<br>
+                                            <strong>Exp Date:</strong> 09/2020<br>
+                                            <strong>CCV:</strong> 123<br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="text-center"><strong>Order summary</strong></h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-condensed">
+                                            <thead>
+                                                <tr>
+                                                    <td><strong>Movie</strong></td>
+                                                    <td class="text-left"><strong>Booking Information</strong></td>
+                                                    <td class="text-center"><strong>Price</strong></td>
+                                                    <td class="text-center"><strong>Quantity</strong></td>
+                                                    <td class="text-right"><strong>Total</strong></td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><img class='order-summary-img' src="public/assets/black_panter.jpeg" alt="Black Panter"></td>
+                                                    <td><strong>Black Panther (2018)</strong> 
+                                                        <br>
+                                                        3:30 pm Wednesday, 26 September 2018
+                                                        <br>
+                                                        at Cinema Aurora Theater #4
+                                                        <br>
+                                                        Seats: A4
+                                                    </td>
+                                                    <td class="text-center">$20.00</td>
+                                                    <td class="text-center">1</td>
+                                                    <td class="text-right">$20.00</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><img class='order-summary-img' src="public/assets/its_a_wonderful_life.jpg" alt="its a wonderful life"></td>
+                                                    <td><strong>It's a Wonderful Life (1946)</strong> 
+                                                        <br>
+                                                        7:30 pm Wednesday, 26 September 2018
+                                                        <br>
+                                                        at Cinema Aurora Theater #2
+                                                        <br>
+                                                        Seats: A4, A5
+                                                    </td>
+                                                    <td class="text-center">$20.00</td>
+                                                    <td class="text-center">2</td>
+                                                    <td class="text-right">$40.00</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><img class='order-summary-img' src="public/assets/infinity_war.jpeg" alt="infinity war"></td>
+                                                    <td><strong>Infinity War (2018)</strong> 
+                                                        <br>
+                                                        2:30 pm Wednesday, 26 September 2018
+                                                        <br>
+                                                        at Cinema Aurora Theater #3
+                                                        <br>
+                                                        Seats: A4, A5, A6, A7
+                                                    </td>
+                                                    <td class="text-center">$20.00</td>
+                                                    <td class="text-center">4</td>
+                                                    <td class="text-right">$80.00</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="highrow"></td>
+                                                    <td class="highrow"></td>
+                                                    <td class="highrow text-center"><strong>Subtotal</strong></td>
+                                                    <td class="highrow text-right">$140.00</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="emptyrow"></td>
+                                                    <td class="emptyrow"></td>
+                                                    <td class="emptyrow text-center"><strong>Including GST</strong></td>
+                                                    <td class="emptyrow text-right">$14.00</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="emptyrow"><i class="fa fa-barcode iconbig"></i></td>
+                                                    <td class="emptyrow"></td>
+                                                    <td class="emptyrow text-center"><strong>Total</strong></td>
+                                                    <td class="emptyrow text-right">$140.00</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="site-footer">
+            <div id="FooterTop">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-4 col-xs-12 footer-section">
+                            <h2>Cinema Aurora<br/><small>Luxury Cinema Services</small></h2>
+                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eveniet modi totam id porro commodi repudiandae est, expedita nulla eius perspiciatis.</p>
+                        </div>
+                        <div class="col-sm-4 col-xs-12 footer-section"></div>
+                        <div class="col-sm-4 col-xs-12 footer-section"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="FooterBottom">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6">
+                            Copyright &copy; 2018 Cinema Aurora Inc.
+                        </div>
+                        <div class="col-xs-12 col-sm-6 text-right">
+                            Designed by RMIT SEPM Team #41
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="public/js/app.js"></script>
+</body>
+</html>
