@@ -2,7 +2,7 @@
     position: relative;
     padding: 0px;
     margin-bottom: 30px;
-    margin-left: 45px;
+    width: 200px;
   }
   
   .thumbnail > h4 {
@@ -30,6 +30,7 @@
   
   .thumbnail img {
     width: 100%;
+    height: 400px;
   }
   .thumbnail a.btn {
     border-top-left-radius: 0px;

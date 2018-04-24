@@ -7,8 +7,8 @@
     <title>Home - Cinema Aurora</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="public/css/app.css">
     <link rel="stylesheet" href="src/scss/Pages/HomePage.scss">
+    <link rel="stylesheet" href="public/css/app.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">  
 
@@ -116,23 +116,32 @@
                         </div>
                 </div>
 
-            <div class="container clearfix text-center">
+            <div class="container clearfix">
                 <!--<div id="ExpressCheckoutParent"></div>-->
                 <br>
-                <div class="row">
-                </div>
-                <h4>All Movies</h4>
-                <div class="row">
-                    <div class="col-sm-12 col-md-4">
-                        <div class="thumbnail" style="width:70%;">
+                <h3>Now Showing</h3>
+                <nav class="navbar-right">
+                    <ul class="pagination text-right">
+                        <!--more button-->
+                        <li class="page-item">
+                            <a class="page-link" href="now-showing.html">View More</a>
+                        </li>
+                    </ul>
+                </nav>
+                <br>
+                
+                <div class="row text-center">
+                        <br><br><br><br><br>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="thumbnail">
                             <h4>Black Panter (2018)</h4>
                             <img src="public/assets/black_panter.jpeg" alt="Black Panter">
                             <a href="#" class="btn btn-primary col-xs-12" role="button">View Details</a>
                             <div class="clearfix"></div>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-4">
-                        <div class="thumbnail" style="width:70%;">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="thumbnail">
                             <h4>Beauty And The Beast (2018)</h4>
                             <img src="public/assets/beauty_beast.jpg" alt="Beauty and the Beast">
                             <a href="#" class="btn btn-primary col-xs-12" role="button">View Details</a>
@@ -140,17 +149,37 @@
                         </div>
                     </div>
                     
-                    <div class="col-sm-12 col-md-4">
-                        <div class="thumbnail" style="width:70%;">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="thumbnail" >
                             <h4>Bay Watch (2018)</h4>
                             <img src="public/assets/baywatch.jpeg" alt="Bay watch">
                             <a href="#" class="btn btn-primary col-xs-12" role="button">View Details</a>
                             <div class="clearfix"></div>
                         </div>
                     </div>
-                    
-                    <div class="col-sm-12 col-md-4">
-                        <div class="thumbnail" style="width:70%;">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="thumbnail">
+                            <h4>It's a Wonderful life (1946)</h4>
+                            <img src="public/assets/its_a_wonderful_life.jpg" alt="Bay watch">
+                            <a href="#" class="btn btn-primary col-xs-12" role="button">View Details</a>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <h3>Coming Soon</h3>
+                <nav class="navbar-right">
+                    <ul class="pagination">
+                        <!--more button-->
+                        <li class="page-item">
+                            <a class="page-link" href="coming-soon.html">View More</a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="row text-center">
+                        <br><br><br><br><br>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="thumbnail">
                             <h4>Infinity War (2018)</h4>
                             <img src="public/assets/infinity_war.jpeg" alt="...">
                             <a href="#" class="btn btn-primary col-xs-12" role="button">View Details</a>
@@ -158,8 +187,8 @@
                         </div>
                     </div>
                     
-                    <div class="col-sm-12 col-md-4">
-                        <div class="thumbnail" style="width:70%;">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="thumbnail">
                             <h4>Star Trek (2018)</h4>
                             <img src="public/assets/star_trek.jpg" alt="...">
                             <a href="#" class="btn btn-primary col-xs-12" role="button">View Details</a>
@@ -167,33 +196,23 @@
                         </div>
                     </div>
                     
-                    <div class="col-sm-12 col-md-4">
-                        <div class="thumbnail" style="width:70%;">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="thumbnail">
                             <h4>The Greatest Showman (2018)</h4>
                             <img src="public/assets/showman.jpeg" alt="...">
                             <a href="#" class="btn btn-primary col-xs-12" role="button">View Details</a>
                             <div class="clearfix"></div>
                         </div>
                     </div>
-                </div>
-                <nav>
-                    <ul class="pagination justify-content-center">
-                        <!--Previous button-->
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1">Previous</a>
-                        </li>
-                
-                        <!--Numbers-->
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        
-                        <!--Next button-->
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
-                    </ul>
-                </nav>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="thumbnail">
+                            <h4>Maleficent (2016)</h4>
+                            <img src="public/assets/maleficent.jpg" alt="...">
+                            <a href="#" class="btn btn-primary col-xs-12" role="button">View Details</a>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+               </div>
             </div>
         <div class="site-footer">
             <div id="FooterTop">
