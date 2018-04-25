@@ -73,7 +73,7 @@ namespace WMoSS.Pages.Cart
         }
 
         
-        public IActionResult OnPostModifyCart(CartItem cartItem)
+        public IActionResult OnPostModifyCart()
         {
             if (!ModelState.IsValid)
             {
