@@ -6,15 +6,15 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 
-namespace WMoSS.Tests.Unit.Cart
+namespace WMoSS.Tests.Unit.Pages.Cart
 {
     public class AddToCartTests : TestCase
     {
-        private Pages.Cart.IndexModel CartIndexModel;
+        private WMoSS.Pages.Cart.IndexModel CartIndexModel;
 
         public AddToCartTests()
         {
-            CartIndexModel = new Pages.Cart.IndexModel(db)
+            CartIndexModel = new WMoSS.Pages.Cart.IndexModel(db)
             {
                 PageContext = pageContext,
                 TempData = tempData,

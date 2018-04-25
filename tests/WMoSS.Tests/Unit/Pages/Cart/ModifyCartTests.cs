@@ -13,15 +13,15 @@ using Newtonsoft.Json;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace WMoSS.Tests.Unit.Cart
+namespace WMoSS.Tests.Unit.Pages.Cart
 {
     public class ModifyCartTests : TestCase
     {
-        private Pages.Cart.IndexModel CartIndexModel;
+        private WMoSS.Pages.Cart.IndexModel CartIndexModel;
 
         public ModifyCartTests()
         {
-            CartIndexModel = new Pages.Cart.IndexModel(db)
+            CartIndexModel = new WMoSS.Pages.Cart.IndexModel(db)
             {
                 PageContext = pageContext,
                 TempData = tempData,

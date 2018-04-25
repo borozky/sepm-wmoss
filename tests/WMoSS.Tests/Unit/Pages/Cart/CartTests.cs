@@ -7,7 +7,7 @@ using System.Text;
 using Xunit;
 using WMoSS.Extensions;
 
-namespace WMoSS.Tests.Unit.Cart
+namespace WMoSS.Tests.Unit.Pages.Cart
 {
     public class CartTests : IDisposable
     {
