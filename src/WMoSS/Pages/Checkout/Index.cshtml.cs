@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using WMoSS.Data;
 using Microsoft.EntityFrameworkCore;
 using WMoSS.Entities;
+using Newtonsoft.Json;
 
 namespace WMoSS.Pages.Checkout
 {
@@ -92,6 +93,52 @@ namespace WMoSS.Pages.Checkout
                 .AsNoTracking()
                 .ToListAsync();
 
+
+            var checkoutErrorList = new CheckoutErrorList();
+
+            foreach (var movieSession in movieSessions)
+            {
+                var errorMessage = "";
+                if (DateTime.Now.AddMinutes(60) > movieSession.ScheduledAt)
+                {
+                    errorMessage = string.Format("Cannot book into {0}{1: hh:mm tt ddd dd MMMM} " +
+                        "movie session at {2} because it will start within next 60 minutes",
+                        movieSession.Movie.Title, movieSession.ScheduledAt, movieSession.Theater.Name);
+                    checkoutErrorList.AddError(movieSession, errorMessage, true);
+                }
+
+                var numTickets = await _context.Tickets.CountAsync(t => t.MovieSessionId == movieSession.Id);
+                var remainingSeats = movieSession.Theater.Capacity - numTickets;
+                var selectedQuantity = Cart.CartItems.First(ci => ci.MovieSessionId == movieSession.Id).TicketQuantity;
+                if (remainingSeats < selectedQuantity)
+                {
+                    errorMessage = string.Format("Cannot book into {0}{1: hh:mm tt ddd dd MMMM} movie session " +
+                        "because there are {2} seats remaining in this session which you have book for {3} seats", 
+                        movieSession.Movie.Title, movieSession.ScheduledAt, remainingSeats, selectedQuantity);
+                    checkoutErrorList.AddError(movieSession, errorMessage, remainingSeats == 0);
+                }
+            }
+
+            if (checkoutErrorList.CheckoutErrors.Count > 0)
+            {
+                foreach (var checkoutError in checkoutErrorList.CheckoutErrors)
+                {
+                    if (checkoutError.ShouldDelete)
+                    {
+                        Cart.Remove(checkoutError.MovieSession.Id);
+                    }
+                }
+
+                Cart.SaveTo(HttpContext.Session);
+
+                var errors = new List<string>();
+                checkoutErrorList.CheckoutErrors.ForEach(ce => errors.AddRange(ce.Errors));
+                TempData["Danger"] = JsonConvert.SerializeObject(errors);
+
+                return RedirectToPage("/Cart/Index");
+            }
+            
+
             // Generate tickets
             var tickets = new List<Ticket>();
             foreach(var cartItem in Cart.CartItems)
@@ -118,6 +165,41 @@ namespace WMoSS.Pages.Checkout
 
             TempData["Success"] = "Successfully booked";
             return RedirectToPage("/Order/Details", new { id = Order.Id });
+        }
+    }
+
+    public class CheckoutError
+    {
+        public MovieSession MovieSession { get; set; }
+        public List<string> Errors { get; set; }
+        public bool ShouldDelete { get; set; } = false;
+    }
+
+    public class CheckoutErrorList
+    {
+        public List<CheckoutError> CheckoutErrors { get; private set; } = new List<CheckoutError>();
+        public void AddError(MovieSession movieSession, string errorMessage, bool shouldDelete = false)
+        {
+            var checkoutErrors = CheckoutErrors
+                .Where(ce => ce.MovieSession.Id == movieSession.Id);
+
+            if (checkoutErrors.Count() == 0)
+            {
+                CheckoutErrors.Add(new CheckoutError
+                {
+                    MovieSession = movieSession,
+                    Errors = new string[] { errorMessage }.ToList(),
+                    ShouldDelete = shouldDelete
+                });
+            }
+            else
+            {
+                foreach(var ce in checkoutErrors)
+                {
+                    ce.Errors.Add(errorMessage);
+                    ce.ShouldDelete = ce.ShouldDelete == true ? true : shouldDelete;
+                }
+            }    
         }
     }
 
