@@ -66,7 +66,7 @@ namespace WMoSS.Pages.Checkout
             return Page();
         }
 
-        public async Task<IActionResult> OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             Cart = Entities.Cart.GetFrom(HttpContext.Session);
 
