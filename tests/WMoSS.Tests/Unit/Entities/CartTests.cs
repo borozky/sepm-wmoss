@@ -7,16 +7,16 @@ using System.Text;
 using Xunit;
 using WMoSS.Extensions;
 
-namespace WMoSS.Tests.Unit.Pages.Cart
+namespace WMoSS.Tests.Unit.Entities
 {
     public class CartTests : IDisposable
     {
-        private Entities.Cart cart;
+        private WMoSS.Entities.Cart cart;
         private Mock<ISession> mockSession;
 
         public CartTests()
         {
-            cart = new Entities.Cart();
+            cart = new WMoSS.Entities.Cart();
             mockSession = new Mock<ISession>();
         }
 
@@ -24,7 +24,7 @@ namespace WMoSS.Tests.Unit.Pages.Cart
         public void Test_Add()
         {
             // ARRANGE
-            var cartItem = new Entities.CartItem
+            var cartItem = new WMoSS.Entities.CartItem
             {
                 MovieSessionId = 1,
                 TicketQuantity = 1
@@ -42,11 +42,11 @@ namespace WMoSS.Tests.Unit.Pages.Cart
         public void Test_Modify()
         {
             // ARRANGE
-            cart = new Entities.Cart
+            cart = new WMoSS.Entities.Cart
             {
-                CartItems = new Entities.CartItem[]
+                CartItems = new WMoSS.Entities.CartItem[]
                 {
-                    new Entities.CartItem
+                    new WMoSS.Entities.CartItem
                     {
                         MovieSessionId = 1,
                         TicketQuantity = 1
@@ -55,7 +55,7 @@ namespace WMoSS.Tests.Unit.Pages.Cart
             };
 
             // ACT
-            var isModified = cart.Modify(1, new Entities.CartItem
+            var isModified = cart.Modify(1, new WMoSS.Entities.CartItem
             {
                 MovieSessionId = 1,
                 TicketQuantity = 2
@@ -70,11 +70,11 @@ namespace WMoSS.Tests.Unit.Pages.Cart
         public void Test_Modify_ReturnsFalse_WhenCartIsNotModified()
         {
             // ARRANGE
-            cart = new Entities.Cart
+            cart = new WMoSS.Entities.Cart
             {
-                CartItems = new Entities.CartItem[]
+                CartItems = new WMoSS.Entities.CartItem[]
                 {
-                    new Entities.CartItem
+                    new WMoSS.Entities.CartItem
                     {
                         MovieSessionId = 1,
                         TicketQuantity = 1
@@ -83,7 +83,7 @@ namespace WMoSS.Tests.Unit.Pages.Cart
             };
 
             // ACT
-            var isModified = cart.Modify(2, new Entities.CartItem
+            var isModified = cart.Modify(2, new WMoSS.Entities.CartItem
             {
                 MovieSessionId = 2,
                 TicketQuantity = 2
@@ -99,11 +99,11 @@ namespace WMoSS.Tests.Unit.Pages.Cart
         public void Test_Remove()
         {
             // ARRANGE
-            cart = new Entities.Cart
+            cart = new WMoSS.Entities.Cart
             {
-                CartItems = (new Entities.CartItem[]
+                CartItems = (new WMoSS.Entities.CartItem[]
                 {
-                    new Entities.CartItem
+                    new WMoSS.Entities.CartItem
                     {
                         MovieSessionId = 1,
                         TicketQuantity = 1
@@ -124,11 +124,11 @@ namespace WMoSS.Tests.Unit.Pages.Cart
         public void Test_Remove_ReturnsFalse_When_MovieSessionNotFound()
         {
             // ARRANGE
-            cart = new Entities.Cart
+            cart = new WMoSS.Entities.Cart
             {
-                CartItems = new Entities.CartItem[]
+                CartItems = new WMoSS.Entities.CartItem[]
                 {
-                    new Entities.CartItem
+                    new WMoSS.Entities.CartItem
                     {
                         MovieSessionId = 1,
                         TicketQuantity = 1

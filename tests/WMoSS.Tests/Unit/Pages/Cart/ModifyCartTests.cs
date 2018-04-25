@@ -32,7 +32,7 @@ namespace WMoSS.Tests.Unit.Pages.Cart
         [Fact]
         public void Test_WhenModifyCart_IsSuccessful_RedirectsToCartPage()
         {
-            var cartItem = new Entities.CartItem
+            var cartItem = new WMoSS.Entities.CartItem
             {
                 MovieSessionId = 1,
                 TicketQuantity = 1
@@ -42,9 +42,9 @@ namespace WMoSS.Tests.Unit.Pages.Cart
             // Extension methods cannot be mocked 
             // so serialize the cart into string they convert to byte array
             // Also do not mock the cart and cart items
-            var cart = new Entities.Cart
+            var cart = new WMoSS.Entities.Cart
             { 
-                CartItems = new Entities.CartItem[] { cartItem }
+                CartItems = new WMoSS.Entities.CartItem[] { cartItem }
             };
             var jsonCart = JsonConvert.SerializeObject(cart);
             byte[] jsonCartBytes = System.Text.Encoding.UTF8.GetBytes(jsonCart);
@@ -65,19 +65,19 @@ namespace WMoSS.Tests.Unit.Pages.Cart
         public void Test_WhenModifyCartFailsToModifyCart_ItRendersTheCartPageAgain()
         {
             // ARRANGE
-            var cartItem = new Entities.CartItem
+            var cartItem = new WMoSS.Entities.CartItem
             {
                 MovieSessionId = 1,
                 TicketQuantity = 1
             };
-            var cartItem2 = new Entities.CartItem
+            var cartItem2 = new WMoSS.Entities.CartItem
             {
                 MovieSessionId = 2,
                 TicketQuantity = 1
             };
-            var cart = new Entities.Cart
+            var cart = new WMoSS.Entities.Cart
             {
-                CartItems = new Entities.CartItem[] { cartItem }
+                CartItems = new WMoSS.Entities.CartItem[] { cartItem }
             };
 
             var jsonCart = JsonConvert.SerializeObject(cart);
@@ -100,7 +100,7 @@ namespace WMoSS.Tests.Unit.Pages.Cart
         public void Test_WhenModifyCart_ModelStateIsNotValid_RendersTheCartPageAgain()
         {
             // ARRANGE
-            var cartItem = new Entities.CartItem
+            var cartItem = new WMoSS.Entities.CartItem
             {
                 MovieSessionId = 1,
                 TicketQuantity = 0

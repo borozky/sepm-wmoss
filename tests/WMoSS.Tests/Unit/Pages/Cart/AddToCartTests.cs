@@ -26,7 +26,7 @@ namespace WMoSS.Tests.Unit.Pages.Cart
         public void Test_WhenAddToCartIsSuccessful_RedirectsToCartPage()
         {
             // ARRANGE
-            CartIndexModel.CartItem = new Mock<Entities.CartItem>().Object;
+            CartIndexModel.CartItem = new Mock<WMoSS.Entities.CartItem>().Object;
 
             // ACT
             var result = CartIndexModel.OnPostAddToCart();
@@ -40,7 +40,7 @@ namespace WMoSS.Tests.Unit.Pages.Cart
         public void Test_WhenAddToCartHasModelStateErrors_ItRedirectsBasedOnReturnUrl()
         {
             // ARRANGE
-            CartIndexModel.CartItem = new Mock<Entities.CartItem>().Object;
+            CartIndexModel.CartItem = new Mock<WMoSS.Entities.CartItem>().Object;
             CartIndexModel.ReturnUrl = "/Index";
             CartIndexModel.ModelState.AddModelError("", "Invalid");
 

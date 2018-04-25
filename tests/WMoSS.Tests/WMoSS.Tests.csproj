@@ -21,6 +21,10 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\WMoSS\WMoSS.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Unit\Pages\Checkout\" />
+  </ItemGroup>
   
   <Target Name="CopyDepsFiles" AfterTargets="Build" Condition="'$(TargetFramework)'!=''">
     <ItemGroup>
