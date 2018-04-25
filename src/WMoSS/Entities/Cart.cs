@@ -23,9 +23,9 @@ namespace WMoSS.Entities
             return cart;
         }
 
-        public IList<CartItem> CartItems { get; set; }
+        public IList<CartItem> CartItems { get; set; } = new List<CartItem>();
 
-        public void Add(CartItem cartItem)
+        public virtual void Add(CartItem cartItem)
         {
             var foundCartItem = CartItems.FirstOrDefault(ci => ci.MovieSessionId == cartItem.MovieSessionId);
             if (foundCartItem != null)
@@ -39,7 +39,7 @@ namespace WMoSS.Entities
             }
         }
 
-        public void Add(int movieSessionId, int quantity, string[] seats)
+        public virtual void Add(int movieSessionId, int quantity, string[] seats)
         {
             Add(new CartItem
             {
@@ -49,7 +49,7 @@ namespace WMoSS.Entities
             });
         }
 
-        public bool Modify(int movieSessionId, CartItem cartItem)
+        public virtual bool Modify(int movieSessionId, CartItem cartItem)
         {
             if (movieSessionId != cartItem.MovieSessionId)
             {
@@ -72,7 +72,7 @@ namespace WMoSS.Entities
             return true;
         }
 
-        public bool Remove(int movieSessionId)
+        public virtual bool Remove(int movieSessionId)
         {
             var foundCartItem = CartItems.FirstOrDefault(ci => ci.MovieSessionId == movieSessionId);
             if (foundCartItem != null)
@@ -92,7 +92,7 @@ namespace WMoSS.Entities
             }
         }
 
-        public void SaveTo(ISession session)
+        public virtual void SaveTo(ISession session)
         {
             session.Set("cart", this);
         }
