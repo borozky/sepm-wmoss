@@ -76,9 +76,9 @@ namespace WMoSS.Pages.Order
     {
         public Entities.Order Order { get; set; }
         public IEnumerable<OrderItem> OrderItems { get; set; }
-        public double GrantTotal => Order.TotalPrice ?? OrderItems.Sum(oi => oi.SubTotal);
+        public double GrandTotal => Order.TotalPrice ?? OrderItems.Sum(oi => oi.SubTotal);
         public double GstRate { get; set; } = 0.1;
-        public double GstAmount => GrantTotal * GstRate;
+        public double GstAmount => GrandTotal * GstRate;
         public string DeliveryInformation { get; set; } = "";
         public string PaymentInformation { get; set; } = "";
     }

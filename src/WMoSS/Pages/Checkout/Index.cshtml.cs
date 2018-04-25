@@ -117,7 +117,7 @@ namespace WMoSS.Pages.Checkout
             HttpContext.Session.Remove("cart");
 
             TempData["Success"] = "Successfully booked";
-            return RedirectToPage($"/Order/Details/{Order.Id}");
+            return RedirectToPage("/Order/Details", new { id = Order.Id });
         }
     }
 

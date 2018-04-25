@@ -21,10 +21,17 @@ namespace WMoSS.Pages
         }
 
         public IEnumerable<Movie> Movies { get; set; }
+        public IEnumerable<FeatureSlide> FeatureSlides { get; set; }
 
         public void OnGet()
         {
             Movies = _context.Movies.ToList();
+            FeatureSlides = new FeatureSlide[]
+            {
+                new FeatureSlide { ImageUrl = "images/1.jpg" },
+                new FeatureSlide { ImageUrl = "images/2.jpg" },
+                new FeatureSlide { ImageUrl = "images/3.jpg" }
+            };
         }
 
 
@@ -33,5 +40,13 @@ namespace WMoSS.Pages
         {
             return new JsonResult(formData);
         }
+    }
+
+    public class FeatureSlide
+    {
+        public string ImageUrl { get; set; }
+        public string Title { get; set; }
+        public string SubTitle { get; set; }
+        public string CallToActionLink { get; set; }
     }
 }
