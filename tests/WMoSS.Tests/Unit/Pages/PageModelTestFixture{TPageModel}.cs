@@ -10,9 +10,9 @@ using System.Collections.Generic;
 using System.Text;
 using WMoSS.Data;
 
-namespace WMoSS.Tests.Unit
+namespace WMoSS.Tests.Unit.Pages
 {
-    public abstract class TestCase : IDisposable
+    public abstract class PageModelTestFixture<TPageModel> : IDisposable where TPageModel : PageModel
     {
         protected DbContextOptions<ApplicationDbContext> dbContextOptions;
         protected Mock<ApplicationDbContext> mockDbContext;
@@ -27,7 +27,7 @@ namespace WMoSS.Tests.Unit
         protected TempDataDictionary tempData;
         protected PageContext pageContext;
 
-        protected TestCase()
+        protected PageModelTestFixture()
         {
             dbContextOptions = Utilities.TestingDbContextOptions<ApplicationDbContext>();
             mockDbContext = new Mock<ApplicationDbContext>(dbContextOptions);

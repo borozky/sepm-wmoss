@@ -8,7 +8,7 @@ using Xunit;
 
 namespace WMoSS.Tests.Unit.Pages.Cart
 {
-    public class AddToCartTests : TestCase
+    public class AddToCartTests : PageModelTestFixture<WMoSS.Pages.Cart.IndexModel>
     {
         private WMoSS.Pages.Cart.IndexModel CartIndexModel;
 

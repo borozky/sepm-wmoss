@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace WMoSS.Tests.Unit.Pages.Cart
 {
-    public class ModifyCartTests : TestCase
+    public class ModifyCartTests : PageModelTestFixture<WMoSS.Pages.Cart.IndexModel>
     {
         private WMoSS.Pages.Cart.IndexModel CartIndexModel;
 
