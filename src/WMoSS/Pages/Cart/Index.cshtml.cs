@@ -61,8 +61,50 @@ namespace WMoSS.Pages.Cart
         {
             if (!ModelState.IsValid)
             {
+                TempData["Danger"] = ModelState.Values.Select(msVal => msVal.Errors).FirstOrDefault();
                 return RedirectToLocal(ReturnUrl);
             }
+
+            // if session doesn't exists, return 404
+            var movieSession = _dbContext.MovieSessions
+                .Include(m => m.Theater)
+                .AsNoTracking()
+                .FirstOrDefault(ms => ms.Id == CartItem.MovieSessionId);
+            if (movieSession == null)
+            {
+                TempData["Danger"] = "Movie session cannot be found";
+                return NotFound();
+            }
+
+            // if session will start within next 60 minutes, reject request to add to cart
+            if (DateTime.Now.AddMinutes(60) > movieSession.ScheduledAt)
+            {
+                TempData["Danger"] = string.Format("The{0: hh:mm tt ddd dd MMMM} session " +
+                    "cannot be added to cart anymore because " +
+                    "it will start in the next 60 minutes. " +
+                    "Please pick another session.",
+                    movieSession.ScheduledAt);
+                return RedirectToLocal(ReturnUrl);
+            }
+
+
+            // if number of tickets to be added to cart is less than the available seats remaining, 
+            // reject request to add to cart
+            var seatCapacity = movieSession.Theater.Capacity;
+            var numOfSeatsBooked = _dbContext.Tickets
+                .AsNoTracking()
+                .Count(t => t.MovieSessionId == movieSession.Id);
+            var numOfAvailableSeatsLeft = seatCapacity - numOfSeatsBooked;
+
+            if (numOfAvailableSeatsLeft < CartItem.TicketQuantity)
+            {
+                TempData["Danger"] = $"Cannot add {CartItem.TicketQuantity} " +
+                    $"tickets to cart because there are {numOfAvailableSeatsLeft} " +
+                    $"seats remaining. Please reduce number of tickets accordingly";
+                return RedirectToLocal(ReturnUrl);
+            }
+
+
 
             var cart = Entities.Cart.GetFrom(HttpContext.Session);
             cart.Add(CartItem);

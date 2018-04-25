@@ -108,7 +108,7 @@ namespace WMoSS.Entities
         public MovieSession MovieSession { get; set; }
 
         [Required]
-        [Range(1, int.MaxValue)]
+        [Range(1, 15)]
         public int? TicketQuantity { get; set; }
 
         public IList<string> Seats { get; set; }
