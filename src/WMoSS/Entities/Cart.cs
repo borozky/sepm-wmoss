@@ -23,7 +23,7 @@ namespace WMoSS.Entities
             return cart;
         }
 
-        public IList<CartItem> CartItems { get; set; }
+        public IList<CartItem> CartItems { get; set; } = new List<CartItem>();
 
         public void Add(CartItem cartItem)
         {
