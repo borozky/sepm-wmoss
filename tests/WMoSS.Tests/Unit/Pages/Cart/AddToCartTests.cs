@@ -4,6 +4,7 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using WMoSS.Data;
 using Xunit;
 
 namespace WMoSS.Tests.Unit.Pages.Cart
@@ -25,15 +26,30 @@ namespace WMoSS.Tests.Unit.Pages.Cart
         [Fact]
         public void Test_WhenAddToCartIsSuccessful_RedirectsToCartPage()
         {
-            // ARRANGE
-            CartIndexModel.CartItem = new Mock<WMoSS.Entities.CartItem>().Object;
+            using (var db = new ApplicationDbContext(Utilities.TestingDbContextOptions<ApplicationDbContext>()))
+            {
+                DbInitializer.Initialize(db);
+                CartIndexModel = new WMoSS.Pages.Cart.IndexModel(db)
+                {
+                    PageContext = pageContext,
+                    TempData = tempData,
+                    Url = new UrlHelper(pageContext)
+                };
 
-            // ACT
-            var result = CartIndexModel.OnPostAddToCart();
+                // ARRANGE
+                CartIndexModel.CartItem = new WMoSS.Entities.CartItem
+                {
+                    MovieSessionId = 1,
+                    TicketQuantity = 1
+                };
 
-            // ASSERT
-            var redirect = Assert.IsType<RedirectToPageResult>(result);
-            Assert.Equal("/Cart/Index", redirect.PageName);
+                // ACT
+                var result = CartIndexModel.OnPostAddToCart();
+
+                // ASSERT
+                var redirect = Assert.IsType<RedirectToPageResult>(result);
+                Assert.Equal("/Cart/Index", redirect.PageName);
+            }
         }
 
         [Fact]
