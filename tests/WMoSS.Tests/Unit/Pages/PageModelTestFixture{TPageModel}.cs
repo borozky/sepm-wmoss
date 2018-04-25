@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Moq;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Text;
 using WMoSS.Data;
 
@@ -47,6 +49,30 @@ namespace WMoSS.Tests.Unit.Pages
             {
                 ViewData = viewData
             };
+        }
+
+        protected void SimulateValidation(object model, PageModel pageModel)
+        {
+            var validationContext = new ValidationContext(model, null, null);
+            var validationResults = new List<ValidationResult>();
+
+            Validator.TryValidateObject(model, validationContext, validationResults, true);
+            foreach (var validationResult in validationResults)
+            {
+                pageModel.ModelState.AddModelError(validationResult.MemberNames.First(), validationResult.ErrorMessage);
+            }
+        }
+
+        protected void SimulateValidation(object model, Controller controller)
+        {
+            var validationContext = new ValidationContext(model, null, null);
+            var validationResults = new List<ValidationResult>();
+
+            Validator.TryValidateObject(model, validationContext, validationResults, true);
+            foreach (var validationResult in validationResults)
+            {
+                controller.ModelState.AddModelError(validationResult.MemberNames.First(), validationResult.ErrorMessage);
+            }
         }
 
         public void Dispose()
