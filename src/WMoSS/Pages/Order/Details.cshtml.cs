@@ -22,11 +22,11 @@ namespace WMoSS.Pages.Order
         
         public OrderDetailsViewModel OrderDetails { get; set; }
 
-        public async Task<IActionResult> OnGet(int id, CancellationToken ct)
+        public async Task<IActionResult> OnGet(int id)
         {
             var order = await _context.Orders
                 .AsNoTracking()
-                .FirstOrDefaultAsync(o => o.Id == id, ct);
+                .FirstOrDefaultAsync(o => o.Id == id);
             
             if (order == null)
             {
