@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -193,10 +194,131 @@ namespace WMoSS.Tests.Unit.Pages.Checkout
                 Assert.Equal(expectedNumTickets, checkoutIndexModel.Order.Tickets.Count());
             }
         } 
-        
+
+        [Fact]
+        public async Task Test_OnPostAsync_WhenMovieSessionStartsSoon_CheckoutRejectedRedirectedBackToCartMovieSessionInCartIsRemoved()
+        {
+            using (var db = new ApplicationDbContext(Utilities.TestingDbContextOptions<ApplicationDbContext>()))
+            {
+                DbInitializer.Initialize(db);
+
+                checkoutIndexModel = new WMoSS.Pages.Checkout.IndexModel(db)
+                {
+                    PageContext = pageContext,
+                    TempData = tempData,
+                    Url = new UrlHelper(pageContext)
+                };
+
+                // ARRANGE
+                var movieSession = await db.MovieSessions.FirstOrDefaultAsync(ms => ms.Id == 1);
+                movieSession.ScheduledAt = DateTime.Now.AddMinutes(59);
+                await db.SaveChangesAsync();
+
+                var cart = new WMoSS.Entities.Cart
+                {
+                    CartItems = new WMoSS.Entities.CartItem[]
+                    {
+                        new WMoSS.Entities.CartItem { MovieSessionId = 1, TicketQuantity = 1},
+                        new WMoSS.Entities.CartItem { MovieSessionId = 2, TicketQuantity = 1},
+
+                    }.ToList()
+                };
+
+                var order = new WMoSS.Entities.Order
+                {
+                    FullName = "Sample user",
+                    MailingAddress = "123 Club house avenue",
+                    EmailAddress = "someone123@email.com",
+                    CardNumber = "4111111111111111",
+                    Expiry = "10/20",
+                };
+
+                checkoutIndexModel.Order = order;
+                checkoutIndexModel.CVV = "123";
+
+                checkoutIndexModel.Cart = cart;
+                var jsonCart = JsonConvert.SerializeObject(cart);
+                byte[] jsonCartBytes = System.Text.Encoding.UTF8.GetBytes(jsonCart);
+                mockSession.Setup(ms => ms.TryGetValue("cart", out jsonCartBytes)).Returns(true).Verifiable();
+
+                // ACT
+                var result = await checkoutIndexModel.OnPostAsync();
+
+                // ASSERT
+                var redirect = Assert.IsType<RedirectToPageResult>(result);
+                Assert.Equal("/Cart/Index", redirect.PageName);
+                Assert.NotNull(tempData["Danger"]);
+            }
+
+        }
+
+        [Fact]
+        public async Task Test_OnPostAsync_WhenMovieSessionHasNotEnoughTickets_CheckoutRejectedAndRedirectedBackToCart()
+        {
+            using (var db = new ApplicationDbContext(Utilities.TestingDbContextOptions<ApplicationDbContext>()))
+            {
+                DbInitializer.Initialize(db);
+
+                checkoutIndexModel = new WMoSS.Pages.Checkout.IndexModel(db)
+                {
+                    PageContext = pageContext,
+                    TempData = tempData,
+                    Url = new UrlHelper(pageContext)
+                };
+
+                // ARRANGE
+                var movieSession = await db.MovieSessions.FirstOrDefaultAsync(ms => ms.Id == 1);
+
+                var tickets = new List<WMoSS.Entities.Ticket>();
+                for (int i = 0; i < 45; i++)
+                {
+                    tickets.Add(new WMoSS.Entities.Ticket
+                    {
+                        MovieSessionId = movieSession.Id,
+                        SeatNumber = "A1"
+                    });
+                }
+                db.Tickets.AddRange(tickets);
+                await db.SaveChangesAsync();
+
+                var cart = new WMoSS.Entities.Cart
+                {
+                    CartItems = new WMoSS.Entities.CartItem[]
+                    {
+                        new WMoSS.Entities.CartItem { MovieSessionId = 1, TicketQuantity = 6},
+                    }.ToList()
+                };
+
+                var order = new WMoSS.Entities.Order
+                {
+                    FullName = "Sample user",
+                    MailingAddress = "123 Club house avenue",
+                    EmailAddress = "someone123@email.com",
+                    CardNumber = "4111111111111111",
+                    Expiry = "10/20",
+                };
+
+                checkoutIndexModel.Order = order;
+                checkoutIndexModel.CVV = "123";
+
+                checkoutIndexModel.Cart = cart;
+                var jsonCart = JsonConvert.SerializeObject(cart);
+                byte[] jsonCartBytes = System.Text.Encoding.UTF8.GetBytes(jsonCart);
+                mockSession.Setup(ms => ms.TryGetValue("cart", out jsonCartBytes)).Returns(true).Verifiable();
+
+                // ACT
+                var result = await checkoutIndexModel.OnPostAsync();
+
+                // ASSERT
+                var redirect = Assert.IsType<RedirectToPageResult>(result);
+                Assert.Equal("/Cart/Index", redirect.PageName);
+                Assert.NotNull(tempData["Danger"]);
+            }
+
+        }
 
 
-        
+
 
 
     }
