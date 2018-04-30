@@ -16,6 +16,14 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
+    "c9": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "http://0.0.0.0:8080/"
+    },
     "WMoSS": {
       "commandName": "Project",
       "launchBrowser": true,
