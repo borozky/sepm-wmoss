@@ -12,8 +12,33 @@
     </div>
 }
 <div class="container clearfix">
-    <p>'Coming Soon' movies should be placed here</p>
-    <p>'Coming Soon' movies should never have movie sessions. Also they should have release dates in the future.</p>
+    @if (Model.Movies != null && Model.Movies.Count() > 0)
+    {
+    <ul>
+        @foreach(var movie in Model.Movies)
+        {
+            <li>
+                @{ 
+                    var releaseYear = " ";
+                    if (movie.ReleaseDate.HasValue)
+                    {
+                        releaseYear += "(";
+                        releaseYear += movie.ReleaseDate.Value.ToString("yyyy");
+                        releaseYear += ")";
+                    }
+
+                    var movieTitle = movie.Title + releaseYear;
+                }
+                <b>@movieTitle</b>
+            </li>
+
+        }
+    </ul>
+    }
+    else
+    {
+        <p>There are no movies coming soon.</p>
+    }
 </div>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
