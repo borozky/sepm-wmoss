@@ -1,11 +1,35 @@
 ﻿@page
 @model WMoSS.Pages.Search.MoviesModel
 @{
-    ViewData["Title"] = "Movies";
+    ViewData["Title"] = $"Search results for '{Model.SearchResultsVM.Keyword}'";
+    ViewBag.EntryTitle = ViewData["Title"];
 }
 
-<h2>Movies</h2>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+@section EntryHeader {
+    <div class="entry-header">
+        <div class="container clearfix">
+            <h3>@ViewBag.EntryTitle</h3>
+        </div>
+    </div>
 }
+
+@if (Model.SearchResultsVM.SearchResults.Count() > 0)
+{
+    foreach(var movie in Model.SearchResultsVM.SearchResults)
+    {
+        var releaseYear = " ";
+        if (movie.ReleaseDate.HasValue)
+        {
+            releaseYear += "(";
+            releaseYear += movie.ReleaseDate.Value.ToString("yyyy");
+            releaseYear += ")";
+        }
+
+        var movieTitle = movie.Title + releaseYear;
+        <p>
+            <b>@movieTitle</b><br/>
+        </p>
+    }
+
+}
+
