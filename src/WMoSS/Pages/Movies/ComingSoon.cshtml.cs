@@ -21,7 +21,7 @@ namespace WMoSS.Pages.Movies
 
         public IEnumerable<Movie> Movies { get; set; }
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync([FromQuery] string sort)
         {
             Movies = await _dbcontext.Movies
                 .AsNoTracking()
@@ -29,6 +29,26 @@ namespace WMoSS.Pages.Movies
                 .Where(m => m.ReleaseDate != null)
                 .Where(m => DateTime.Now.AddMonths(3) > m.ReleaseDate.Value)
                 .ToListAsync();
+
+            if (Movies != null && Movies.Count() > 0)
+            {
+                switch (sort)
+                {
+                    case "title-a-z":
+                        Movies.OrderBy(m => m.Title);
+                        break;
+                    case "title-z-a":
+                        Movies.OrderByDescending(m => m.Title);
+                        break;
+                    case "rating":
+                        Movies.OrderBy(m => m.Rating);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+
         }
     }
 }
