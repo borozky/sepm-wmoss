@@ -32,7 +32,14 @@
     <div class="row">
 
         <div class="col-sm-4">
-            <img src="http://placehold.it/270x400" class="img-responsive" style="width:100%" alt="Image">
+            @if(Model.Movie.PosterFileName != null) 
+            {
+                <img src="@Model.Movie.PosterFileName" class="img-responsive" style="width:100%" alt="Image">
+            }
+            else 
+            {
+                <img src="http://placehold.it/270x400" class="img-responsive" style="width:100%" alt="Image">
+            }
         </div>
 
         <div class="col-sm-4">
