@@ -62,7 +62,6 @@
     }
 </div>*@
 
-
 <div class="container">
 
     @if (Model.Cart.CartItems.Count > 0)
@@ -73,8 +72,9 @@
                 @foreach (var cartItem in Model.Cart.CartItems)
                 {
                     <div class="container">
+
                         <div class="row">
-                            <div class="col-sm-2">
+                            <div class="col-sm-4">
                                 <img src="http://placehold.it/400x270" class="img-responsive" style="width:100%" alt="Image">
                             </div>
                             <div class="col-sm-4">
@@ -82,53 +82,84 @@
                                 <p><strong>@string.Format("{0:h:mm tt}", cartItem.MovieSession.ScheduledAt) |  @string.Format("{0:h \\hour\\s m \\minu\\te\\s}", DateTime.Today.AddMinutes(cartItem.MovieSession.Movie.RuntimeMinutes.HasValue ? cartItem.MovieSession.Movie.RuntimeMinutes.Value : 0))</strong></p>
                                 <p>@string.Format("{0:ddd, dd MMMM yyyy} {1}", cartItem.MovieSession.ScheduledAt, cartItem.MovieSession.Theater.Name)</p>
                             </div>
-                            <div class="col-sm-2">
-                                <form asp-page="/Cart/Index" asp-page-handler="RemoveFromCart">
-                                    <input type="hidden" asp-for="CartItem.MovieSessionId" value="@cartItem.MovieSessionId" />
-                                    <input type="hidden" asp-for="CartItem.TicketQuantity" value="@cartItem.TicketQuantity" />
-                                    <p><br /><br /><button type="submit">Remove</button></p>
-                                </form>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <ul class="pull-right" style="list-style-type: none">
+                                    <li>
+                                        <a asp-page="/Seats/Select" asp-route-id="@cartItem.MovieSessionId">
+                                            Select seats (
+                                            @if (cartItem.Seats == null)
+                                            {
+                                                <span>0</span>
+                                            }
+                                            else
+                                            {
+                                                <span>@cartItem.Seats.Count</span>
+                                            }
+                                            )
+                                        </a>
+                                    </li>
+                                </ul>
+                                <br />
                             </div>
                         </div>
 
                         <div class="row">
-                            <form asp-page="/Cart/Index" asp-page-handler="ModifyCart">
+                            <div class="col-md-2"></div>
+                            <form asp-page="/Cart/Index" asp-page-handler="ModifyCart" class="form-inline pull-right">
                                 <input type="hidden" asp-for="CartItem.MovieSessionId" value="@cartItem.MovieSessionId" />
-                                <div class="col-md-2"></div>
-                                <div class="flex-item">
-                                    <div class="movieTickets">
-                                        <!-- <span id="price">$20.00</span> -->
-                                        <label class="input">Modify tickets: </label>
-                                        <input type="hidden" asp-for="CartItem.MovieSessionId" value="@cartItem.MovieSessionId" /><br/>
-                                        <input asp-for="CartItem.TicketQuantity" value="@cartItem.TicketQuantity" /><br/>
-                                        <span asp-validation-for="CartItem.TicketQuantity" class="text-danger"></span><br />
-                                        <button type="submit">Update cart</button>
-                                    </div>
+                                <div class="form-group">
+                                    <label class="sr-only" placeholder="$0.00" for="numTickets">Number of tickets:</label>
+                                    <input asp-for="CartItem.TicketQuantity" value="@cartItem.TicketQuantity" /><br/>
+                                    <span asp-validation-for="CartItem.TicketQuantity" class="text-danger"></span>
                                 </div>
+                                <div class="form-group">
+                                    <input class="form-control" type="text" id="total" placeholder="$0.00">
+                                </div>
+                                <button type="submit" class="btn btn-default">Update</button>
+                            </form>
+                            <form asp-page="/Cart/Index" asp-page-handler="RemoveFromCart" class="form-inline pull-right">
+                                <input type="hidden" asp-for="CartItem.MovieSessionId" value="@cartItem.MovieSessionId" />
+                                <input type="hidden" asp-for="CartItem.TicketQuantity" value="@cartItem.TicketQuantity" />
+                                <button type="submit" class="btn btn-default">Remove</button>
                             </form>
                         </div>
+
                     </div>
 
                 }
 
             </div>
             <div class="col-md-4">
-                <h2><strong>Cart Summary</strong></h2>
+                <h3><strong>Cart Summary</strong></h3>
                 @foreach (var cartItem in Model.Cart.CartItems)
                 {
                     <h4><strong>@cartItem.MovieSession.Movie.Title @string.Format("({0:yyyy})", cartItem.MovieSession.Movie.ReleaseDate.GetValueOrDefault())</strong></h4>
                     <p>@string.Format("{0} x Ticket {1:C2}", cartItem.TicketQuantity, cartItem.MovieSession.TicketPrice)</p>
                     <br />
                 }
-
                 <br />
                 <h4>GST (Included): @string.Format("{0:C2}", Model.Cart.GstPrice)</h4>
                 <h3 class="text-right">Total: @string.Format("{0:C2}", Model.Cart.TotalPrice)</h3>
-                <a asp-page="/Checkout/Index" class="btn btn-lg btn-success">Proceed to Checkout</a><br/>
+                <a asp-page="/Checkout/Index" class="btn btn-default pull-right">Proceed to Checkout</a>
+                <br />
+                <br />
+                <small style="color:red">Please select your seats before proceeding to checkout</small>
 
-                <form asp-page="/Cart/Index" asp-page-handler="ClearCart" method="post" name="ClearCart">
-                    <button type="submit">Clear Cart</button>
-                </form>
+                <div class="row">
+                    <div class="col-md-12">
+                        <form asp-page="/Cart/Index" asp-page-handler="ClearCart" method="post" name="ClearCart">
+                            <ul class="pull-right" style="list-style-type: none">
+                                <li>
+                                    <button type="submit">Clear Cart</button>
+                                </li>
+                            </ul>
+                            <br />
+                        </form>
+                    </div>
+                </div>
 
             </div>
         </div>
@@ -137,7 +168,6 @@
     else
     {
     <h4>There are no items in the cart</h4>
-
     }
 </div>
 

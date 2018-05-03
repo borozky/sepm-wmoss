@@ -1,11 +1,59 @@
 ﻿@page
 @model WMoSS.Pages.Search.MoviesModel
 @{
-    ViewData["Title"] = "Movies";
+    ViewData["Title"] = $"Search results for '{Model.SearchResultsVM.Keyword}'";
+    ViewBag.EntryTitle = ViewData["Title"];
 }
 
-<h2>Movies</h2>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+@section EntryHeader {
+    <div class="entry-header">
+        <div class="container clearfix">
+            <h3>@ViewBag.EntryTitle</h3>
+        </div>
+    </div>
 }
+
+<div class="container clearfix">
+    @if (Model.SearchResultsVM.SearchResults.Count() > 0)
+    {
+        <div id="SortOptionsArea">
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                    Sort By <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Title(A - Z) </a></li>
+                    <li><a href="#">Latest Sessions</a></li>
+                </ul>
+            </div>
+        </div>
+
+        foreach (var movie in Model.SearchResultsVM.SearchResults)
+        {
+            var releaseYear = " ";
+            if (movie.ReleaseDate.HasValue)
+            {
+                releaseYear += "(";
+                releaseYear += movie.ReleaseDate.Value.ToString("yyyy");
+                releaseYear += ")";
+            }
+
+            var movieTitle = movie.Title + releaseYear;
+            var poster = movie.PosterFileName ?? "http://placehold.it/270x400";
+
+            <div class="row text-center">
+                <div class="col-sm-6 col-md-3">
+                    <div class="thumbnail">
+                        <h4>@movieTitle</h4>
+                        <img src="@poster" alt="..." />
+                        <a asp-page="/Movies/Details" asp-route-id="@movie.Id" class="btn btn-primary col-xs-12" role="button">View Details</a>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
+
+
+

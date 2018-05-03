@@ -143,15 +143,11 @@ namespace WMoSS.Pages.Checkout
             var tickets = new List<Ticket>();
             foreach(var cartItem in Cart.CartItems)
             {
-                for (int i = 0; i < cartItem.TicketQuantity.Value; i++)
+                tickets.AddRange(cartItem.Seats.Select(seat => new Ticket
                 {
-                    var ticket = new Ticket
-                    {
-                        MovieSessionId = cartItem.MovieSessionId.Value,
-                        SeatNumber = "A1" // TODO: Change this
-                    };
-                    tickets.Add(ticket);
-                }
+                    MovieSessionId = cartItem.MovieSessionId.Value,
+                    SeatNumber = seat
+                }));
             }
 
             Order.TotalPrice = Cart.TotalPrice;

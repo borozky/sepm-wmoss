@@ -52,7 +52,14 @@
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail clearfix" style="width:70%;">
                     <h4>@string.Format("{0}{1: (yyyy)}", movie.Title, movie.ReleaseDate)</h4>
-                    <img src="http://placehold.it/270x400" alt="@string.Format("{0}{1:(yyyy)}", movie.Title, movie.ReleaseDate)">
+                    @if (movie.PosterFileName == null) 
+                    {
+                        <img src="http://placehold.it/270x400" alt="@string.Format("{0}{1:(yyyy)}", movie.Title, movie.ReleaseDate)">
+                    }
+                    else 
+                    {
+                        <img src="@movie.PosterFileName" alt="@string.Format("{0}{1:(yyyy)}", movie.Title, movie.ReleaseDate)">
+                    }
                     <a asp-page="/Movies/Details" asp-route-id="@movie.Id" asp-ro class="btn btn-primary col-xs-12" role="button">View Details</a>
                     <div class="clearfix"></div>
                 </div>

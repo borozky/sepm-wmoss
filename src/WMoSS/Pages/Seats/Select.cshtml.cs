@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using WMoSS.Entities;
 using WMoSS.Data;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace WMoSS.Pages.Seats
 {
@@ -21,6 +22,9 @@ namespace WMoSS.Pages.Seats
         {
             this.db = db;
         }
+
+        public int MovieSessionId { get; set; } = 0;
+        public string ReturnUrl { get; set; }
 
 
         public async Task<IActionResult> OnGetAsync(int id)
@@ -42,8 +46,70 @@ namespace WMoSS.Pages.Seats
                 .Select(t => t.SeatNumber)
                 .ToArrayAsync();
 
+            MovieSessionId = id;
+            ReturnUrl = Url.Page("/Seats/Select", new { id = MovieSessionId });
+
             return Page();
         }
+
+        public IActionResult OnPost(SelectSeatRequestModel request)
+        {
+            if (ModelState.IsValid == false)
+            {
+                TempData["Danger"] = ModelState.Values.Select(v => v.Errors).FirstOrDefault();
+                return RedirectToLocal(ReturnUrl);
+            }
+
+            var cart = Entities.Cart.GetFrom(HttpContext.Session);
+            CartItem = cart.CartItems.FirstOrDefault(ci => ci.MovieSessionId == request.MovieSessionId);
+            if (CartItem == null)
+            {
+                return NotFound();
+            }
+            
+            // pick as many seats based on number of tickets
+            // excess seats are rejected
+            var seats = request.Seats.Select(s => s).ToArray();
+            seats = seats.Where((seat, i) => i < CartItem.TicketQuantity).ToArray();
+            CartItem.Seats = seats;
+            cart.Modify(request.MovieSessionId, CartItem);
+            cart.SaveTo(HttpContext.Session);
+            
+            if (CartItem.TicketQuantity < request.Seats.Count())
+            {
+                TempData["Danger"] = "You have picked too many seats";
+            }
+            else
+            {
+                TempData["Success"] = "Seats successfully updated";
+            }
+
+            return RedirectToPage("/Cart/Index");
+        }
+
+        private IActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToPage("/");
+            }
+        }
+    }
+
+    public class SelectSeatRequestModel
+    {
+        [Required]
+        public string[] Seats { get; set; }
+
+        [Required]
+        public int MovieSessionId { get; set; }
+
+        [Required]
+        public string ReturnUrl { get; set; }
     }
     
 

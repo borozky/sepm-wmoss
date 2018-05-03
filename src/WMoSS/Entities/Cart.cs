@@ -68,7 +68,9 @@ namespace WMoSS.Entities
             }
 
             foundCartItem.TicketQuantity = cartItem.TicketQuantity;
-            foundCartItem.Seats = cartItem.Seats;
+
+            // Remove exceeeding seats, keep existing ones
+            foundCartItem.Seats = foundCartItem.Seats.Where((seat, i) => i < cartItem.TicketQuantity).ToArray();
             return true;
         }
 

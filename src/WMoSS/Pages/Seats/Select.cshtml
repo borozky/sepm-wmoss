@@ -1,7 +1,7 @@
 ﻿@page
 @model WMoSS.Pages.Seats.SelectModel
 @{
-    ViewData["Title"] = "Selecy your seats";
+    ViewData["Title"] = "Select your seats";
     ViewBag.EntryTitle = ViewData["Title"];
 }
 
@@ -13,55 +13,79 @@
     </div>
 }
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
-
 <div class="container clearfix">
 
     <form method="post">
+        <input type="hidden" asp-for="MovieSessionId"/>
+        <input type="hidden" asp-for="ReturnUrl"/>
+        <input type="hidden" asp-for="CartItem.TicketQuantity" />
 
-        <div id="SeatBlockLeft">
+        <div id="SeatBlockLeft" class="col-xs-6">
             @for (char row = 'A'; row <= 'E'; row++)
             {
-                @for(int col = 1; col <= 5; col++)
+                <div class="seat-row">
+                @for (int col = 1; col <= 5; col++)
                 {
-                    @if (Model.UnavailableSeats.Contains(row.ToString() + col.ToString()))
-                    {
-                        <span class="unavailable">
-                            <input type="checkbox" asp-for="CartItem.Seats" value="@row@col" disabled="disabled" />
-                        </span>
-                    }
-                    else
-                    {
-                        <span class="available">
-                            <input type="checkbox" asp-for="CartItem.Seats" value="@row@col" />
-                        </span>
-                    }
+                        @if (Model.UnavailableSeats.Contains(row.ToString() + col.ToString()))
+                        {
+                            <span class="unavailable">
+                                <input type="checkbox" name="Seats[]" id="Seat-@row@col" value="@row@col" disabled="disabled" />
+                                <label class="seat-label" for="Seat-@row@col">@row@col</label>
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="available">
+                                @if (Model.CartItem.Seats != null && Model.CartItem.Seats.Contains($"{row}{col}"))
+                                {
+                                    <input type="checkbox" name="Seats[]" id="Seat-@row@col" value="@row@col" checked="checked" />
+                                }
+                                else
+                                {
+                                    <input type="checkbox" name="Seats[]" id="Seat-@row@col" value="@row@col" />
+                                }
+                                <label class="seat-label" for="Seat-@row@col">@row@col</label>
+                            </span>
+                        }
                 }
+                </div>
             }
         </div>
 
-        <div id="SeatBlockRight">
+        <div id="SeatBlockRight" class="col-xs-6">
             @for (char row = 'A'; row <= 'E'; row++)
             {
+                <div class="seat-row">
                 @for (int col = 6; col <= 10; col++)
                 {
-                    @if (Model.UnavailableSeats.Contains(row.ToString() + col.ToString()))
-                    {
-                        <span class="unavailable">
-                            <input type="checkbox" asp-for="CartItem.Seats" value="@row@col" disabled="disabled" />
-                        </span>
-                    }
-                    else
-                    {
-                        <span class="available">
-                            <input type="checkbox" asp-for="CartItem.Seats" value="@row@col" />
-                        </span>
-                    }
+                        @if (Model.UnavailableSeats.Contains(row.ToString() + col.ToString()))
+                        {
+                            <span class="unavailable">
+                                <input type="checkbox" name="Seats[]" id="Seat-@row@col" value="@row@col" disabled="disabled" />
+                                <label class="seat-label" for="Seat-@row@col">@row@col</label>
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="available">
+                                @if (Model.CartItem.Seats != null && Model.CartItem.Seats.Contains($"{row}{col}"))
+                                {
+                                    <input type="checkbox" name="Seats[]" id="Seat-@row@col" value="@row@col" checked="checked" />
+                                }
+                                else
+                                {
+                                    <input type="checkbox" name="Seats[]" id="Seat-@row@col" value="@row@col" />
+                                }
+                                <label class="seat-label" for="Seat-@row@col">@row@col</label>
+                            </span>
+                        }
                 }
+                </div>
             }
         </div>
+
+        <button type="submit">Update seats</button>
+        <a asp-page="/Index">Go back</a>
     </form>
 
 
