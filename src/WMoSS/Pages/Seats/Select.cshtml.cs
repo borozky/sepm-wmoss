@@ -66,12 +66,23 @@ namespace WMoSS.Pages.Seats
             {
                 return NotFound();
             }
-
-            CartItem.Seats = request.Seats;
+            
+            // pick as many seats based on number of tickets
+            // excess seats are rejected
+            var seats = request.Seats.Select(s => s).ToArray();
+            seats = seats.Where((seat, i) => i < CartItem.TicketQuantity).ToArray();
+            CartItem.Seats = seats;
             cart.Modify(request.MovieSessionId, CartItem);
             cart.SaveTo(HttpContext.Session);
-
-            TempData["Success"] = "Seats successfully updated";
+            
+            if (CartItem.TicketQuantity < request.Seats.Count())
+            {
+                TempData["Danger"] = "You have picked too many seats";
+            }
+            else
+            {
+                TempData["Success"] = "Seats successfully updated";
+            }
 
             return RedirectToPage("/Cart/Index");
         }

@@ -18,6 +18,7 @@
     <form method="post">
         <input type="hidden" asp-for="MovieSessionId"/>
         <input type="hidden" asp-for="ReturnUrl"/>
+        <input type="hidden" asp-for="CartItem.TicketQuantity" />
 
         <div id="SeatBlockLeft" class="col-xs-6">
             @for (char row = 'A'; row <= 'E'; row++)
@@ -35,7 +36,14 @@
                         else
                         {
                             <span class="available">
-                                <input type="checkbox" name="Seats[]" id="Seat-@row@col" value="@row@col" />
+                                @if (Model.CartItem.Seats != null && Model.CartItem.Seats.Contains($"{row}{col}"))
+                                {
+                                    <input type="checkbox" name="Seats[]" id="Seat-@row@col" value="@row@col" checked="checked" />
+                                }
+                                else
+                                {
+                                    <input type="checkbox" name="Seats[]" id="Seat-@row@col" value="@row@col" />
+                                }
                                 <label class="seat-label" for="Seat-@row@col">@row@col</label>
                             </span>
                         }
@@ -60,7 +68,14 @@
                         else
                         {
                             <span class="available">
-                                <input type="checkbox" name="Seats[]" id="Seat-@row@col" value="@row@col" />
+                                @if (Model.CartItem.Seats != null && Model.CartItem.Seats.Contains($"{row}{col}"))
+                                {
+                                    <input type="checkbox" name="Seats[]" id="Seat-@row@col" value="@row@col" checked="checked" />
+                                }
+                                else
+                                {
+                                    <input type="checkbox" name="Seats[]" id="Seat-@row@col" value="@row@col" />
+                                }
                                 <label class="seat-label" for="Seat-@row@col">@row@col</label>
                             </span>
                         }
