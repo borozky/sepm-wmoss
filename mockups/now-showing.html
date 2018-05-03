@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Now Showing - Cinema Aurora</title>
+    <title>Cinema Aurora</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="public/css/app.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body class="end-user-page">
     <div class="site-wrapper">
@@ -64,6 +66,8 @@
                             <div class="form-group">
                                 <input type="text" name="s" class="form-control input-sm" placeholder="Search">
                             </div>
+                            <button type="button" class="btn btn-primary btn-sm">Search</button>
+
                         </form>
                     </div><!--/.nav-collapse -->
                 </div>
@@ -71,12 +75,61 @@
 
         </div>
         <div class="site-body">
-
-            <div class="container">
-                <h2>NOW SHOWING</h2>
+            <div class="entry-header">
+                <div class="container clearfix">
+                    <h3>Now Showing</h3>
+                    <h5></h5>
+                </div>
             </div>
 
-        </div>
+            <div class="container">
+                <h2></h2>
+                <div class="dropdown">
+                    <label>Sort by: </label>
+                    <select class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                    <span class="caret"></span>
+                      <option><a href="#">Title (A-Z)</a></option>
+                      <option><a href="#">Latest Sessions</a></option>
+                    </select>
+                </div>
+                  <br><br><br>
+                <div class="row text-center">
+                        <div class="row text-center">
+                            <div class="col-sm-6 col-md-3">
+                                <div class="thumbnail">
+                                    <h4>Black Panter (2018)</h4>
+                                    <img src="public/assets/black_panter.jpeg" alt="Black Panter">
+                                    <a href="#" class="btn btn-primary col-xs-12" role="button">View Details</a>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-3">
+                                <div class="thumbnail">
+                                    <h4>Beauty And The Beast (2018)</h4>
+                                    <img src="public/assets/beauty_beast.jpg" alt="Beauty and the Beast">
+                                    <a href="#" class="btn btn-primary col-xs-12" role="button">View Details</a>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-3">
+                                <div class="thumbnail" >
+                                    <h4>Bay Watch (2018)</h4>
+                                    <img src="public/assets/baywatch.jpeg" alt="Bay watch">
+                                    <a href="#" class="btn btn-primary col-xs-12" role="button">View Details</a>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-3">
+                                <div class="thumbnail">
+                                    <h4>It's a Wonderful life (1946)</h4>
+                                    <img src="public/assets/its_a_wonderful_life.jpg" alt="Bay watch">
+                                    <a href="#" class="btn btn-primary col-xs-12" role="button">View Details</a>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         <div class="site-footer">
             <div id="FooterTop">
                 <div class="container">
