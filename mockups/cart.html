@@ -83,7 +83,7 @@
                     <div class="container">
                 
                         <div class="row">
-                            <div class="col-sm-2">
+                            <div class="col-sm-4">
                                 <img src="public/assets/its_a_wonderful_life.jpg" class="img-responsive" style="width:100%" alt="Image">
                             </div>
                             <div class="col-sm-4">
@@ -91,28 +91,40 @@
                                 <p><strong>7.30 PM |  2h 10min</strong></p>
                                     <p>Wednesday, 26 September 2018 Theater #4</p>
                             </div>
-                            <div class="col-sm-2"><p><br/><br/>Remove</p></div>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <ul class="pull-right" style="list-style-type: none">
+                                    <li><a href="select-seats.html">Select seats (1)</a></li>
+                                </ul>
+                            <br />  
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-md-2"></div>
                             
-                            <div class="flex-item">
+                                    
                 
-                                    <div class="movieTickets">
-                                        <!-- <span id="price">$20.00</span> -->
-                                        <label class="input">Number of tickets: </label><input type="number" value='0' min="0" max="100" default="0" onchange="calculateSubTotal()">
-                                        
-                                        <input type="text" id="total" placeholder="$0.00">
-                                        <button  onclick="addToCart()" id="addCart">Add to cart</button>
-                                    </div>   
-                                </div>
-                            
+                                    <form class="form-inline pull-right">
+                                        <div class="form-group">
+                                            <label class="sr-only" placeholder="$0.00" for="numTickets" >Number of tickets:</label>
+                                            <input type="number" value='0' min="0" max="100" class="form-control" id="numTickets" name="numTickets">
+                                        </div>
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" id="total" placeholder="$0.00">
+                                        </div>
+                                        <button type="submit" class="btn btn-default">Update</button>
+                                        <button type="submit" class="btn btn-default">Remove</button>
+                                    </form>  
+                                    
                         </div>
+                        
                     </div>
-                    
+                    <hr class="featurette-divider">
                     <div class="container">
                                 <div class="row">
-                                    <div class="col-sm-2">
+                                    <div class="col-sm-4">
                                         <img src="public/assets/black_pantha.jpg" class="img-responsive" style="width:100%" alt="Image">
                                     </div>
                                     <div class="col-sm-4">
@@ -120,36 +132,56 @@
                                         <p><strong>8.30 PM |  2h 14min</strong></p>
                                         <p>Thursday, 22 September 2018 Theater #2</p>
                                     </div>
-                                    <div class="col-sm-2"><br/><br/>Remove</div>
                                 </div> 
+                                <div class="row" >
+                                        <div class="col-md-12">
+                                            <ul class="pull-right" style="list-style-type: none">
+                                                <li><a href="select-seats.html">Select seats</a></li>
+                                            </ul>
+                                        <br />  
+                                        </div>
+                                    </div>
 
                                 <div class="row">
                                     <div class="col-md-2"></div>
-                                        <div class="flex-item">
-                                            <div class="movieTickets">
-                                                <!-- <span id="price">$20.00</span> -->
-                                                <label class="input">Number of tickets: </label><input type="number" value='0' min="0" max="100" default="0" onchange="calculateSubTotal()">
-
-                                                <input type="text" id="total" placeholder="$0.00">
-                                                <button  onclick="addToCart()" id="addCart">Add to cart</button>                                                
-                                            </div>   
-                                        </div>
-                                 
+                                        <form class="form-inline pull-right">
+                                            <div class="form-group">
+                                                <label class="sr-only" placeholder="$0.00" for="numTickets" >Number of tickets:</label>
+                                                <input type="number" value='0' min="0" max="100" class="form-control" id="numTickets" name="numTickets">
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" type="text" id="total" placeholder="$0.00">
+                                            </div>
+                                            <button type="submit" class="btn btn-default">Update</button>
+                                            <button type="submit" class="btn btn-default">Remove</button>
+                                        </form>
                                 </div>
                             </div>
-                    
+                            <br />
                     </div>
                     <div class="col-md-4">
-                            <h3><strong>Cart Sumary</strong></h2>
-                            <h4><strong>It's a Wonderful Life (1946)</strong></h4>
-                            <p>1 x Ticket $20.00</p>
-                            <br/>
-                            <h4><strong>Black Panther (2018)</strong></h4>
-                            <p>1 x Ticket $20.00</p>
-                            <br>
-                            <br/>
-                            <h4>GST (Included):  $4.00</h4>
-                            <h3 class="text-right">Total: $40.00</h3>
+                        <h3><strong>Cart Sumary</strong></h2>
+                        <h4><strong>It's a Wonderful Life (1946)</strong></h4>
+                        <p>1 x Ticket $20.00</p>
+                        <br/>
+                        <h4><strong>Black Panther (2018)</strong></h4>
+                        <p>1 x Ticket $20.00</p>
+                        <br>
+                        <br/>
+                        <h4>GST (Included):  $4.00</h4>
+                        <h3 class="text-right">Total: $40.00</h3>
+                        <button type="submit" class="btn btn-default pull-right">Proceed to checkout</button>
+                        <br />
+                        <br />
+                        <small style="color:red">Please select your seats before proceeding to checkout</small>
+                        <div class="row">
+                                <div class="col-md-12">
+                                    <ul class="pull-right" style="list-style-type: none">
+                                        <li><a href="3">Clear cart</a></li>
+                                    </ul>
+                                <br />  
+                                </div>
+                            </div>
 
                     </div>
                 </div>
