@@ -1,0 +1,34 @@
+ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .seats {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+  }
+  
+  .seat {
+    display: flex;
+    flex: 0 0 10%;
+    padding: 5px;
+    position: relative;
+  }
+  
+  label {
+    display: block;
+    position: relative;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.5rem;
+    padding: 4px 0;
+    background: #F42536;
+    border-radius: 5px;
+    animation-duration: 300ms;
+    animation-fill-mode: both;
+  }

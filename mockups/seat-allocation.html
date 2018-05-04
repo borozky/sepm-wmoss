@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cinema Aurora</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="public/css/app.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="src/scss/Pages/seatAllocation.scss">
+
+
+
+    <style>
+
+        ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .seats {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+  }
+  
+  .seat {
+    display: flex;
+    flex: 0 0 10%;
+    padding: 5px;
+    position: relative;
+  }
+  
+  label {
+    display: block;
+    position: relative;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.5rem;
+    padding: 4px 0;
+    background: #F42536;
+    border-radius: 5px;
+    animation-duration: 300ms;
+    animation-fill-mode: both;
+  }
+    
+    
+    </style>
+</head>
+<body class="end-user-page">
+    <div class="site-wrapper">
+
+        <div class="site-header">
+            <nav id="NavTop">
+                <div class="container clearfix">
+                    <ul id="NavTop-left" class="pull-left">
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact-us.html">Contact Us</a></li>
+                    </ul>
+                    <ul id="NavTop-right" class="pull-right">
+                        <li>
+                            <a href="cart.html" class="btn btn-success btn-xs" id="ShoppingCartButton">
+                                <i class="fa fa-shopping-cart"></i> &nbsp; Edit my cart (0)
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <nav class="navbar navbar-inverse">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="index.html">Cinema Aurora</a>
+                    </div>
+                    <div id="navbar" class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li><a href="now-showing.html">Now Showing</a></li>
+                            <li><a href="coming-soon.html">Coming Soon</a></li>
+                            <li><a href="all-movies.html">All Movies</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Theaters <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="theaters.html">All Theaters</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="theater-movies.html">Theater #1</a></li>
+                                    <li><a href="theater-movies.html">Theater #2</a></li>
+                                    <li><a href="theater-movies.html">Theater #3</a></li>
+                                    <li><a href="theater-movies.html">Theater #4</a></li>
+                                    <li><a href="theater-movies.html">Theater #5</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <form action="search-results.html" method="GET" class="navbar-form navbar-right">
+                            <div class="form-group">
+                                <input type="text" name="s" class="form-control input-sm" placeholder="Search">
+                            </div>
+                            <button type="button" class="btn btn-primary btn-sm">Search</button>
+
+                        </form>
+                    </div><!--/.nav-collapse -->
+                </div>
+            </nav>
+
+        </div>
+        <div class="site-body">
+
+            <div class="alert alert-success alert-dismissible" id="SiteNotification" role="alert">
+                <div class="container">
+                    <button type="button" data-dismiss="alert" aria-label="Close" class="close">&times;</button>
+                    Hello World
+                </div>
+            </div>
+
+            <div class="container">
+                    <div class="row">
+                        <div class="col-sm-8"><div class="container">
+                                <div class="row">
+                                    <div class="col-sm-12"><h3>Selectd: 1 of 2 seats</h3></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12"><h1>Front Screen</h1></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        
+                                            <div class="theatre">
+                                                    <div class="screen">
+                                                        </div>
+                                                        <ol >
+                                                        <li class="row rowA">
+                                                        <ol class="seats" type="A">
+                                                        <li class="seat"><input id="A1" type="checkbox" /> <label for="A1">A1</label></li>
+                                                        <li class="seat"><input id="A2" type="checkbox" /> <label for="A2">A2</label></li>
+                                                        <li class="seat"><input id="A3" type="checkbox" /><label for="A3">A3</label></li>
+                                                        <li class="seat"><input id="A4" disabled="disabled" type="checkbox" /><label for="A4">A4</label></li>
+                                                        <li class="seat"><input id="A5" type="checkbox" /><label for="A5">A5</label></li>
+                                                        <li class="seat"><input id="A6" type="checkbox" /><label for="A6">A6</label></li>
+                                                        <li class="seat"><input id="A7" type="checkbox" /><label for="A7">A7</label></li>
+                                                        <li class="seat"><input id="A8" type="checkbox" /><label for="A8">A8</label></li>
+                                                        <li class="seat"><input id="A9" type="checkbox" /><label for="A9">A9</label></li>
+                                                        <li class="seat"><input id="A10" type="checkbox" /><label for="A10">A10</label></li>
+                                                        </ol>
+                                                        </li>
+                                                        <li class="row rowB">
+                                                        <ol class="seats" type="B">
+                                                        <li class="seat"><input id="B1" type="checkbox" /> <label for="B1">B1</label></li>
+                                                        <li class="seat"><input id="B2" type="checkbox" /> <label for="B2">B2</label></li>
+                                                        <li class="seat"><input id="B3" type="checkbox" /><label for="B3">B3</label></li>
+                                                        <li class="seat"><input id="B4" disabled="disabled" type="checkbox" /><label for="B4">B4</label></li>
+                                                        <li class="seat"><input id="B5" type="checkbox" /><label for="B5">B5</label></li>
+                                                        <li class="seat"><input id="B6" type="checkbox" /><label for="B6">B6</label></li>
+                                                        <li class="seat"><input id="B7" type="checkbox" /><label for="B7">B7</label></li>
+                                                        <li class="seat"><input id="B8" type="checkbox" /><label for="B8">B8</label></li>
+                                                        <li class="seat"><input id="B9" type="checkbox" /><label for="B9">B9</label></li>
+                                                        <li class="seat"><input id="B10" type="checkbox" /><label for="B10">B10</label></li>
+                                                        </ol>
+                                                        </li>
+                                                        <li class="row rowC">
+                                                        <ol class="seats" type="C">
+                                                        <li class="seat"><input id="C1" type="checkbox" /><label for="C1">C1</label></li>
+                                                        <li class="seat"><input id="C2" type="checkbox" /><label for="C2">C2</label></li>
+                                                        <li class="seat"><input id="C3" type="checkbox" /><label for="C3">C3</label></li>
+                                                        <li class="seat"><input id="C4" type="checkbox" /><label for="C4">C4</label></li>
+                                                        <li class="seat"><input id="C5" type="checkbox" /><label for="C5">C5</label></li>
+                                                        <li class="seat"><input id="C6" type="checkbox" /><label for="C6">C6</label></li>
+                                                        <li class="seat"><input id="C7" type="checkbox" /><label for="C7">C7</label></li>
+                                                        <li class="seat"><input id="C8" type="checkbox" /><label for="C8">C8</label></li>
+                                                        <li class="seat"><input id="C9" type="checkbox" /><label for="C9">C9</label></li>
+                                                        <li class="seat"><input id="C10" type="checkbox" /><label for="C10">C10</label></li>
+                                                        </ol>
+                                                        </li>
+                                                        <li class="row rowD">
+                                                        <ol class="seats" type="D">
+                                                        <li class="seat"><input id="D1" type="checkbox" /><label for="D1">D1</label></li>
+                                                        <li class="seat"><input id="D2" type="checkbox" /><label for="D2">D2</label></li>
+                                                        <li class="seat"><input id="D3" type="checkbox" /><label for="D3">D3</label></li>
+                                                        <li class="seat"><input id="D4" type="checkbox" /><label for="D4">D4</label></li>
+                                                        <li class="seat"><input id="D5" type="checkbox" /><label for="D5">D5</label></li>
+                                                        <li class="seat"><input id="D6" type="checkbox" /><label for="D6">D6</label></li>
+                                                        <li class="seat"><input id="D7" type="checkbox" /><label for="D7">D7</label></li>
+                                                        <li class="seat"><input id="D8" type="checkbox" /><label for="D8">D8</label></li>
+                                                        <li class="seat"><input id="D9" type="checkbox" /><label for="D9">D9</label></li>
+                                                        <li class="seat"><input id="D10" type="checkbox" /><label for="D10">D10</label></li>
+                                                        </ol>
+                                                        </li>
+                                                        <li class="row rowE">
+                                                        <ol class="seats" type="E">
+                                                        <li class="seat"><input id="E1" type="checkbox" /><label for="E1">E1</label></li>
+                                                        <li class="seat"><input id="E2" type="checkbox" /><label for="E2">E2</label></li>
+                                                        <li class="seat"><input id="E3" type="checkbox" /><label for="E3">E3</label></li>
+                                                        <li class="seat"><input id="E4" type="checkbox" /><label for="E4">E4</label></li>
+                                                        <li class="seat"><input id="E5" type="checkbox" /><label for="E5">E5</label></li>
+                                                        <li class="seat"><input id="E6" type="checkbox" /><label for="E6">E6</label></li>
+                                                        <li class="seat"><input id="E7" type="checkbox" /><label for="E7">E7</label></li>
+                                                        <li class="seat"><input id="E8" type="checkbox" /><label for="E8">E8</label></li>
+                                                        <li class="seat"><input id="E9" type="checkbox" /><label for="E9">E9</label></li>
+                                                        <li class="seat"><input id="E10" type="checkbox" /><label for="E10">E10</label></li>
+                                                        </ol>
+                                                        </li>
+                                                        <li class="row rowF">
+                                                        <ol class="seats" type="F">
+                                                        <li class="seat"><input id="F1" type="checkbox" /><label for="F1">F1</label></li>
+                                                        <li class="seat"><input id="F2" type="checkbox" /><label for="F2">F2</label></li>
+                                                        <li class="seat"><input id="F3" type="checkbox" /><label for="F3">F3</label></li>
+                                                        <li class="seat"><input id="F4" type="checkbox" /><label for="F4">F4</label></li>
+                                                        <li class="seat"><input id="F5" type="checkbox" /><label for="F5">F5</label></li>
+                                                        <li class="seat"><input id="F6" type="checkbox" /><label for="F6">F6</label></li>
+                                                        <li class="seat"><input id="F7" type="checkbox" /><label for="F7">F7</label></li>
+                                                        <li class="seat"><input id="F8" type="checkbox" /><label for="F8">F8</label></li>
+                                                        <li class="seat"><input id="F9" type="checkbox" /><label for="F9">F9</label></li>
+                                                        <li class="seat"><input id="F10" type="checkbox" /><label for="F10">F10</label></li>
+                                                        </ol>
+                                                        </li>
+                                                        </ol>
+                                                        </div>     
+                                            </div>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <button type="submit" class="btn btn-default">Update seats</button>
+                                        <button type="submit" class="btn btn-default">Cancel and go back</button>
+                                    </div>
+                                    <br/><br/><br/>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-4">
+                            <!-- <p>Tumblr glossier stumptown asymmetrical hoodie normcore migas raclette. Raclette polaroid sartorial thundercats. Umami fanny pack tumblr tousled raclette normcore you probably haven't heard of them offal bicycle rights. You probably haven't heard of them tote bag marfa church-key, swag tumblr before they sold out letterpress put a bird on it polaroid cronut fixie. Tumblr locavore pop-up, YOLO snackwave butcher tousled craft beer semiotics sustainable twee irony vinyl.</p>
+                            <p>Crucifix migas you probably haven't heard of them lomo tattooed chartreuse lumbersexual cardigan art party bespoke aesthetic. Cliche master cleanse authentic poutine. Hell of readymade woke literally activated charcoal typewriter quinoa irony locavore occupy man braid pabst before they sold out. Hashtag cold-pressed brunch, tousled bitters neutra tofu twee godard austin.</p>
+                            <p>Craft beer ennui semiotics irony occupy. Sartorial messenger bag cliche pickled. Paleo actually schlitz man bun retro distillery waistcoat kickstarter tumblr. Tousled fam retro 90's.</p> -->
+            
+                        </div>
+                    </div>
+                </div>            
+
+
+        <div class="site-footer">
+            <div id="FooterTop">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-4 col-xs-12 footer-section">
+                            <h2>Cinema Aurora<br/><small>Luxury Cinema Services</small></h2>
+                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eveniet modi totam id porro commodi repudiandae est, expedita nulla eius perspiciatis.</p>
+                        </div>
+                        <div class="col-sm-4 col-xs-12 footer-section"></div>
+                        <div class="col-sm-4 col-xs-12 footer-section"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="FooterBottom">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6">
+                            Copyright &copy; 2018 Cinema Aurora Inc.
+                        </div>
+                        <div class="col-xs-12 col-sm-6 text-right">
+                            Designed by RMIT SEPM Team #41
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="public/js/app.js"></script>
+</body>
+</html>
+
+
+
+
+
+

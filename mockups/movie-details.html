@@ -83,7 +83,6 @@
                       
                       <div class="col-sm-4"> 
                         <img src="public/assets/its_a_wonderful_life.jpg" class="img-responsive" style="width:100%" alt="Image">
-                        <!-- <p>Project 2</p>     -->
                       </div>
                       <div class="col-sm-4">
                         <div class="well">
@@ -98,28 +97,29 @@
                         </div>
                     </div>
                     <div class="col-sm-4">
-                        <h3>Sessions</h3>
+                        <h3>Select Sessions</h3>
                         <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Select a session
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item">Wednesday, 26 Sep 2018 - 11:30 AM at Theater #4</a>
-                                <a class="dropdown-item">Wednesday, 26 Sep 2018 - 01:30 PM at Theater #4</a>
-                                <a class="dropdown-item">Wednesday, 26 Sep 2018 - 02:30 PM at Theater #4</a>
-                                <a class="dropdown-item">Wednesday, 26 Sep 2018 - 07:30 PM at Theater #4</a>
-                                <a class="dropdown-item">Wednesday, 26 Sep 2018 - 09:30 PM at Theater #4</a>
-                            </div>
+                            <small>Select a session</small>
+                            <button class="btn btn-default aria-labelledby="dropdownMenuButton"" type="button" data-toggle="dropdown" >Select a session
+                            <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item">Wednesday, 26 Sep 2018 - 11:30 AM at Theater #4</a></li>
+                                <li><a class="dropdown-item">Wednesday, 26 Sep 2018 - 01:30 PM at Theater #4</a></li>
+                                <li><a class="dropdown-item">Wednesday, 26 Sep 2018 - 02:30 PM at Theater #4</a></li>
+                                <li><a class="dropdown-item">Wednesday, 26 Sep 2018 - 07:30 PM at Theater #4</a></li>
+                                <li><a class="dropdown-item">Wednesday, 26 Sep 2018 - 09:30 PM at Theater #4</a></li>
+                            </ul>
                         </div>
-
+                        <br />
                         <div class="flex-item">
             
                             <div class="movieTickets">
                                 <!-- <span id="price">$20.00</span> -->
-                                <label class="input">Number of tickets: </label><input type="number" value='0' min="0" max="100" default="0" onchange="calculateSubTotal()">
+                                <label class="input">Number of tickets: </label>
+                                <input type="number" value='0' min="0" max="100" default="0">
                                 
                                 <input type="text" id="total" placeholder="$0.00">
-                                <button  onclick="addToCart()" id="addCart">Add to cart</button>
+                                <button>Select your seats</button>
                             </div>   
                             </div>
                         </div>
