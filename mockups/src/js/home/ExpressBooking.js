@@ -90,7 +90,6 @@ class ExpressBooking extends Component {
                 <div class="col-sm-2 col-md-2 pull-right">
                     <input type="submit" name="submit" value="Add To Cart" className="form-control btn btn-primary"/>
                 </div>
-
                 </div>
             </form>
            
