@@ -1,0 +1,118 @@
+
+  .seating {
+    list-style :none;
+    padding: 0;
+    margin: 0;
+  }
+  
+ 
+  .seating {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;  
+  }
+  
+  .seat {
+    display: flex;
+    flex: 0 0 14.28571428571429%;
+    padding: 5px;
+    position: relative;  
+ 
+   
+    }
+    label {    
+      display: block;
+      position: relative;    
+      width: 50%;    
+      text-align: center;
+      font-size: 14px;
+      font-weight: bold;
+      line-height: 1.5rem;
+      padding: 4px 0;
+      background: rgb(18, 250, 10);
+      border-radius: 5px;
+      animation-duration: 300ms;
+      animation-fill-mode: both;
+      
+     
+  }
+  
+  @-webkit-keyframes rubberBand {
+    0% {
+      -webkit-transform: scale3d(1, 1, 1);
+              transform: scale3d(1, 1, 1);
+    }
+  
+    30% {
+      -webkit-transform: scale3d(1.25, 0.75, 1);
+              transform: scale3d(1.25, 0.75, 1);
+    }
+  
+    40% {
+      -webkit-transform: scale3d(0.75, 1.25, 1);
+              transform: scale3d(0.75, 1.25, 1);
+    }
+  
+    50% {
+      -webkit-transform: scale3d(1.15, 0.85, 1);
+              transform: scale3d(1.15, 0.85, 1);
+    }
+  
+    65% {
+      -webkit-transform: scale3d(.95, 1.05, 1);
+              transform: scale3d(.95, 1.05, 1);
+    }
+  
+    75% {
+      -webkit-transform: scale3d(1.05, .95, 1);
+              transform: scale3d(1.05, .95, 1);
+    }
+  
+    100% {
+      -webkit-transform: scale3d(1, 1, 1);
+              transform: scale3d(1, 1, 1);
+    }
+  }
+  
+  @keyframes rubberBand {
+    0% {
+      -webkit-transform: scale3d(1, 1, 1);
+              transform: scale3d(1, 1, 1);
+    }
+  
+    30% {
+      -webkit-transform: scale3d(1.25, 0.75, 1);
+              transform: scale3d(1.25, 0.75, 1);
+    }
+  
+    40% {
+      -webkit-transform: scale3d(0.75, 1.25, 1);
+              transform: scale3d(0.75, 1.25, 1);
+    }
+  
+    50% {
+      -webkit-transform: scale3d(1.15, 0.85, 1);
+              transform: scale3d(1.15, 0.85, 1);
+    }
+  
+    65% {
+      -webkit-transform: scale3d(.95, 1.05, 1);
+              transform: scale3d(.95, 1.05, 1);
+    }
+  
+    75% {
+      -webkit-transform: scale3d(1.05, .95, 1);
+              transform: scale3d(1.05, .95, 1);
+    }
+  
+    100% {
+      -webkit-transform: scale3d(1, 1, 1);
+              transform: scale3d(1, 1, 1);
+    }
+  }
+  
+  .rubberBand {
+    -webkit-animation-name: rubberBand;
+            animation-name: rubberBand;
+  }
