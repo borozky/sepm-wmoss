@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="public/css/app.css">
+    <link rel="stylesheet" href="src/scss/Pages/HomePage.scss">
 </head>
 <body class="end-user-page">
     <div class="site-wrapper">
@@ -74,55 +75,66 @@
 
             <div class="entry-header">
                 <div class="container">
-                    <h3>Details</h3>
+                    <h3>It's a Wonderful Life (1946)</h3>
                 </div>
             </div>
-            <div class="container text-center">    
-                    <h3>It's a Wonderful Life (1946)</h3><br/>
-                    <div class="row">
-                      
+            <div class="container">    
+                    <div class="row">              
                       <div class="col-sm-4"> 
                         <img src="public/assets/its_a_wonderful_life.jpg" class="img-responsive" style="width:100%" alt="Image">
                       </div>
                       <div class="col-sm-4">
                         <div class="well">
-                            <h5>It's a Wonderful Life (1946)</h5>
-                         <p>PG  |  2h 10min<br/>Drama, Family, Fantasy<br/>7 January 1947 (USA)</p>
+                            <h5 class="text-left">It's a Wonderful Life (1946)</h5>
+                            <p class="text-left">PG <span class="bar">&nbsp;|&nbsp;</span>2h 10min<br/>Drama, Family, Fantasy<br/>7 January 1947 (USA)</p>
+                         <div class="text-left">
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                            </div>
                         </div>
+                        
                         <div class="well" >
-                         <p class="pull-left">An angel is sent from Heaven to help a desperately frustrated businessman by showing him what life would have been like if he had never existed.</p>
-                         <p>Director: Frank Capra
+                         <p class="text-left">An angel is sent from Heaven to help a desperately frustrated businessman by showing him what life would have been like if he had never existed.</p>
+                         <p class="text-left">Director: Frank Capra
                                 Writers: Frances Goodrich (screenplay), Albert Hackett (screenplay)
                                 Stars: James Stewart, Donna Reed, Lionel Barrymore</p>  
                         </div>
                     </div>
-                    <div class="col-sm-4">
+
+                    <div class="sessionForm col-sm-4">
                         <h3>Select Sessions</h3>
-                        <div class="dropdown">
-                            <small>Select a session</small>
-                            <button class="btn btn-default aria-labelledby="dropdownMenuButton"" type="button" data-toggle="dropdown" >Select a session
-                            <span class="caret"></span></button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item">Wednesday, 26 Sep 2018 - 11:30 AM at Theater #4</a></li>
-                                <li><a class="dropdown-item">Wednesday, 26 Sep 2018 - 01:30 PM at Theater #4</a></li>
-                                <li><a class="dropdown-item">Wednesday, 26 Sep 2018 - 02:30 PM at Theater #4</a></li>
-                                <li><a class="dropdown-item">Wednesday, 26 Sep 2018 - 07:30 PM at Theater #4</a></li>
-                                <li><a class="dropdown-item">Wednesday, 26 Sep 2018 - 09:30 PM at Theater #4</a></li>
-                            </ul>
-                        </div>
+                        <div class="container">
+                            <form>
+                              <div class="form-group">
+                                <p class="help-block">Select a session</p>
+                                  <div class="dropdown">
+                                    <button class="btn btn-default aria-labelledby="dropdownMenuButton"" type="button" data-toggle="dropdown" >Select a session
+                                        <span class="caret"></span></button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item">Wednesday, 26 Sep 2018 - 11:30 AM at Theater #4</a></li>
+                                                <li><a class="dropdown-item">Wednesday, 26 Sep 2018 - 01:30 PM at Theater #4</a></li>
+                                                   <li><a class="dropdown-item">Wednesday, 26 Sep 2018 - 02:30 PM at Theater #4</a></li>
+                                                <li><a class="dropdown-item">Wednesday, 26 Sep 2018 - 07:30 PM at Theater #4</a></li>
+                                                <li><a class="dropdown-item">Wednesday, 26 Sep 2018 - 09:30 PM at Theater #4</a></li>
+                                            </ul>
+                                        </div>
+                              </div>
                         <br />
                         <div class="flex-item">
-            
+                            <p class="help-block">Number of tickets:</p>
                             <div class="movieTickets">
-                                <!-- <span id="price">$20.00</span> -->
-                                <label class="input">Number of tickets: </label>
-                                <input type="number" value='0' min="0" max="100" default="0">
+                                <input type="number" value='0' min="0" max="50" default="0">
                                 
                                 <input type="text" id="total" placeholder="$0.00">
-                                <button>Select your seats</button>
+                                <button class="btn btn-default">Select your seats</button>
+                            </form>
                             </div>   
                             </div>
                         </div>
+                    </div>
                     </div>
 
                     <nav>
