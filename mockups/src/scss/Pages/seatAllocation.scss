@@ -1,4 +1,7 @@
-
+.screen {
+  border: 2px solid;
+  border-radius: 8px;
+}
 
 ol {
   list-style: none;
@@ -13,16 +16,16 @@ ol {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  justify-content: flex-start;
+  justify-content: center;
 }
 
 .seat {
   display: flex;
-  flex: 0 0 5%;
+  flex: 0 0 8%;
   // padding: 5px;
   position: relative;
   &:nth-child(5) {
-    margin-right: 5%;
+    margin-right: 8%;
   }
   input[type="checkbox"] {
     position: absolute;
