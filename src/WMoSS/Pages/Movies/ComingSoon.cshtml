@@ -12,34 +12,53 @@
     </div>
 }
 <div class="container clearfix">
-    @if (Model.Movies != null && Model.Movies.Count() > 0)
-    {
-    <ul>
-        @foreach(var movie in Model.Movies)
+
+    <div class="dropdown">
+        <label>Sort by: </label>
+        <select class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+            <option value="title-a-z">A-Z</option>
+            <option value="latest">Latest</option>
+        </select>
+    </div>
+
+        @if (Model.Movies != null && Model.Movies.Count() > 0)
         {
-            <li>
-                @{ 
-                    var releaseYear = " ";
-                    if (movie.ReleaseDate.HasValue)
-                    {
-                        releaseYear += "(";
-                        releaseYear += movie.ReleaseDate.Value.ToString("yyyy");
-                        releaseYear += ")";
-                    }
-
-                    var movieTitle = movie.Title + releaseYear;
+            <div class="row text-center">
+            @foreach (var movie in Model.Movies)
+            {
+                var releaseYear = " ";
+                if (movie.ReleaseDate.HasValue)
+                {
+                    releaseYear += "(";
+                    releaseYear += movie.ReleaseDate.Value.ToString("yyyy");
+                    releaseYear += ")";
                 }
-                <b>@movieTitle</b>
-            </li>
 
+                var movieTitle = movie.Title + releaseYear;
+                <div class="col-sm-6 col-md-3">
+                    <div class="thumbnail">
+                        <h4>@movieTitle</h4>
+                        @if (movie.PosterFileName != null)
+                        {
+                            <img src="@movie.PosterFileName" class="img-responsive" style="width:100%" alt="Image">
+                        }
+                        else
+                        {
+                            <img src="http://placehold.it/270x400" class="img-responsive" style="width:100%" alt="Image">
+                        }
+                        <a asp-page="/Movies/Details" asp-route-id="@movie.Id" class="btn btn-primary col-xs-12" role="button">View Details</a>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+
+            }
+            </div>
         }
-    </ul>
-    }
-    else
-    {
-        <p>There are no movies coming soon.</p>
-    }
-</div>
+        else
+        {
+            <p>There are no movies coming soon.</p>
+        }
+    </div>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
