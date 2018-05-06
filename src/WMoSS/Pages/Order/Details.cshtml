@@ -18,99 +18,112 @@
 }
 
 <div class="container">
-    <div class="row">
-        <div class="col-xs-12">
-            <br>
-            <div class="row">
-                <div class="col-xs-12 col-md-6">
-                    <div class="panel panel-default height">
-                        <div class="panel-heading">
-                            Cinema Aurora Inc.
-                            <br>
-                            <small class="text-muted">Luxury Cinema Services</small>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                    <br>
+                    <div class="row">
+
+                        <div class="col-xs-12 col-md-6">
+                            <div class="panel panel-warning height">
+                                <div class="panel-heading">
+                                    Cinema Aurora Inc.
+                                    <br>
+                                    <small class="text-muted">Luxury Cinema Services</small>
+                                </div>
+                                <div class="panel-body">
+                                    123 Lygon Street <br>
+                                    Melbourne VIC 3000 <br>
+                                    PO Box. 91823 <br>
+                                    Tel. 03 8898 8910 <br>
+                                    info@cinemaaurora.com.au<br>
+                                    ABN: 48 150 248 927
+                                </div>
+                            </div>
                         </div>
-                        <div class="panel-body">
-                            123 Lygon Street <br>
-                            Melbourne VIC 3000 <br>
-                            PO Box. 91823 <br>
-                            Tel. 03 8898 8910 <br>
-                            info@cinemaaurora.com.au<br>
-                            ABN: 48 150 248 927
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-md-6 pull-left">
-                    <div class="panel panel-default height">
-                        <div class="panel-heading">
-                            Billing Details
-                            <br>
-                            <small class="text-muted">Customer And Payment Information</small>
-                        </div>
-                        <div class="panel-body">
-                            <strong>John Doe</strong><br>
-                            john.doe@gmail.com
-                            <hr>
-                            <strong>Card Type:</strong> Master Card<br>
-                            <strong>Card Name:</strong>@Model.OrderDetails.Order.FullName<br>
-                            <strong>Card Number:</strong> @Model.OrderDetails.PaymentInformation<br>
-                            <strong>Exp Date:</strong> @Model.OrderDetails.Order.Expiry<br>
+
+                        <div class="col-xs-12 col-md-6 pull-left">
+                            <div class="panel panel-default height">
+                                <div class="panel-heading">
+                                    Billing Details
+                                    <br>
+                                    <small class="text-muted">Customer And Payment Information</small>
+                                </div>
+                                <div class="panel-body">
+                                    <strong>@Model.OrderDetails.Order.FullName</strong><br>
+                                    @Model.OrderDetails.Order.EmailAddress
+                                <hr>
+                                <strong>Card Type:</strong> Master Card<br>
+                                <strong>Card Number:</strong> @Model.OrderDetails.Order.CardNumber<br>
+                                <strong>Exp Date:</strong> @Model.OrderDetails.Order.Expiry<br>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="text-center"><strong>Order summary</strong></h3>
-                </div>
-                <div class="panel-body">
-                    <div class="table-responsive">
-                        <table class="table table-condensed">
-                            <thead>
-                                <tr>
-                                    <td><strong>Movie</strong></td>
-                                    <td class="text-left"><strong>Booking Information</strong></td>
-                                    <td class="text-center"><strong>Price</strong></td>
-                                    <td class="text-center"><strong>Quantity</strong></td>
-                                    <td class="text-right"><strong>Total</strong></td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach(var orderItem in Model.OrderDetails.OrderItems)
-                                {
-                                <tr>
-                                    <td><img class='order-summary-img' src="http://placehold.it/270x400" alt="@orderItem.MovieSession.Movie.Title"></td>
-                                    <td>
-                                        <strong>@string.Format("{0}({1:yyyy})", orderItem.MovieSession.Movie.Title, orderItem.MovieSession.Movie.ReleaseDate)</strong>
-                                        <br>
-                                        @string.Format("{0:h:mm tt dddd, dd MMMM yyyy}", orderItem.MovieSession.ScheduledAt)
-                                        <br>
-                                        at <i>@string.Format("Cinema Aurora {0}", orderItem.MovieSession.Theater.Name)</i>
-                                        <br>
-                                        Seats: <b>@string.Join(", ", orderItem.Tickets.Select(t => t.SeatNumber))</b>
-                                    </td>
-                                    <td class="text-center">@string.Format("{0:C2} each", orderItem.MovieSession.TicketPrice)</td>
-                                    <td class="text-center">@string.Format("{0} tickets", orderItem.Tickets.Count())</td>
-                                    <td class="text-right">@string.Format("{0:C2}", orderItem.SubTotal)</td>
-                                </tr>
-                                }
-                                <tr>
-                                    <td class="emptyrow"></td>
-                                    <td class="emptyrow"></td>
-                                    <td class="emptyrow text-center"><strong>@string.Format("{0}% GST (Included):", Model.OrderDetails.GstRate * 100)</strong></td>
-                                    <td class="emptyrow text-right">@string.Format("{0:C2}", Model.OrderDetails.GstAmount)</td>
-                                </tr>
-                                <tr>
-                                    <td class="emptyrow"><i class="fa fa-barcode iconbig"></i></td>
-                                    <td class="emptyrow"></td>
-                                    <td class="emptyrow text-center"><strong>Total</strong></td>
-                                    <td class="emptyrow text-right"><b>@string.Format("Total: {0:C2}", Model.OrderDetails.GrandTotal)</b></td>
-                                </tr>
-                            </tbody>
-                        </table>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="text-center"><strong>Order summary</strong></h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <td><strong>Movie</strong></td>
+                                        <td class="text-left"><strong>Booking Information</strong></td>
+                                        <td class="text-center"><strong>Price</strong></td>
+                                        <td class="text-center"><strong>Quantity</strong></td>
+                                        <td class="text-right"><strong>Total</strong></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach(var orderItem in Model.OrderDetails.OrderItems)
+                                    {
+                                        var movie = orderItem.MovieSession.Movie;
+                                        <tr>
+                                            <td>
+                                                @if (movie.PosterFileName == null)
+                                                {
+                                                    <img src="http://placehold.it/135x200" alt="@string.Format("{0}{1:(yyyy)}",movie.Title, movie.ReleaseDate)">
+                                                }
+                                                else
+                                                {
+                                                    <img src="@movie.PosterFileName" alt="@string.Format("{0}{1:(yyyy)}", movie.Title, movie.ReleaseDate)">
+                                                }
+                                            </td>
+                                            <td>
+                                                <strong>@string.Format("{0}({1:yyyy})", orderItem.MovieSession.Movie.Title, orderItem.MovieSession.Movie.ReleaseDate)</strong>
+                                                <br>
+                                                @string.Format("{0:h:mm tt dddd, dd MMMM yyyy}", orderItem.MovieSession.ScheduledAt)
+                                                <br>
+                                                at <i>@string.Format("Cinema Aurora {0}", orderItem.MovieSession.Theater.Name)</i>
+                                                <br>
+                                                Seats: <b>@string.Join(", ", orderItem.Tickets.Select(t => t.SeatNumber))</b>
+                                            </td>
+                                            <td class="text-center">@string.Format("{0:C2} each", orderItem.MovieSession.TicketPrice)</td>
+                                            <td class="text-center">@string.Format("{0} tickets", orderItem.Tickets.Count())</td>
+                                            <td class="text-right">@string.Format("{0:C2}", orderItem.SubTotal)</td>
+                                        </tr>
+                                    }
+                                    <tr>
+                                        <td class="emptyrow"></td>
+                                        <td class="emptyrow"></td>
+                                        <td class="emptyrow text-center"><strong>@string.Format("{0}% GST (Included):", Model.OrderDetails.GstRate * 100)</strong></td>
+                                        <td class="emptyrow text-right">@string.Format("{0:C2}", Model.OrderDetails.GstAmount)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="emptyrow"><i class="fa fa-barcode iconbig"></i></td>
+                                        <td class="emptyrow"></td>
+                                        <td class="emptyrow text-center"><strong>Total</strong></td>
+                                        <td class="emptyrow text-right"><b>@string.Format("Total: {0:C2}", Model.OrderDetails.GrandTotal)</b></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
