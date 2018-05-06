@@ -39,24 +39,41 @@
 
 }
 
-<div class="container clearfix">
-
-    <div id="ExpressCheckoutParent"></div>
-    <div class="row">
-        <h2 class="text-center">All Movies</h2>
-        <hr />
+<div class="panel panel-warning height">
+    <div class="panel-heading">
+        Express Checkout
+        <br>
+        <small class="text-muted">For quick and convinient ticket purchase</small>
     </div>
-    <div class="row">
-        @foreach (var movie in Model.Movies)
+    <div class="panel-body">
+        <div id="ExpressCheckoutParent"></div>
+    </div>
+</div>
+
+<div class="clearfix" style="margin: 25px">
+
+    <h3>Now Showing</h3>
+    <nav class="navbar" style="font-size: 12px">
+        <ul class="pagination text-right">
+            <!--more button-->
+            <li class="page-item">
+                <a class="page-link" href="now-showing.html">View More</a>
+            </li>
+        </ul>
+    </nav>
+    
+
+    <div class="row text-center">
+        @foreach (var movie in Model.NowShowingMovies)
         {
-            <div class="col-sm-6 col-md-4">
+            <div class="col-sm-3 col-md-3">
                 <div class="thumbnail clearfix" style="width:70%;">
                     <h4>@string.Format("{0}{1: (yyyy)}", movie.Title, movie.ReleaseDate)</h4>
-                    @if (movie.PosterFileName == null) 
+                    @if (movie.PosterFileName == null)
                     {
                         <img src="http://placehold.it/270x400" alt="@string.Format("{0}{1:(yyyy)}", movie.Title, movie.ReleaseDate)">
                     }
-                    else 
+                    else
                     {
                         <img src="@movie.PosterFileName" alt="@string.Format("{0}{1:(yyyy)}", movie.Title, movie.ReleaseDate)">
                     }
@@ -66,6 +83,45 @@
             </div>
         }
     </div>
+
+    <br>
+    <hr>
+
+    <h3>Coming Soon</h3>
+    <nav class="navbar" style="font-size: 12px">
+        <ul class="pagination text-right">
+            <!--more button-->
+            <li class="page-item">
+                <a class="page-link" href="now-showing.html">View More</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="row text-center">
+        @foreach (var movie in Model.ComingSoonMovies)
+        {
+            <div class="col-sm-3 col-md-3">
+                <div class="thumbnail clearfix" style="width:70%;">
+                    <h4>@string.Format("{0}{1: (yyyy)}", movie.Title, movie.ReleaseDate)</h4>
+                    @if (movie.PosterFileName == null)
+                    {
+                        <img src="http://placehold.it/270x400" alt="@string.Format("{0}{1:(yyyy)}", movie.Title, movie.ReleaseDate)">
+                    }
+                    else
+                    {
+                        <img src="@movie.PosterFileName" alt="@string.Format("{0}{1:(yyyy)}", movie.Title, movie.ReleaseDate)">
+                    }
+                    <a asp-page="/Movies/Details" asp-route-id="@movie.Id" asp-ro class="btn btn-primary col-xs-12" role="button">View Details</a>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        }
+    </div>
+
+
+
+
 </div>
+
 
 <form asp-page="/Index" style="display:none;"></form>

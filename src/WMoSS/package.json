@@ -19,9 +19,11 @@
   "dependencies": {
     "bootstrap": "^3.3.7",
     "bootstrap-sass": "^3.3.7",
-    "font-awesome": "^4.7.0",
     "jquery": "^1.11.3",
     "jquery-validation": "^1.17.0",
-    "jquery-validation-unobtrusive": "3.2.6"
+    "jquery-validation-unobtrusive": "3.2.6",
+    "laravel-mix": "^2.1.11",
+    "react": "^16.3.1",
+    "react-dom": "^16.3.1"
   }
 }
