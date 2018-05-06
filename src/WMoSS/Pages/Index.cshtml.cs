@@ -19,13 +19,27 @@ namespace WMoSS.Pages
         {
             _context = context;
         }
-
-        public IEnumerable<Movie> Movies { get; set; }
+        
+        public IEnumerable<Movie> NowShowingMovies { get; set; }
+        public IEnumerable<Movie> ComingSoonMovies { get; set; }
         public IEnumerable<FeatureSlide> FeatureSlides { get; set; }
 
-        public void OnGet()
+        public async Task OnGet()
         {
-            Movies = _context.Movies.ToList();
+            ComingSoonMovies = await _context.Movies
+                .AsNoTracking()
+                .Where(m => m.MovieSessions.Count() == 0)
+                .Where(m => m.ReleaseDate != null)
+                .Where(m => DateTime.Now.AddMonths(3) > m.ReleaseDate.Value)
+                .ToListAsync();
+
+            NowShowingMovies = await _context.Movies
+                .Include(m => m.MovieSessions)
+                .Where(m => m.MovieSessions.Count() > 0)
+                .AsNoTracking()
+                .ToListAsync();
+
+
             FeatureSlides = new FeatureSlide[]
             {
                 new FeatureSlide { ImageUrl = "images/1.jpg" },
