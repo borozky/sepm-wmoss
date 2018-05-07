@@ -11,3 +11,4 @@ import "./coming-soon/index";
 import "./cart/index";
 import "./checkout/index";
 import "./order-summary/index";
+import "./seat-allocation/index";
