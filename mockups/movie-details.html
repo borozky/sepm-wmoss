@@ -116,7 +116,7 @@
                                             <ul class="dropdown-menu">
                                                 <li><a class="dropdown-item">Wednesday, 26 Sep 2018 - 11:30 AM at Theater #4</a></li>
                                                 <li><a class="dropdown-item">Wednesday, 26 Sep 2018 - 01:30 PM at Theater #4</a></li>
-                                                   <li><a class="dropdown-item">Wednesday, 26 Sep 2018 - 02:30 PM at Theater #4</a></li>
+                                                <li><a class="dropdown-item">Wednesday, 26 Sep 2018 - 02:30 PM at Theater #4</a></li>
                                                 <li><a class="dropdown-item">Wednesday, 26 Sep 2018 - 07:30 PM at Theater #4</a></li>
                                                 <li><a class="dropdown-item">Wednesday, 26 Sep 2018 - 09:30 PM at Theater #4</a></li>
                                             </ul>
@@ -126,10 +126,21 @@
                         <div class="flex-item">
                             <p class="help-block">Number of tickets:</p>
                             <div class="movieTickets">
-                                <input type="number" value='0' min="0" max="50" default="0">
+                                <div>
+                                    <ul id="qty">
+                                        <li><input type="number" min="1" max="15" default="1"></li>
+                                        <li><small>x $20.00 per ticket</small></li>
+                                    </ul>
+                                        
+                                        
+                                </div>
+                                <br/>
+                                <div>
+                                    <button class="btn btn-default">Select your seats</button>
+                                </div>
                                 
-                                <input type="text" id="total" placeholder="$0.00">
-                                <button class="btn btn-default">Select your seats</button>
+                                
+                                
                             </form>
                             </div>   
                             </div>
