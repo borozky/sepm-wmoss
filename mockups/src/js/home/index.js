@@ -9,4 +9,12 @@ $(document).ready( function() {
     $('[data-toggle="tooltip"]').tooltip();
 });
 
+$("#selectSeats").on("click", function(e) {
+    e.preventDefault();
+});
+
+$('#SeatAllocationModal').on('shown.bs.modal', function () {
+    $('#selectSeats').focus()
+  })
+
 ReactDOM.render(<ExpressBooking/>, expressCheckoutParent)
