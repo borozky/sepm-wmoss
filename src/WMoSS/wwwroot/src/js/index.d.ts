@@ -4,13 +4,16 @@ interface Theater {
     name?: string
     capacity?: number
     address: string
+    movieSessions?: MovieSession[]
 }
 
 interface MovieSession {
     id: number
     ticketPrice: number
     scheduledAt: string
+    theater?: Theater
     theaterId: number
+    movie?: Movie
     movieId: number
     scheduledById?: number
     movie?: Movie
@@ -19,6 +22,7 @@ interface MovieSession {
 }
 
 interface Movie {
+    $id?: string,
     id: number
     title: string
     releaseYear?: number
@@ -34,5 +38,12 @@ interface Movie {
 interface ExpressBookingState {
     theaters: Theater[],
     movies: Movie[],
-    sessions: MovieSession[]
+    sessions: MovieSession[],
+    selectedMovieId?: number,
+    selectedTheaterId?: number,
+    selectedSessionId?: number
+}
+interface MoviesAndSessions {
+    movieSessions?: MovieSession[],
+    movies?: Movie[]
 }
