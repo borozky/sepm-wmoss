@@ -9,6 +9,4 @@ $(document).ready( function() {
     $('[data-toggle="tooltip"]').tooltip();
 });
 
-if (expressCheckoutParent) {
-    ReactDOM.render(<ExpressBooking/>, expressCheckoutParent)
-}
+ReactDOM.render(<ExpressBooking/>, expressCheckoutParent)
