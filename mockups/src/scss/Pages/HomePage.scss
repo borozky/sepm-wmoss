@@ -2,16 +2,16 @@
     position: relative;
     padding: 0px;
     margin-bottom: 30px;
-    width: 200px;
+    width: 120px;
   }
   
-  .thumbnail > h4 {
+  .thumbnail > h5 {
     padding: 7px 5px 0px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  .thumbnail h4 .info {
+  .thumbnail h5 .info {
     position: absolute;
     top: 0px;
     right: 0px;
@@ -24,22 +24,37 @@
     cursor:  pointer;
   }
   
-  .thumbnail h4 .info > span {
+  .thumbnail h6 .info > span {
     margin-right: 20px;   
   }
   
   .thumbnail img {
     width: 100%;
-    height: 400px;
   }
   .thumbnail a.btn {
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
   }
 
-  .thumbnailWidth {
-    max-width: 70%;
-  }
+  .wrapper {
+    width: 960px;
+    border: 1px solid;
+    overflow: hidden; /* will contain if #first is longer than #second */
+}
+.leftfloat {
+    width: 70%;
+    float:left; /* add this */
+    border: 0px solid;
+}
+.rightfloat {
+    border: 1px solid;
+    overflow: hidden; /* if you don't want #second to wrap below #first */
+}
+
+.view_more {
+  font-size: 12px; 
+  margin-right: 30px
+}
 
 
   
