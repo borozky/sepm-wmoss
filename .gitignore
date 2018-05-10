@@ -264,3 +264,9 @@ __pycache__/
 # SEPM WMOSS archive files
 src-with-excel-as-datasource/
 tests-with-excel-as-datasource/
+
+# Ignore compiled front-end files
+src/WMoSS/wwwroot/js/site.js
+src/WMoSS/wwwroot/js/site.min.js
+src/WMoSS/wwwroot/js/site.css
+src/WMoSS/wwwroot/js/site.min.css

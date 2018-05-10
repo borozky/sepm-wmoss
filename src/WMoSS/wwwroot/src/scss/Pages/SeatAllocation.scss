@@ -1,70 +1,170 @@
-﻿#SeatAllocation {
-    .seating {
-        list-style: none;
-        padding: 0;
-        margin: 0;
+.screen {
+  border: 2px solid;
+  border-radius: 8px;
+}
+
+ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.row {
+}
+
+.seats {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+
+.seat {
+  display: flex;
+  flex: 0 0 8%;
+  // padding: 5px;
+  position: relative;
+  &:nth-child(5) {
+    margin-right: 8%;
+  }
+  input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+  }
+  input[type="checkbox"]:checked {
+    + label {
+      background: #F42536;
+      -webkit-animation-name: rubberBand;
+      animation-name: rubberBand;
+      animation-duration: 300ms;
+      animation-fill-mode: both;
     }
-
-
-    .seats {
-        display: flex;
-    }
-
-
-    .seat {
-        display: flex;
-        flex: 0 0 10%;
-        padding: 5px;
-        position: relative;
-    }
-
-    input.seat {
-        opacity: 0;
+  }
+  input[type="checkbox"]:disabled {
+    + label {
+      background: #747373;
+      text-indent: -9999px;
+      overflow: hidden;
+      &:after {
+        content: '\2297';
+        text-indent: 0;
         position: absolute;
+        top: 4px;
+        left: 50%;
+        transform: translate(-50%, 0%);
+      }
+      &:hover {
+        box-shadow: none;
+        cursor: not-allowed;
+      }
     }
+  }
+  label {
+    display: block;
+    position: relative;
+    width: 75%;
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1.5rem;
+    padding: 4px 0;
+    background: #4cfa4c;
+    border-radius: 5px;
+    animation-duration: 300ms;
+    animation-fill-mode: both;
 
-    label {
-        width: 50%;
-        text-align: center;
-        font-size: 12px;
-        font-weight: bold;
-        padding: 4px 0;
-        background: #1df90a;
-        border-radius: 5px;
-        animation-duration: 300ms;
-        animation-fill-mode: both;
+    &:before {
+      // content: "";
+      // position: absolute;
+      // border-radius: 3px;
     }
-
-    .checkbox {
-        text-indent: -9999px;
-        visibility: hidden;
+    &:hover {
+      cursor: pointer;
+      box-shadow: 0 0 0px 2px #5c6aff;
     }
+  }
+}
 
-    .checkbox label::before {
-        content: "";
-        display: inline-block;
-        height: 16px;
-        width: 16px;
-        border: 1px solid;
-    }
+@-webkit-keyframes rubberBand {
+  0% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
 
-    label + input[type=checkbox]:checked {
-        background: #a30707;
-    }
+  30% {
+    -webkit-transform: scale3d(1.25, 0.75, 1);
+    transform: scale3d(1.25, 0.75, 1);
+  }
+
+  40% {
+    -webkit-transform: scale3d(0.75, 1.25, 1);
+    transform: scale3d(0.75, 1.25, 1);
+  }
+
+  50% {
+    -webkit-transform: scale3d(1.15, 0.85, 1);
+    transform: scale3d(1.15, 0.85, 1);
+  }
+
+  65% {
+    -webkit-transform: scale3d(0.95, 1.05, 1);
+    transform: scale3d(0.95, 1.05, 1);
+  }
+
+  75% {
+    -webkit-transform: scale3d(1.05, 0.95, 1);
+    transform: scale3d(1.05, 0.95, 1);
+  }
+
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes rubberBand {
+  0% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+
+  30% {
+    -webkit-transform: scale3d(1.25, 0.75, 1);
+    transform: scale3d(1.25, 0.75, 1);
+  }
+
+  40% {
+    -webkit-transform: scale3d(0.75, 1.25, 1);
+    transform: scale3d(0.75, 1.25, 1);
+  }
+
+  50% {
+    -webkit-transform: scale3d(1.15, 0.85, 1);
+    transform: scale3d(1.15, 0.85, 1);
+  }
+
+  65% {
+    -webkit-transform: scale3d(0.95, 1.05, 1);
+    transform: scale3d(0.95, 1.05, 1);
+  }
+
+  75% {
+    -webkit-transform: scale3d(1.05, 0.95, 1);
+    transform: scale3d(1.05, 0.95, 1);
+  }
+
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+.rubberBand {
+  -webkit-animation-name: rubberBand;
+  animation-name: rubberBand;
+}
 
 
-    .checkbox :after {
-        content: "";
-        display: inline-block;
-        height: 6px;
-        width: 9px;
-        border-left: 2px solid;
-        border-bottom: 2px solid;
-        transform: rotate(-45deg);
-    }
-
-    label:hover {
-        cursor: pointer;
-        box-shadow: 0 0 0px 2px #4f5acf;
-    }
+#SeatAllocation {
+  padding-bottom: 100px;
 }

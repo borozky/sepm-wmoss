@@ -5,5 +5,8 @@ mix.autoload({
 })
 .react("wwwroot/src/js/app.js", "wwwroot/js/site.js")
 .sass("wwwroot/src/scss/app.scss", "wwwroot/css/site.css")
-.setPublicPath('wwwroot');
+.setPublicPath('wwwroot')
+.sourceMaps();
+
+
 
