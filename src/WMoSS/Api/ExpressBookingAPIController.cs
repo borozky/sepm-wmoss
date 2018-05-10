@@ -69,6 +69,27 @@ namespace WMoSS.Api
                 movieSessions = movieSessions,
                 theaters = theaters
             });
+        } // end GetData(int? movieId, int? theaterId)
+
+
+        // GET: Api/ExpressBooking/Seats/Unavailable?movieSessionId=5
+        [HttpGet("Seats/Unavailable")]
+        public async Task<IActionResult> GetUnavailableSeatsBySessionIdAsync([FromQuery] int? movieSessionId) 
+        {
+            if (movieSessionId == null)
+            {
+                return NotFound();
+            }
+
+            var unavailableSeats = await _db.Tickets
+                .Where(t => t.MovieSessionId == movieSessionId)
+                .Select(t => t.SeatNumber)
+                .ToArrayAsync();
+            
+            return new JsonResult(unavailableSeats);
+            
         }
+
+
     }
 }
