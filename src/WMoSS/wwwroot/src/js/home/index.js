@@ -3,10 +3,15 @@ import ReactDOM from "react-dom";
 import ExpressBooking from "./ExpressBooking";
 
 /** @type {HTMLDivElement} */
-var expressCheckoutParent = document.getElementById("ExpressCheckoutParent");
+var expressBookingParent = document.getElementById("ExpressBookingParent");
 
 $(document).ready( function() {
     $('[data-toggle="tooltip"]').tooltip();
 });
 
-ReactDOM.render(<ExpressBooking/>, expressCheckoutParent)
+// prevents dropdown menu from closing when a seat is clicked
+$(document).on('click', '#ExpressBookingParent .dropdown-menu', function (e) {
+    e.stopPropagation();
+});
+
+ReactDOM.render(<ExpressBooking/>, expressBookingParent)

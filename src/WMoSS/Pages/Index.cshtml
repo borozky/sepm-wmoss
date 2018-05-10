@@ -46,12 +46,14 @@
         <div class="fixed-sidebar">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    Express Checkout
+                    Express Booking
                     <br>
                     <small class="text-muted">For quick and convinient ticket purchase</small>
                 </div>
                 <div class="panel-body">
-                    <div id="ExpressCheckoutParent"></div>
+                    <form asp-page="/Cart/Index" asp-page-handler="AddToCart" method="POST">
+                        <div id="ExpressBookingParent"></div>
+                    </form>
                 </div>
             </div>
         </div>
