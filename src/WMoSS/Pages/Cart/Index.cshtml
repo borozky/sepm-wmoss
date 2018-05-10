@@ -71,6 +71,7 @@
 
                 @foreach (var cartItem in Model.Cart.CartItems)
                 {
+                    var remainingSeats = cartItem.Seats == null ? cartItem.TicketQuantity : cartItem.TicketQuantity - cartItem.Seats.Count();
                     <div class="container">
 
                         <div class="row">
@@ -89,16 +90,7 @@
                                 <ul class="pull-right" style="list-style-type: none">
                                     <li>
                                         <a asp-page="/Seats/Select" asp-route-id="@cartItem.MovieSessionId">
-                                            Select seats (
-                                            @if (cartItem.Seats == null)
-                                            {
-                                                <span>0</span>
-                                            }
-                                            else
-                                            {
-                                                <span>@cartItem.Seats.Count</span>
-                                            }
-                                            )
+                                            Select seats (<span>@remainingSeats left</span>)
                                         </a>
                                     </li>
                                 </ul>
