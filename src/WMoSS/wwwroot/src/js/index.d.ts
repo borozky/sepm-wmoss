@@ -36,14 +36,14 @@ interface Movie {
 }
 
 interface ExpressBookingState {
-    theaters: Theater[],
-    movies: Movie[],
-    sessions: MovieSession[],
-    selectedMovieId?: number,
-    selectedTheaterId?: number,
+    theaters: Theater[]
+    movies: Movie[]
+    sessions: MovieSession[]
+    selectedMovieId?: number
+    selectedTheaterId?: number
     selectedSessionId?: number
-}
-interface MoviesAndSessions {
-    movieSessions?: MovieSession[],
-    movies?: Movie[]
+    unavailableSeats?: string[]
+    selected?: string[],
+    seats?: string[]
+    ticketQuantity?: number
 }
