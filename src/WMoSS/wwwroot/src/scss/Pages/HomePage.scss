@@ -91,5 +91,13 @@
     padding: 10px;
 }
 
+#ExpressBookingParent {
+    input[type=submit]:disabled {
+        border: none;
+        color: #7b7b7b;
+        background-color: #eeeeee;
+    }
+}
+
 
 
