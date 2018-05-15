@@ -1,0 +1,58 @@
+#contactBody {
+    padding-bottom: 100px;
+}
+#form {
+    width:100%; 
+    height:auto; 
+    margin: 0 auto; 
+    padding-left: 40px;
+    padding-right: 40px;
+    line-height: 20px;
+    
+}
+#form input:focus,
+#form textarea:focus {
+	border:2px solid #f51c1c;
+    color: #6d7b88;
+}
+#form select:focus {
+	border:2px solid #f51c1c;
+    color: #6d7b88;
+}
+#form select {
+    height:30px;
+    width: 80%;
+    margin: 8px;
+}
+#form textarea {
+    height:150px;
+    width: 80%;
+    margin: 8px;
+}
+#form input {
+    width: 80%;
+    margin: 8px;
+    height: 30px;
+}
+
+#form form .submit {
+	width:80%;
+	padding:5px 5px;
+	background:#f51c1c;
+	height:50px;
+	color:rgb(255, 255, 255);
+	border:2px solid #f51c1c;
+  -webkit-transition: all 3s ease-in-out;
+	-moz-transition: all 3s ease-in-out;
+	-ms-transition: all 3s ease-in-out;
+	-o-transition: all 3s ease-in-out;
+    transition: all 3s ease-in-out;
+    margin: 8px;
+}
+
+#form form .submit:hover {
+    cursor: pointer;
+	color:#FFF;
+	border: 2px solid #f51c1c;
+    background: #f51c1c;    
+}
