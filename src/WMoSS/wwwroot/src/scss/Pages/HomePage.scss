@@ -1,3 +1,5 @@
+@import "../fixed-width-sidebar.scss";
+
 #NowShowingMovies, #ComingSoonMovies {
     position: relative;
 
@@ -98,6 +100,8 @@
         background-color: #eeeeee;
     }
 }
+
+@include fixed_width_sidebar(270px);
 
 
 
