@@ -1,11 +1,78 @@
-﻿@page
+﻿@page "{id:int}"
 @model WMoSS.Pages.Theaters.DetailsModel
 @{
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+@section EntryHeader {
+    <div class="entry-header">
+        <div class="container clearfix">
+            <h3>Theater Details</h3>
+        </div>
+    </div>
+}
+
+<div class="container clearfix">
+    
+    <div class="content-block clearfix" id="TheaterInfoArea">
+        <div class="theater clearfix">
+            <img src="~/images/theaters/@String.Format("{0}.jpg", Model.Theater.Id)" alt="@Model.Theater.Name" class="theater-image" width="200"/>
+            <h4>@String.Format("Cinema Aurora {0}", Model.Theater.Name)</h4>
+            <span class="theater-capacity">Capacity: @Model.Theater.Capacity</span><br/>
+            <span class="theater-address">Address: @Model.Theater.Address</span>
+        </div>
+    </div>
+
+    <div id="SettingsArea">
+        <div class="dropdown">
+            <button class="btn btn-xs dropdown-toggle" type="button" id="SortMoviesDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Sort by
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="SortMoviesDropdown">
+                <li><a href="?sort=title-a-z">Title: A - Z</a></li>
+                <li><a href="?sort=title-z-a">Title: Z - A</a></li>
+                <li><a href="?sort=rating">Rating</a></li>
+                <li><a href="?sort=popular">Popular</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="TheaterMovies" class="movie-list">
+
+        @if (Model.Movies != null && Model.Movies.Count() > 0)
+        {
+            @foreach (var movie in Model.Movies)
+            {
+                <div class="movie">
+                    <a asp-page="/Movies/Details" asp-route-id="@movie.Id" class="movie-poster-parent">
+                        @if (movie.PosterFileName == null)
+                        {
+                            <img src="http://placehold.it/270x400" class="movie-poster no-image-available" alt="@string.Format("{0}{1:(yyyy)}", movie.Title, movie.ReleaseDate)">
+                        }
+                        else
+                        {
+                            <img src="@movie.PosterFileName" class="movie-poster" alt="@string.Format("{0}{1:(yyyy)}", movie.Title, movie.ReleaseDate)">
+                        }
+                    </a>
+                    <a asp-page="/Movies/Details" asp-route-id="@movie.Id" class="movie-title">
+                        @string.Format("{0}{1: (yyyy)}", movie.Title, movie.ReleaseDate)
+                    </a>
+                </div>
+            }
+
+        }
+        else
+        {
+            <p>There are no movies that are now showing.</p>
+        }
+    </div><!-- end .movie-list -->
+
+
+
+
+</div>
