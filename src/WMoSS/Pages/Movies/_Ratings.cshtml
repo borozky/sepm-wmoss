@@ -1,0 +1,25 @@
+﻿@model WMoSS.Entities.Movie
+
+@if (Model.Rating.HasValue)
+{
+    for (var i = 1; i <= 5; i++)
+    {
+        if (i == Math.Round(Model.Rating.Value))
+        {
+            <span class="fa fa-star checked"></span>
+        }
+        else
+        {
+            <span class="fa fa-star"></span>
+        }
+
+    }
+}
+else
+{
+    <span class="fa fa-star"></span>
+    <span class="fa fa-star"></span>
+    <span class="fa fa-star"></span>
+    <span class="fa fa-star"></span>
+    <span class="fa fa-star"></span>
+}

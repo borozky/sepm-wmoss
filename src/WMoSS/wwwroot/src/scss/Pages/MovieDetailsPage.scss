@@ -5,19 +5,24 @@
 .well {
     background-color: #CAE5FF;
     color: #595F72;
+
     h5 {
         font-size: 20px
     }
+
     p {
         font-size: 12px;
     }
 }
 
-.bar { 
+.bar {
     font-size: 20px;
- }
+}
 
- .sessionForm {
-     align-content: flex-start
+.sessionForm {
+    align-content: flex-start
+}
 
- }
+ul#qty li {
+    display: inline;
+}

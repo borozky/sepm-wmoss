@@ -23,74 +23,137 @@
     </div>
 }
 
-@section Scripts {
+@*@section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }*@
 
-}
+@*<div class="container clearfix text-center">
+        <h3>@Model.Movie.Title @releaseYear</h3>
+        <div class="row">
 
-<div class="container clearfix text-center">
-    <h3>@Model.Movie.Title @releaseYear</h3>
+            <div class="col-sm-4">
+                @if(Model.Movie.PosterFileName != null)
+                {
+                    <img src="@Model.Movie.PosterFileName" class="img-responsive" style="width:100%" alt="Image">
+                }
+                else
+                {
+                    <img src="http://placehold.it/270x400" class="img-responsive" style="width:100%" alt="Image">
+                }
+            </div>
+
+            <div class="col-sm-4">
+                <div class="well">
+                    <h5>@Model.Movie.Title @releaseYear</h5>
+                    <p>@Model.Movie.Classification  |  @string.Format("{0:h \\hour\\s m \\minu\\te\\s}", DateTime.Today.AddMinutes(Model.Movie.RuntimeMinutes.HasValue ? Model.Movie.RuntimeMinutes.Value : 0))<br />Drama, Family, Fantasy<br />7 January 1947 (USA)</p>
+                </div>
+                <div class="well">
+                    <p class="pull-left">@Model.Movie.Description</p>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+
+                <form asp-page="/Cart/Index" asp-page-handler="AddToCart" method="post">
+                    <h3>Sessions</h3>
+
+                    <label>Select session</label><br />
+                    <select asp-for="cartItem.MovieSessionId" asp-items="@Model.MovieSessionsOptions"></select><br />
+                    <span class="text-danger" asp-validation-for="cartItem.MovieSessionId"></span>
+
+                    <div class="flex-item">
+                        <div class="movieTickets">
+                            <label class="input">Number of tickets: </label>
+                            <input asp-for="cartItem.TicketQuantity" value="1" />
+                            <input type="hidden" asp-for="ReturnPath" />
+                            <button type="submit">Add to cart</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+    </div>*@
+
+
+<div class="container">
     <div class="row">
 
         <div class="col-sm-4">
-            @if(Model.Movie.PosterFileName != null) 
+            @if (Model.Movie.PosterFileName != null)
             {
                 <img src="@Model.Movie.PosterFileName" class="img-responsive" style="width:100%" alt="Image">
             }
-            else 
+            else
             {
                 <img src="http://placehold.it/270x400" class="img-responsive" style="width:100%" alt="Image">
             }
         </div>
 
-        <div class="col-sm-4">
-            <div class="well">
-                <h5>@Model.Movie.Title @releaseYear</h5>
-                <p>@Model.Movie.Classification  |  @string.Format("{0:h \\hour\\s m \\minu\\te\\s}", DateTime.Today.AddMinutes(Model.Movie.RuntimeMinutes.HasValue ? Model.Movie.RuntimeMinutes.Value : 0))<br />Drama, Family, Fantasy<br />7 January 1947 (USA)</p>
-            </div>
-            <div class="well">
-                <p class="pull-left">@Model.Movie.Description</p>
-            </div>
-        </div>
 
         <div class="col-sm-4">
-
-            <form asp-page="/Cart/Index" asp-page-handler="AddToCart" method="post">
-                <h3>Sessions</h3>
-
-                <label>Select session</label><br />
-                <select asp-for="cartItem.MovieSessionId" asp-items="@Model.MovieSessionsOptions"></select><br />
-                <span class="text-danger" asp-validation-for="cartItem.MovieSessionId"></span>
-
-                <div class="flex-item">
-                    <div class="movieTickets">
-                        <label class="input">Number of tickets: </label>
-                        <input asp-for="cartItem.TicketQuantity" value="1" />
-                        <input type="hidden" asp-for="ReturnPath" />
-                        <button type="submit">Add to cart</button>
-                    </div>
+            <div class="well">
+                <h5 class="text-left">@Model.Movie.Title @releaseYear</h5>
+                <p class="text-left">
+                    @Model.Movie.Classification  <span class="bar">&nbsp;|&nbsp;</span>
+                    @Model.Movie.Genre<br />
+                    @string.Format("{0:h \\hour\\s m \\minu\\te\\s}", DateTime.Today.AddMinutes(Model.Movie.RuntimeMinutes.HasValue ? Model.Movie.RuntimeMinutes.Value : 0))<br />
+                </p>
+                <div class="text-left">
+                    @await Html.PartialAsync("Movies/_Ratings", Model.Movie)
                 </div>
-            </form>
+            </div>
 
+            <div class="well">
+                <p class="text-left">
+                    @Model.Movie.Description
+                </p>
+            </div>
         </div>
+
+            <div class="sessionForm col-sm-4">
+                <h3>Select Sessions</h3>
+
+                @if (Model.MovieSessions != null && Model.MovieSessions.Count() > 0)
+                {
+                <div class="container">
+                    <form asp-page="/Cart/Index" asp-page-handler="AddToCart" method="post">
+                        <input type="hidden" asp-for="ReturnUrl" value="@Model.ReturnPath"/>
+                        <input type="hidden" name="SelectSeats" value="true" />
+                        <div class="form-group">
+                            <p class="help-block"><label>Select session</label></p>
+                            <select asp-for="cartItem.MovieSessionId" asp-items="@Model.MovieSessionsOptions"></select><br />
+                            <span class="text-danger" asp-validation-for="cartItem.MovieSessionId"></span>
+
+                        </div>
+                        <br />
+                        <div class="flex-item">
+                            <p class="help-block">Number of tickets:</p>
+                            <div class="movieTickets">
+                                <div>
+                                    <ul id="qty">
+                                        <li>
+                                            <input asp-for="cartItem.TicketQuantity" value="1" />
+                                        </li>
+                                        <li>
+                                            <small>x $20.00 per ticket</small>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <br />
+                                <div>
+                                    <button type="submit" class="btn btn-default">Select your seats</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                }
+                else
+                {
+                    <p>There are no scheduled sessions for this movie</p>
+                }
+            </div>
     </div>
-
-    <nav>
-        <ul class="pagination justify-content-center">
-            <!--Previous button-->
-            <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1">Previous</a>
-            </li>
-
-            <!--Numbers-->
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-
-            <!--Next button-->
-            <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-            </li>
-        </ul>
-    </nav>
-
-</div>  
+</div>
