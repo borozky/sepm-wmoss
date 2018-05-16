@@ -2,7 +2,7 @@
 @model WMoSS.Pages.FaqModel
 @{
     ViewData["Title"] = "Faq";
-    ViewBag.Title = "Frequently Asked Questions";
+    ViewBag.Title = "Frequently Asked Questions (FAQ)";
 }
 @section EntryHeader {
     <div class="entry-header">
@@ -11,7 +11,71 @@
         </div>
     </div>
 }
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
-<h3>Some thing</h3>
+
+<div class="container clearfix">
+    <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Is account registration required?</a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    No, No registration is required.
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
+                       href="#collapseTen">How many theaters are there in Cinema Aurora?</a>
+                </h4>
+            </div>
+            <div id="collapseTen" class="panel-collapse collapse">
+                <div class="panel-body">
+                    There are 5 Luxurious theaters available at our cinema. 2 of which are Gold class and
+                    offer variety of complementary drinks and foods.
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseNine">Do you do ticket refunds??</a>
+                </h4>
+            </div>
+            <div id="collapseNine" class="panel-collapse collapse">
+                <div class="panel-body">
+                    We offer full ticket refunds to our customers, up to 1 hour before the movie start. Terms and conditions apply.
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEight">Can I buy movie tickets in advance?</a>
+                </h4>
+            </div>
+            <div id="collapseEight" class="panel-collapse collapse">
+                <div class="panel-body">
+                    Yes, You wil be able to browse and purchase tickets 1 week in advance
+                    in our <a href="coming-soon.html">'Coming soon'</a> page.
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEleven">What is the currency used for all transactions?</a>
+                </h4>
+            </div>
+            <div id="collapseEleven" class="panel-collapse collapse">
+                <div class="panel-body">
+                    All prices for the movie tickets are in AUD.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
