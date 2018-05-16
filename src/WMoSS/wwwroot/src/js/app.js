@@ -1,8 +1,8 @@
 import $ from 'jquery';
 import 'bootstrap';
 
-require("jquery-validation");
-require("jquery-validation-unobtrusive");
+import "jquery-validation";
+import "jquery-validation-unobtrusive";
 
 import "./home/index";
 import "./movie-details/index";
