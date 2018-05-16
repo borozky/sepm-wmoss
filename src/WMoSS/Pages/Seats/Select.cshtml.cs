@@ -24,10 +24,11 @@ namespace WMoSS.Pages.Seats
         }
 
         public int MovieSessionId { get; set; } = 0;
+        public MovieSession MovieSession { get; set; }
         public string ReturnUrl { get; set; }
 
 
-        public async Task<IActionResult> OnGetAsync(int id)
+        public async Task<IActionResult> OnGetAsync(int id, string returnUrl = null)
         {
             // id is the movie session id. This id must exists in the cart
 
@@ -47,7 +48,14 @@ namespace WMoSS.Pages.Seats
                 .ToArrayAsync();
 
             MovieSessionId = id;
-            ReturnUrl = Url.Page("/Seats/Select", new { id = MovieSessionId });
+
+            MovieSession = await db.MovieSessions
+                .Include(ms => ms.Movie)
+                .Include(ms => ms.Theater)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(ms => ms.Id == id);
+
+            ReturnUrl = returnUrl ?? Url.Page("/Seats/Select", new { id = MovieSessionId });
 
             return Page();
         }
