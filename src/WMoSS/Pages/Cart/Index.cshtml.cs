@@ -136,6 +136,8 @@ namespace WMoSS.Pages.Cart
 
         public IActionResult OnPostModifyCart()
         {
+            Cart = Entities.Cart.GetFrom(HttpContext.Session);
+
             if (!ModelState.IsValid)
             {
                 return Page();

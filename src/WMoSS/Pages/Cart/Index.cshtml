@@ -21,49 +21,144 @@
         </div>
     </div>
 }
-@*<div class="container clearfix">
+
+<div class="container clearfix">
+
+    @if (Model.Cart.CartItems.Count > 0)
+    {
+        <div class="clearfix margin sidebar-right">
+            <div class="fixed-sidebar">
+
+                <div id="CartSummary">
+                    <h4>Cart Summary</h4>
+
+                    <div id="CartSummaryItemList">
+                        @foreach (var cartItem in Model.Cart.CartItems)
+                        {
+                            <div class="cart-summary-item">
+                                <b class="movie-title">
+                                    @cartItem.MovieSession.Movie.Title @string.Format("({0:yyyy})", cartItem.MovieSession.Movie.ReleaseDate.GetValueOrDefault())
+                                </b>
+                                <span class="num-tickets">@string.Format("{0} Ticket", cartItem.TicketQuantity)</span>
+                                <span class="amount">@string.Format("{0:C2}", cartItem.TotalPrice)</span>
+                            </div>
+                        }
+                    </div><!-- end #CartSummaryItemList-->
+
+                    <div class="text-right" id="CartSummaryPricing">
+                        GST (Included): <span id="GSTPrice">@string.Format("{0:C2}", Model.Cart.GstPrice)</span><br />
+                        Total: <span id="TotalPrice">@string.Format("{0:C2}", Model.Cart.TotalPrice)</span>
+                    </div>
+
+                    <div class="text-right" id="CartSummaryProceedToCheckoutArea">
+                        <a asp-page="/Checkout/Index" class="btn btn-lg btn-success">Proceed to Checkout</a><br />
+                        <small class="text-danger">Please select your seats before proceeding to checkout</small>
+                        <form asp-page="/Cart/Index" asp-page-handler="ClearCart" method="post" name="ClearCart" class="form-inline">
+                            <button id="ClearCartLink" class="text-danger">Clear cart</button>
+                        </form>
+                    </div>
+                </div><!-- end #CartSummary -->
+
+            </div>
+            <div class="responsive-content">
+                <div class="inner">
+
+                    <div id="CartItems">
+                        @foreach (var cartItem in Model.Cart.CartItems)
+                        {
+                            var remainingSeats = cartItem.Seats == null ? cartItem.TicketQuantity : cartItem.TicketQuantity - cartItem.Seats.Count();
+                            <div class="cart-item clearfix">
+                                <form asp-page="/Cart/Index" asp-page-handler="RemoveFromCart" class="form-inline pull-right remove-cartitem-form">
+                                    <input type="hidden" asp-for="CartItem.MovieSessionId" value="@cartItem.MovieSessionId" />
+                                    <input type="hidden" asp-for="CartItem.TicketQuantity" value="@cartItem.TicketQuantity" />
+                                    <button type="submit" class="text-danger">Remove</button>
+                                </form>
+
+                                <a asp-page="/Movies/Details" asp-route-id="@cartItem.MovieSession.MovieId" class="cart-item-poster-link">
+                                    @if (cartItem.MovieSession.Movie.PosterFileName != null)
+                                    {
+                                        <img src="@cartItem.MovieSession.Movie.PosterFileName" class="img-responsive cart-item-poster" style="width:100%" alt="Image">
+                                    }
+                                    else
+                                    {
+                                        <img src="http://placehold.it/270x400" class="img-responsive cart-item-poster" style="width:100%" alt="Image">
+                                    }
+                                </a>
+
+                                <div class="session-details">
+                                    <h4 class="movie-title">
+                                        @cartItem.MovieSession.Movie.Title
+                                    <span class="release-year">
+                                        @string.Format("({0:yyyy})", cartItem.MovieSession.Movie.ReleaseDate.GetValueOrDefault())
+                                    </span>
+                                </h4>
+                                <b class="scheduled-time">
+                                    <i>@string.Format("{0:h:mm tt}", cartItem.MovieSession.ScheduledAt)</i>
+                                </b><br />
+                                <span class="scheduled-date">
+                                    @string.Format("{0:ddd, dd MMMM yyyy}", cartItem.MovieSession.ScheduledAt)
+                                </span><br />
+                                <span class="venue">
+                                    @string.Format("{0}", cartItem.MovieSession.Theater.Name)
+                                </span>
+                            </div><!-- end .cart-item-session-details -->
 
 
-    @if (Model.Cart.CartItems.Count > 0) {
-        <ul>
-        @foreach (var cartItem in Model.Cart.CartItems)
-        {
-            <li>
-                <form asp-page="/Cart/Index" asp-page-handler="ModifyCart">
-                    @string.Format("{0: ddd - dd MMM yyyy hh:mm tt} at {1}", cartItem.MovieSession.ScheduledAt, cartItem.MovieSession.Theater.Name) <br/>
-                    @string.Format("{0} tickets", cartItem.TicketQuantity) @string.Format("{0:C2}", cartItem.TotalPrice) <br/>
-                    <input type="hidden" asp-for="CartItem.MovieSessionId" value="@cartItem.MovieSessionId"/>
-                    Modify tickets: <input asp-for="CartItem.TicketQuantity" value="@cartItem.TicketQuantity" /><br/>
-                    <span asp-validation-for="CartItem.TicketQuantity" class="text-danger"></span><br/>
-                    <button type="submit">Update cart</button>
-                </form>
-                <form asp-page="/Cart/Index" asp-page-handler="RemoveFromCart">
-                    <input type="hidden" asp-for="CartItem.MovieSessionId" value="@cartItem.MovieSessionId" />
-                    <input type="hidden" asp-for="CartItem.TicketQuantity" value="@cartItem.TicketQuantity"/>
-                    <button type="submit">Remove</button>
-                </form>
-            </li>
-        }
-        </ul>
+                            <form asp-page="/Cart/Index" asp-page-handler="ModifyCart" class="form-inline pull-right manage-tickets-form">
+                                <input type="hidden" asp-for="CartItem.MovieSessionId" value="@cartItem.MovieSessionId" />
 
-        <p>
-            @string.Format("Total: {0:C2}", Model.Cart.TotalPrice) <br/>
-            <a asp-page="/Checkout/Index">Proceed to Checkout</a>
-        </p>
+                                <div class="row clearfix manage-tickets-form-upper">
+                                    <div class="col-xs-6 text-left">
+                                        <span class="adjust-ticket-qty">
+                                            Tickets: <input asp-for="CartItem.TicketQuantity" value="@cartItem.TicketQuantity" min="1" max="15" step="1" id="numTickets" />
+                                        </span>
+                                    </div>
+                                    <div class="col-xs-6 text-right">
+                                        <span class="select-tickets-parent">
+                                            <a asp-page="/Seats/Select" asp-route-id="@cartItem.MovieSessionId">
+                                                Select seats (<span>@remainingSeats left</span>)
+                                            </a>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <small><span asp-validation-for="CartItem.TicketQuantity" class="text-danger"></span></small>
+                                </div>
 
-        <form asp-page="/Cart/Index" asp-page-handler="ClearCart" method="post">
-            <button type="submit">Clear Cart</button>
-        </form>
+                                <div class="row clearfix manage-tickets-form-lower">
+                                    <div class="col-xs-6 text-left">
+                                        <button type="submit" class="btn btn-md btn-success update-tickets-button">Update</button>
+                                    </div>
+                                    <div class="col-xs-6 text-right">
+                                        Subtotal: <span class="subtotal">@string.Format("{0:C2}", cartItem.TotalPrice)</span>
+                                    </div>
+                                </div>
+                            </form>
+
+
+                        </div>
+
+                        }
+
+
+                    </div><!-- end #CartItems-->
+
+                </div>
+            </div><!-- end .responsive-content -->
+        </div>
+
     }
     else
     {
         <h4>There are no items in the cart</h4>
-
     }
-</div>*@
 
 
-<div class="container">
+</div>
+
+
+
+@*<div class="container">
 
     @if (Model.Cart.CartItems.Count > 0)
     {
@@ -166,7 +261,7 @@
     {
     <h4>There are no items in the cart</h4>
     }
-</div>
+</div>*@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
