@@ -26,3 +26,174 @@
 ul#qty li {
     display: inline;
 }
+
+/*****************/
+
+
+#MovieDetailsContainer {
+    max-width: 640px;
+    margin-bottom: 150px;
+}
+
+.movie-details {
+    padding-left: 15px;
+
+    .movie-metadata {
+        font-size: 12px;
+        line-height: 1.4;
+    }
+
+    .movie-description {
+        font-size: 13px;
+        margin-top: 30px;
+    }
+
+
+}
+
+#SelectMovieSessionsFormParent {
+    padding-left: 15px;
+    margin-top: 50px;
+
+    h3 {
+        font-size: 21px;
+        font-weight: 700;
+    }
+}
+
+#SelectMovieSessionsForm {
+    button {
+        display: inline-block;
+        margin-top: 32px;
+    }
+}
+
+#MovieDetailsContainer {
+
+    $sidebar_width: 200px;
+
+    @media screen and (min-width: 768px) {
+        // using CALC()
+        .clearfix.calc {
+            // sidebar comes BEFORE the main content
+            // useful for mobile esp when displaying the sidebar at the top
+            // before the main content
+            .fixed-sidebar {
+                width: $sidebar_width;
+
+                & + .responsive-content {
+                    width: calc(100% - #{$sidebar_width});
+                    float: left;
+                }
+            }
+
+            &.sidebar-left {
+                .fixed-sidebar {
+                    float: left;
+                }
+            }
+
+            &.sidebar-right {
+                .fixed-sidebar {
+                    float: right;
+                }
+            }
+            // sidebar comes AFTER the main content
+            .responsive-content {
+                width: calc(100% - #{$sidebar_width});
+
+                & + .fixed-sidebar {
+                    width: $sidebar_width;
+                    float: left;
+                }
+            }
+
+            &.sidebar-left {
+                .responsive-content {
+                    float: right;
+                }
+            }
+
+            &.sidebar-right {
+                .responsive-content {
+                    float: left;
+                }
+            }
+        }
+        // using MARGINS
+        // .responsive-content must have an inner div
+        .clearfix.margin {
+            &.sidebar-left {
+                // main responsive content goes first before the sidebar
+                // common pattern
+                .responsive-content {
+                    width: 100%;
+                    float: right;
+
+                    .inner {
+                        margin-left: $sidebar_width;
+                    }
+
+                    & + .fixed-sidebar {
+                        width: $sidebar_width;
+                        float: left;
+                        margin-right: -$sidebar_width;
+                    }
+                }
+                // sidebar comes BEFORE the main content
+                // useful for mobile, esp when displaying sidebar at the top of the main content
+                .fixed-sidebar {
+                    width: $sidebar_width;
+                    float: left;
+                    margin-right: -$sidebar_width;
+                    position: relative;
+
+                    & + .responsive-content {
+                        width: 100%;
+                        float: right;
+
+                        .inner {
+                            margin-left: $sidebar_width;
+                        }
+                    }
+                }
+            }
+
+            &.sidebar-right {
+                .responsive-content {
+                    width: 100%;
+                    float: left;
+
+                    .inner {
+                        margin-right: $sidebar_width;
+                    }
+
+                    & + .fixed-sidebar {
+                        width: $sidebar_width;
+                        float: right;
+                        margin-left: -$sidebar_width;
+                    }
+                }
+
+                .fixed-sidebar {
+                    width: $sidebar_width;
+                    float: right;
+                    margin-left: -$sidebar_width;
+                    // sidebar is placed on the right
+                    // but it is hidden so add position: relative
+                    position: relative;
+
+                    & + .responsive-content {
+                        width: 100%;
+                        float: right;
+
+                        .inner {
+                            margin-right: $sidebar_width;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    // end media
+}

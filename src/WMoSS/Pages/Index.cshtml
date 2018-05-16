@@ -69,6 +69,7 @@
                     @foreach (var movie in Model.NowShowingMovies)
                     {
                         <div class="movie">
+                            <a asp-page="/Movies/Details" asp-route-id="@movie.Id">
                             @if (movie.PosterFileName == null)
                             {
                                 <img src="http://placehold.it/270x400" alt="@string.Format("{0}{1:(yyyy)}", movie.Title, movie.ReleaseDate)">
@@ -77,6 +78,7 @@
                             {
                                 <img src="@movie.PosterFileName" alt="@string.Format("{0}{1:(yyyy)}", movie.Title, movie.ReleaseDate)">
                             }
+                            </a>
                             <a asp-page="/Movies/Details" asp-route-id="@movie.Id">
                                 @string.Format("{0}{1: (yyyy)}", movie.Title, movie.ReleaseDate)
                             </a>
@@ -92,6 +94,7 @@
                     @foreach (var movie in Model.ComingSoonMovies)
                     {
                         <div class="movie">
+                            <a asp-page="/Movies/Details" asp-route-id="@movie.Id">
                             @if (movie.PosterFileName == null)
                             {
                                 <img src="http://placehold.it/270x400" alt="@string.Format("{0}{1:(yyyy)}", movie.Title, movie.ReleaseDate)">
@@ -100,6 +103,7 @@
                             {
                                 <img src="@movie.PosterFileName" alt="@string.Format("{0}{1:(yyyy)}", movie.Title, movie.ReleaseDate)">
                             }
+                            </a>
                             <a asp-page="/Movies/Details" asp-route-id="@movie.Id">
                                 @string.Format("{0}{1: (yyyy)}", movie.Title, movie.ReleaseDate)
                             </a>

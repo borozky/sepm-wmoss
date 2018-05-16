@@ -1,0 +1,19 @@
+﻿.theater {
+    margin-bottom: 15px;
+    border-bottom: 1px solid #dcdcdc;
+    padding-bottom: 15px;
+
+    .theater-image {
+        float: left;
+        display: inline-block;
+        margin-right: 10px;
+    }
+
+    .theater-capacity {
+        font-size: 13px;
+    }
+
+    .theater-address {
+        font-size: 13px;
+    }
+}

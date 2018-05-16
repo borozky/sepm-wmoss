@@ -47,7 +47,7 @@ namespace WMoSS.Tests.Unit.Pages.Cart
                 };
 
                 // ACT
-                var result = CartIndexModel.OnPostAddToCart();
+                var result = CartIndexModel.OnPostAddToCartAsync();
 
                 // ASSERT
                 var redirect = Assert.IsType<RedirectToPageResult>(result);
@@ -64,7 +64,7 @@ namespace WMoSS.Tests.Unit.Pages.Cart
             CartIndexModel.ModelState.AddModelError("", "Invalid");
 
             // ACT
-            var result = CartIndexModel.OnPostAddToCart();
+            var result = CartIndexModel.OnPostAddToCartAsync();
 
             // ASSERT
             var redirect = Assert.IsType<RedirectResult>(result);
@@ -93,7 +93,7 @@ namespace WMoSS.Tests.Unit.Pages.Cart
                 };
 
                 // ACT
-                var result = CartIndexModel.OnPostAddToCart();
+                var result = CartIndexModel.OnPostAddToCartAsync();
 
                 // ASSERT
                 Assert.IsType<NotFoundResult>(result);
@@ -140,7 +140,7 @@ namespace WMoSS.Tests.Unit.Pages.Cart
                 CartIndexModel.ReturnUrl = $"/Movies/Details/{movieSession.MovieId}";
 
                 // ACT
-                var result = CartIndexModel.OnPostAddToCart();
+                var result = CartIndexModel.OnPostAddToCartAsync();
 
                 // ASSERT
                 var redirect = Assert.IsType<RedirectResult>(result);
@@ -204,7 +204,7 @@ namespace WMoSS.Tests.Unit.Pages.Cart
                 CartIndexModel.ReturnUrl = $"/Movies/Details/{movieSession.MovieId}";
 
                 // ACT
-                var result = CartIndexModel.OnPostAddToCart();
+                var result = CartIndexModel.OnPostAddToCartAsync();
 
                 // ASSERT
                 var redirect = Assert.IsType<RedirectResult>(result);

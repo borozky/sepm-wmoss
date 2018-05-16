@@ -16,6 +16,56 @@
 
 <div class="container clearfix">
 
+    <div id="SettingsArea">
+        <div class="dropdown">
+            <button class="btn btn-xs dropdown-toggle" type="button" id="SortMoviesDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Sort by
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="SortMoviesDropdown">
+                <li><a href="?sort=title-a-z">Title: A - Z</a></li>
+                <li><a href="?sort=title-z-a">Title: Z - A</a></li>
+                <li><a href="?sort=rating">Rating</a></li>
+                <li><a href="?sort=popular">Popular</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="AllMovies" class="movie-list">
+
+        @if (Model.Movies != null && Model.Movies.Count() > 0)
+        {
+            @foreach (var movie in Model.Movies)
+            {
+                <div class="movie">
+                    <a asp-page="/Movies/Details" asp-route-id="@movie.Id" class="movie-poster-parent">
+                        @if (movie.PosterFileName == null)
+                        {
+                            <img src="http://placehold.it/270x400" class="movie-poster no-image-available" alt="@string.Format("{0}{1:(yyyy)}", movie.Title, movie.ReleaseDate)">
+                        }
+                        else
+                        {
+                            <img src="@movie.PosterFileName" class="movie-poster" alt="@string.Format("{0}{1:(yyyy)}", movie.Title, movie.ReleaseDate)">
+                        }
+                    </a>
+                    <a asp-page="/Movies/Details" asp-route-id="@movie.Id" class="movie-title">
+                        @string.Format("{0}{1: (yyyy)}", movie.Title, movie.ReleaseDate)
+                    </a>
+                </div>
+            }
+
+        }
+        else
+        {
+            <p>No movies found.</p>
+        }
+    </div><!-- end .movie-list -->
+
+</div>
+
+
+@*<div class="container clearfix">
+
     @if (Model.Movies != null && Model.Movies.Count() > 0)
     {
         <div class="row text-center">
@@ -53,4 +103,4 @@
     {
         <p>There are no movies coming soon.</p>
     }
-</div>
+</div>*@

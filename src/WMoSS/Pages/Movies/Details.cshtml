@@ -78,6 +78,75 @@
 
 
 <div class="container">
+    <div id="MovieDetailsContainer">
+        <div class="clearfix margin sidebar-left">
+            <div class="fixed-sidebar">
+
+                <div class="movie-poster-parent">
+                    @if (Model.Movie.PosterFileName != null)
+                    {
+                        <img src="@Model.Movie.PosterFileName" class="img-responsive movie-poster no-image-available" style="width:100%" alt="Image">
+                    }
+                    else
+                    {
+                        <img src="http://placehold.it/270x400" class="img-responsive movie-poster" style="width:100%" alt="Image">
+                    }
+                </div>
+
+            </div>
+            <div class="responsive-content">
+                <div class="inner">
+
+                    <div class="movie-details">
+                        <h3 class="movie-title">@Model.Movie.Title @releaseYear</h3>
+                        <p class="movie-metadata">
+                            <span class="movie-classification">@Model.Movie.Classification</span><br/>
+                            Released: <span class="movie-releasedate">@String.Format("{0:dd MMM yyyy}", Model.Movie.ReleaseDate)</span><br/>
+                            <span class="movie-genre">@Model.Movie.Genre</span><br/>
+                            <span class="movie-rating">
+                                @await Html.PartialAsync("Movies/_Ratings", Model.Movie)
+                            </span><br/>
+                        </p>
+                        <p class="movie-description">@Model.Movie.Description</p>
+                    </div><!-- end .movie-details -->
+
+                    <div id="SelectMovieSessionsFormParent">
+                        <h3>Select Sessions</h3>
+                        @if (Model.MovieSessions != null && Model.MovieSessions.Count() > 0)
+                        {
+                            <form asp-page="/Cart/Index" asp-page-handler="AddToCart" method="post" id="SelectMovieSessionsForm">
+                                <input type="hidden" asp-for="ReturnUrl" value="@Model.ReturnPath" />
+                                <input type="hidden" name="SelectSeats" value="true" />
+                                <p>
+                                    <label asp-for="cartItem.MovieSessionId">Select a session</label><br />
+                                    <select asp-for="cartItem.MovieSessionId" asp-items="@Model.MovieSessionsOptions" required autofocus></select><br />
+                                    <span class="text-danger" asp-validation-for="cartItem.MovieSessionId"></span>
+                                </p>
+                                <p>
+                                    <label asp-for="cartItem.TicketQuantity">Number of tickets</label><br />
+                                    <input asp-for="cartItem.TicketQuantity" value="1" min="1" max="15" step="1" required /> &times;
+                                    <span class="movie-ticket-price">$ 20.00 per ticket</span>
+                                </p>
+                                <p>
+                                    <button class="btn btn-success">Select your seats</button>
+                                </p>
+                            </form>
+                        }
+                        else
+                        {
+                            <p>There are no schedules sessions for this movie</p>
+                        }
+                    </div><!-- end #SelectMovieSessionsFormParent-->
+
+
+                </div>
+            </div>
+        </div>
+    </div><!-- end #MovieDetailsContainer -->
+</div>
+
+
+@*<div class="container">
     <div class="row">
 
         <div class="col-sm-4">
@@ -101,7 +170,7 @@
                     @string.Format("{0:h \\hour\\s m \\minu\\te\\s}", DateTime.Today.AddMinutes(Model.Movie.RuntimeMinutes.HasValue ? Model.Movie.RuntimeMinutes.Value : 0))<br />
                 </p>
                 <div class="text-left">
-                    @await Html.PartialAsync("Movies/_Ratings", Model.Movie)
+                    @await Html.PartialAsync("Movies/_Ratings", Model.Movie);
                 </div>
             </div>
 
@@ -156,4 +225,4 @@
                 }
             </div>
     </div>
-</div>
+</div>*@

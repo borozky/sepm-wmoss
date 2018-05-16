@@ -1,0 +1,30 @@
+﻿.movie-list {
+    margin-top: 15px;
+
+    .movie {
+        max-width: 120px;
+        font-size: 13px;
+        text-align: center;
+        display: inline-block;
+        vertical-align: top;
+        margin: 0 3px;
+
+        a {
+            color: #1b50ef;
+        }
+
+        .movie-poster-parent {
+            img {
+                display: inline-block;
+                width: 100%;
+                width: 120px;
+                height: 188px;
+            }
+        }
+
+        .movie-title {
+            line-height: 1.3;
+        }
+
+    }
+}
