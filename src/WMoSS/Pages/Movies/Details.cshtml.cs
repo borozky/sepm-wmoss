@@ -31,13 +31,13 @@ namespace WMoSS.Pages.Movies
         [TempData]
         public string ReturnPath { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int id, CancellationToken ct)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
             Movie = await _dbcontext.Movies
                 .Include(m => m.MovieSessions)
                     .ThenInclude(ms => ms.Theater)
                 .AsNoTracking()
-                .FirstOrDefaultAsync(m => m.Id == id, ct);
+                .FirstOrDefaultAsync(m => m.Id == id);
             
             if (Movie == null)
             {
