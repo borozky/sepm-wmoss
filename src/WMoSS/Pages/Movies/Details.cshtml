@@ -103,7 +103,9 @@
                             <span class="movie-classification">@Model.Movie.Classification</span><br/>
                             Released: <span class="movie-releasedate">@String.Format("{0:dd MMM yyyy}", Model.Movie.ReleaseDate)</span><br/>
                             <span class="movie-genre">@Model.Movie.Genre</span><br/>
-                            <span class="movie-rating">@Model.Movie.Rating</span> stars<br/>
+                            <span class="movie-rating">
+                                @await Html.PartialAsync("Movies/_Ratings", Model.Movie)
+                            </span><br/>
                         </p>
                         <p class="movie-description">@Model.Movie.Description</p>
                     </div><!-- end .movie-details -->
