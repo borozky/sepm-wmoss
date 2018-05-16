@@ -57,19 +57,28 @@ namespace WMoSS.Pages.Cart
         [BindProperty]
         public string ReturnUrl { get; set; }
 
-        public IActionResult OnPostAddToCart()
+
+        public async Task<IActionResult> OnPostAddToCartAsync(bool SelectSeats = false)
         {
             if (!ModelState.IsValid)
             {
-                TempData["Danger"] = ModelState.Values.Select(msVal => msVal.Errors).FirstOrDefault();
+                var modelErrors = new List<string>();
+                foreach (var modelState in ModelState.Values)
+                {
+                    foreach (var modelError in modelState.Errors)
+                    {
+                        modelErrors.Add(modelError.ErrorMessage);
+                    }
+                }
+                TempData["Danger"] = modelErrors.First();
                 return RedirectToLocal(ReturnUrl);
             }
 
             // if session doesn't exists, return 404
-            var movieSession = _dbContext.MovieSessions
+            var movieSession = await _dbContext.MovieSessions
                 .Include(m => m.Theater)
                 .AsNoTracking()
-                .FirstOrDefault(ms => ms.Id == CartItem.MovieSessionId);
+                .FirstOrDefaultAsync(ms => ms.Id == CartItem.MovieSessionId);
             if (movieSession == null)
             {
                 TempData["Danger"] = "Movie session cannot be found";
@@ -91,9 +100,9 @@ namespace WMoSS.Pages.Cart
             // if number of tickets to be added to cart is less than the available seats remaining, 
             // reject request to add to cart
             var seatCapacity = movieSession.Theater.Capacity;
-            var numOfSeatsBooked = _dbContext.Tickets
+            var numOfSeatsBooked = await _dbContext.Tickets
                 .AsNoTracking()
-                .Count(t => t.MovieSessionId == movieSession.Id);
+                .CountAsync(t => t.MovieSessionId == movieSession.Id);
             var numOfAvailableSeatsLeft = seatCapacity - numOfSeatsBooked;
 
             if (numOfAvailableSeatsLeft < CartItem.TicketQuantity)
@@ -111,10 +120,20 @@ namespace WMoSS.Pages.Cart
             cart.SaveTo(HttpContext.Session);
 
             TempData["Success"] = "Successfully added movie session to cart";
-            return RedirectToPage("/Cart/Index");
+
+            if (SelectSeats == true)
+            {
+                return RedirectToPage("/Seats/Select", new { id = movieSession.Id });
+            }
+            else
+            {
+                return RedirectToPage("/Cart/Index");
+            }
+
         }
 
         
+
         public IActionResult OnPostModifyCart()
         {
             if (!ModelState.IsValid)
