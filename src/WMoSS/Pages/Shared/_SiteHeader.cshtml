@@ -31,18 +31,7 @@
                     <li><a asp-page="/Movies/NowShowing">Now Showing</a></li>
                     <li><a asp-page="/Movies/ComingSoon">Coming Soon</a></li>
                     <li><a asp-page="/Movies/Index">All Movies</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Theaters <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a asp-page="/Theaters/Index">All Theaters</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a asp-page="/Theaters/Details">Theater #1</a></li>
-                            <li><a asp-page="/Theaters/Details">Theater #2</a></li>
-                            <li><a asp-page="/Theaters/Details">Theater #3</a></li>
-                            <li><a asp-page="/Theaters/Details">Theater #4</a></li>
-                            <li><a asp-page="/Theaters/Details">Theater #5</a></li>
-                        </ul>
-                    </li>
+                    @await  Component.InvokeAsync("TheatersList")
                 </ul>
 
                 <form asp-page="/Search/Movies" method="GET" class="navbar-form navbar-right">
