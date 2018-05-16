@@ -16,5 +16,23 @@
 }
 
 <div class="container clearfix">
-    <p>This page should display all available movie theaters. Images should be included as well.</p>
+
+    <div class="content-block clearfix" id="ListOfTheaters">
+        @foreach(var theater in Model.Theaters)
+        {
+            <div class="theater clearfix">
+                <a asp-page="/Theaters/Details" asp-route-id="@theater.Id">
+                    <img src="~/images/theaters/@String.Format("{0}.jpg", theater.Id)" alt="@theater.Name" class="theater-image" width="200" />
+                </a>
+                <h4>
+                    <a asp-page="/Theaters/Details" asp-route-id="@theater.Id">
+                        @String.Format("Cinema Aurora {0}", theater.Name)
+                    </a>
+                </h4>
+                <span class="theater-capacity">Capacity: @theater.Capacity</span><br />
+                <span class="theater-address">Address: @theater.Address</span>
+            </div>
+        }
+    </div>
+
 </div>
