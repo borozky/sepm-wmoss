@@ -9,11 +9,47 @@
     <div class="entry-header">
         <div class="container clearfix">
             <h3>@ViewBag.EntryTitle</h3>
+            <h5>Found @Model.SearchResultsVM.SearchResults.Count() results for @Model.SearchResultsVM.Keyword</h5>
         </div>
     </div>
 }
 
+
 <div class="container clearfix">
+
+    <div id="AllMovies" class="movie-list">
+
+        @if (Model.SearchResultsVM.SearchResults != null && Model.SearchResultsVM.SearchResults.Count() > 0)
+        {
+            @foreach (var movie in Model.SearchResultsVM.SearchResults)
+            {
+                <div class="movie">
+                    <a asp-page="/Movies/Details" asp-route-id="@movie.Id" class="movie-poster-parent">
+                        @if (movie.PosterFileName == null)
+                        {
+                            <img src="http://placehold.it/270x400" class="movie-poster no-image-available" alt="@string.Format("{0}{1:(yyyy)}", movie.Title, movie.ReleaseDate)">
+                        }
+                        else
+                        {
+                            <img src="@movie.PosterFileName" class="movie-poster" alt="@string.Format("{0}{1:(yyyy)}", movie.Title, movie.ReleaseDate)">
+                        }
+                    </a>
+                    <a asp-page="/Movies/Details" asp-route-id="@movie.Id" class="movie-title">
+                        @string.Format("{0}{1: (yyyy)}", movie.Title, movie.ReleaseDate)
+                    </a>
+                </div>
+            }
+
+        }
+        else
+        {
+            <p>There are no movies found</p>
+        }
+    </div><!-- end .movie-list -->
+
+</div>
+
+@*<div class="container clearfix">
     @if (Model.SearchResultsVM.SearchResults.Count() > 0)
     {
         <div id="SortOptionsArea">
@@ -53,7 +89,7 @@
             </div>
         }
     }
-</div>
+</div>*@
 
 
 
