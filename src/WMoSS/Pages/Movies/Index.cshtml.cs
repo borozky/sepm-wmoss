@@ -22,14 +22,30 @@ namespace WMoSS.Pages.Movies
         public IEnumerable<Movie> Movies { get; set; }
 
         // GET: /Movies?sortBy=session
-        public async Task<IActionResult> OnGetAsync([FromQuery] string sortBy)
+        public async Task<IActionResult> OnGetAsync([FromQuery] string sort)
         {
             Movies = await _db.Movies
                 .OrderBy(m => m.Title)
                 .AsNoTracking()
                 .ToListAsync();
 
-            // TODO: Sort by session's schedule date
+            if (Movies != null && Movies.Count() > 0)
+            {
+                switch (sort)
+                {
+                    case "title-a-z":
+                        Movies = Movies.OrderBy(m => m.Title);
+                        break;
+                    case "title-z-a":
+                        Movies = Movies.OrderByDescending(m => m.Title);
+                        break;
+                    case "rating":
+                        Movies = Movies.OrderBy(m => m.Rating);
+                        break;
+                    default:
+                        break;
+                }
+            }
 
             return Page();
         }
