@@ -9,6 +9,7 @@ using WMoSS.Entities;
 using Microsoft.AspNetCore.Http;
 using WMoSS.Extensions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace WMoSS.Pages.Cart
 {
@@ -62,14 +63,7 @@ namespace WMoSS.Pages.Cart
         {
             if (!ModelState.IsValid)
             {
-                var modelErrors = new List<string>();
-                foreach (var modelState in ModelState.Values)
-                {
-                    foreach (var modelError in modelState.Errors)
-                    {
-                        modelErrors.Add(modelError.ErrorMessage);
-                    }
-                }
+                var modelErrors = GetModelErrors(ModelState);
                 TempData["Danger"] = modelErrors.First();
                 return RedirectToLocal(ReturnUrl);
             }
@@ -132,7 +126,6 @@ namespace WMoSS.Pages.Cart
 
         }
 
-        
 
         public IActionResult OnPostModifyCart()
         {
@@ -199,5 +192,19 @@ namespace WMoSS.Pages.Cart
                 return RedirectToPage("/");
             }
         }
+
+        private string[] GetModelErrors(ModelStateDictionary _modelState)
+        {
+            var modelErrors = new List<string>();
+            foreach (var modelState in _modelState.Values)
+            {
+                foreach (var modelError in modelState.Errors)
+                {
+                    modelErrors.Add(modelError.ErrorMessage);
+                }
+            }
+            return modelErrors.ToArray();
+        }
+
     }
 }

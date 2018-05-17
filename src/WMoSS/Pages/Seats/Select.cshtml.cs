@@ -8,6 +8,7 @@ using WMoSS.Entities;
 using WMoSS.Data;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace WMoSS.Pages.Seats
 {
@@ -64,7 +65,8 @@ namespace WMoSS.Pages.Seats
         {
             if (ModelState.IsValid == false)
             {
-                TempData["Danger"] = ModelState.Values.Select(v => v.Errors).FirstOrDefault();
+                var modelErrors = GetModelErrors(ModelState);
+                TempData["Danger"] = modelErrors.First();
                 return RedirectToLocal(ReturnUrl);
             }
 
@@ -106,12 +108,25 @@ namespace WMoSS.Pages.Seats
                 return RedirectToPage("/");
             }
         }
+
+        private string[] GetModelErrors(ModelStateDictionary _modelState)
+        {
+            var modelErrors = new List<string>();
+            foreach (var modelState in _modelState.Values)
+            {
+                foreach (var modelError in modelState.Errors)
+                {
+                    modelErrors.Add(modelError.ErrorMessage);
+                }
+            }
+            return modelErrors.ToArray();
+        }
     }
 
     public class SelectSeatRequestModel
     {
         [Required]
-        public string[] Seats { get; set; }
+        public string[] Seats { get; set; } = new string[0];
 
         [Required]
         public int MovieSessionId { get; set; }
