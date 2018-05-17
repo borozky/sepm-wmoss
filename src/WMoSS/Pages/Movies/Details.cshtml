@@ -23,9 +23,9 @@
     </div>
 }
 
-@*@section Scripts {
-        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    }*@
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
 
 @*<div class="container clearfix text-center">
         <h3>@Model.Movie.Title @releaseYear</h3>
@@ -128,7 +128,7 @@
                                     <span class="movie-ticket-price">$ 20.00 per ticket</span>
                                 </p>
                                 <p>
-                                    <button class="btn btn-success">Select your seats</button>
+                                    <button type="submit" class="btn btn-success">Select your seats</button>
                                 </p>
                             </form>
                         }
