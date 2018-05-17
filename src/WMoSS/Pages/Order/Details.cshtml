@@ -88,11 +88,11 @@
                                             <td>
                                                 @if (movie.PosterFileName == null)
                                                 {
-                                                    <img src="http://placehold.it/135x200" alt="@string.Format("{0}{1:(yyyy)}",movie.Title, movie.ReleaseDate)">
+                                                    <img src="http://placehold.it/135x200" class="order-summary-img" alt="@string.Format("{0}{1:(yyyy)}",movie.Title, movie.ReleaseDate)">
                                                 }
                                                 else
                                                 {
-                                                    <img src="@movie.PosterFileName" alt="@string.Format("{0}{1:(yyyy)}", movie.Title, movie.ReleaseDate)">
+                                                    <img src="@movie.PosterFileName" class="order-summary-img" alt="@string.Format("{0}{1:(yyyy)}", movie.Title, movie.ReleaseDate)">
                                                 }
                                             </td>
                                             <td>
