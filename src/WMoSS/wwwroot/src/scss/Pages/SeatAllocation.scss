@@ -20,69 +20,70 @@ ol {
 }
 
 .seat {
-  display: flex;
-  flex: 0 0 8%;
-  // padding: 5px;
-  position: relative;
-  &:nth-child(5) {
-    margin-right: 8%;
-  }
-  input[type="checkbox"] {
-    position: absolute;
-    opacity: 0;
-  }
-  input[type="checkbox"]:checked {
-    + label {
-      background: #F42536;
-      -webkit-animation-name: rubberBand;
-      animation-name: rubberBand;
-      animation-duration: 300ms;
-      animation-fill-mode: both;
-    }
-  }
-  input[type="checkbox"]:disabled {
-    + label {
-      background: #747373;
-      text-indent: -9999px;
-      overflow: hidden;
-      &:after {
-        content: '\2297';
-        text-indent: 0;
-        position: absolute;
-        top: 4px;
-        left: 50%;
-        transform: translate(-50%, 0%);
-      }
-      &:hover {
-        box-shadow: none;
-        cursor: not-allowed;
-      }
-    }
-  }
-  label {
-    display: block;
+    display: flex;
+    flex: 0 0 8%;
+    // padding: 5px;
     position: relative;
-    width: 75%;
-    text-align: center;
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 1.5rem;
-    padding: 4px 0;
-    background: #4cfa4c;
-    border-radius: 5px;
-    animation-duration: 300ms;
-    animation-fill-mode: both;
 
-    &:before {
-      // content: "";
-      // position: absolute;
-      // border-radius: 3px;
+    &:nth-child(5) {
+        margin-right: 8%;
     }
-    &:hover {
-      cursor: pointer;
-      box-shadow: 0 0 0px 2px #5c6aff;
+
+    input[type="checkbox"] {
+        position: absolute;
+        opacity: 0;
     }
-  }
+
+    input[type="checkbox"]:checked {
+        + label {
+            background: #F42536;
+            -webkit-animation-name: rubberBand;
+            animation-name: rubberBand;
+            animation-duration: 300ms;
+            animation-fill-mode: both;
+        }
+    }
+
+    input[type="checkbox"]:disabled {
+        + label {
+            background: #747373;
+            overflow: hidden;
+
+            &:after {
+                content: '\2297';
+                text-indent: 0;
+                position: absolute;
+                top: 4px;
+                left: 50%;
+                transform: translate(-50%, 0%);
+            }
+
+            &:hover {
+                box-shadow: none;
+                cursor: not-allowed;
+            }
+        }
+    }
+
+    label {
+        display: inline-block;
+        position: relative;
+        text-align: center;
+        padding: 5px 10px;
+        border-radius: 0;
+        background: #b6f3b5;
+
+        &:before {
+            // content: "";
+            // position: absolute;
+            // border-radius: 3px;
+        }
+
+        &:hover {
+            cursor: pointer;
+            box-shadow: 0 0 0px 2px #5c6aff;
+        }
+    }
 }
 
 @-webkit-keyframes rubberBand {

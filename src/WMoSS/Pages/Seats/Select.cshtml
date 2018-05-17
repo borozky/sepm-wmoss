@@ -24,78 +24,89 @@
     </div>
 }
 
-<div class="container">
+
+<div class="container clearfix">
+
     <form method="post">
         <input type="hidden" asp-for="MovieSessionId" />
         <input type="hidden" asp-for="ReturnUrl" />
         <input type="hidden" asp-for="CartItem.TicketQuantity" />
 
-        <div class="row">
-            <div class="col-sm-8">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-12"><h3>Selectd: 1 of 2 seats</h3></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12"><h1>Front Screen</h1></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
+        <div class="clearfix margin sidebar-right">
+            <div class="responsive-content">
+                <div class="inner">
 
-                            <div class="theatre">
-                                <div class="screen"></div>
-                                <ol class="seating">
-                                    @for (char row = 'A'; row <= 'E'; row++)
-                                    {
-                                        var className = string.Format("row row{0}", row.ToString());
-                                        <li class="@className">
-                                            <ol class="seats" type="@row.ToString()">
-                                                @for (int col = 1; col <= 10; col++)
-                                                {
-                                                    @if (Model.UnavailableSeats.Contains(row.ToString() + col.ToString()))
-                                                    {
-                                                        <li class="seat unavailable">
-                                                            <input type="checkbox" name="Seats[]" id="Seat-@row@col" value="@row@col" disabled="disabled" />
-                                                            <label class="seat-label" for="Seat-@row@col">@row@col</label>
-                                                        </li>
-                                                    }
-                                                    else
-                                                    {
-                                                        <li class="seat available">
-                                                            @if (Model.CartItem.Seats != null && Model.CartItem.Seats.Contains($"{row}{col}"))
+                    <div id="SeatAllocation-SeatMap">
+
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h3>Selected: <span id="SelectedNumSeats">@(Model.CartItem?.Seats?.Count ?? 0)</span> of <span id="TicketQuantity">@Model.CartItem.TicketQuantity</span> seats</h3>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12"><h1>Front Screen</h1></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+
+                                    <div class="theatre">
+                                        <div class="screen"></div>
+                                        <ol class="seating">
+                                            @for (char row = 'A'; row <= 'E'; row++)
+                                            {
+                                                var className = string.Format("row row{0}", row.ToString());
+                                                <li class="@className">
+                                                    <ol class="seats" type="@row.ToString()">
+                                                        @for (int col = 1; col <= 10; col++)
+                                                        {
+                                                            @if (Model.UnavailableSeats.Contains(row.ToString() + col.ToString()))
                                                             {
-                                                                <input type="checkbox" name="Seats[]" id="@row@col" value="@row@col" checked="checked" />
+                                                                <li class="seat unavailable">
+                                                                    <input type="checkbox" name="Seats[]" id="Seat-@row@col" value="@row@col" disabled="disabled" />
+                                                                    <label class="seat-label" for="Seat-@row@col">@row@col</label>
+                                                                </li>
                                                             }
                                                             else
                                                             {
-                                                                <input type="checkbox" name="Seats[]" id="@row@col" value="@row@col" />
+                                                                <li class="seat available">
+                                                                    @if (Model.CartItem.Seats != null && Model.CartItem.Seats.Contains($"{row}{col}"))
+                                                                    {
+                                                                        <input type="checkbox" name="Seats[]" id="@row@col" value="@row@col" checked="checked" />
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <input type="checkbox" name="Seats[]" id="@row@col" value="@row@col" />
+                                                                    }
+                                                                    <label class="seat-label" for="@row@col">@row@col</label>
+                                                                </li>
                                                             }
-                                                            <label class="seat-label" for="@row@col">@row@col</label>
-                                                        </li>
-                                                    }
-                                                }
-                                            </ol>
-                                        </li>
-                                    }
-                                </ol>
+                                                        }
+                                                    </ol>
+                                                </li>
+                                            }
+                                        </ol>
+                                    </div>
+                                </div>
+
                             </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <button type="submit" class="btn btn-success">Update seats</button>
+                                <a href="@Model.ReturnUrl" class="btn btn-sm">Cancel and go back</a>
+                            </div>
+                            <br /><br /><br />
                         </div>
 
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <button type="submit" class="btn btn-success">Update seats</button>
-                        <a href="@Model.ReturnUrl" class="btn btn-sm">Cancel and go back</a>
-                    </div>
-                    <br /><br /><br />
+
                 </div>
             </div>
-            <div class="col-sm-4">
-                <br /><br />
+            <div class="fixed-sidebar">
 
-                <div class="row">
-                    <div class="col-sm-5">
+                <div id="SeatAllocation-SessionDetails">
+                    <div class="movie-details">
                         @if (Model.MovieSession.Movie.PosterFileName != null)
                         {
                             <img src="@Model.MovieSession.Movie.PosterFileName" class="img-responsive" style="width:100%" alt="Image">
@@ -104,33 +115,33 @@
                         {
                             <img src="http://placehold.it/270x400" class="img-responsive" style="width:100%" alt="Image">
                         }
-                    </div>
-                    <div class="col-sm-7">
-
-                        <h5 class="text-left">@Model.MovieSession.Movie.Title @releaseYear</h5>
-                        <p class="text-left">
-                            @Model.MovieSession.Movie.Classification  <span class="bar">&nbsp;|&nbsp;</span>
-                            @Model.MovieSession.Movie.Genre<br />
-                            @string.Format("{0:h \\hour\\s m \\minu\\te\\s}", DateTime.Today.AddMinutes(Model.MovieSession.Movie.RuntimeMinutes.HasValue ? Model.MovieSession.Movie.RuntimeMinutes.Value : 0))<br />
+                        <h3 class="movie-title">@Model.MovieSession.Movie.Title @releaseYear</h3>
+                        <p class="movie-metadata">
+                            <span class="movie-classification">@Model.MovieSession.Movie.Classification</span><br />
+                            Released: <span class="movie-releasedate">@String.Format("{0:dd MMM yyyy}", Model.MovieSession.Movie.ReleaseDate)</span><br />
+                            <span class="movie-genre">@Model.MovieSession.Movie.Genre</span><br />
+                            <span class="movie-rating">
+                                @await Html.PartialAsync("Movies/_Ratings", Model.MovieSession.Movie)
+                            </span><br />
                         </p>
-                        <div class="text-left">
-                            @await Html.PartialAsync("Movies/_Ratings", Model.MovieSession.Movie)
-                        </div>
                     </div>
-                </div>
-                
-                <p><strong>Session:</strong></p>
-                <p>
-                    @String.Format("{0:ddd dd MMM yyyy hh:mm tt}", Model.MovieSession.ScheduledAt)
-                </p>
-                <br />
-                <p><strong>Venue:</strong></p>
-                <p>@String.Format("{0}, {1}", Model.MovieSession.Theater.Name, Model.MovieSession.Theater.Address)</p>
-                <br />
-                <p><strong>Tickets:</strong></p>
-                <p>@Model.CartItem.TicketQuantity tickets</p>
+
+                    <div class="session-details">
+                        <b>Session</b><br/>
+                        @String.Format("{0:ddd dd MMM yyyy hh:mm tt}", Model.MovieSession.ScheduledAt)
+                    </div>
+                    <div class="venue">
+                        <b>Venue:</b><br/>
+                        @String.Format("{0}, {1}", Model.MovieSession.Theater.Name, Model.MovieSession.Theater.Address)
+                    </div>
+                    <div class="num-tickets">
+                        <b>Tickets: </b>
+                        @Model.CartItem.TicketQuantity tickets
+                    </div>
+                </div><!-- end #SeatAllocation-SessionDetails -->
+
             </div>
-        </div>
+        </div><!-- end .clearfix.margin.sidebar-right -->
 
     </form>
 </div>
