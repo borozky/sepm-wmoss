@@ -26,6 +26,7 @@ namespace WMoSS.Pages.Movies
             Movies = await _dbcontext.Movies
                 .Include(m => m.MovieSessions)
                 .Where(m => m.MovieSessions.Count() > 0)
+                .Where(m => m.MovieSessions.Count(ms => ms.ScheduledAt < DateTime.Now.AddDays(7)) > 0)
                 .AsNoTracking()
                 .ToListAsync();
 
