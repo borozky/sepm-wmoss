@@ -44,7 +44,7 @@ namespace WMoSS.Pages.Movies
                 return NotFound();
             }
 
-            MovieSessions = Movie.MovieSessions;
+            MovieSessions = Movie.MovieSessions.Where(ms => ms.ScheduledAt < DateTime.Now.AddDays(7));
             MovieSessionsOptions = MovieSessions.Select(ms => new SelectListItem
             {
                 Value = ms.Id.ToString(),
