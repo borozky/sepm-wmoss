@@ -40,12 +40,10 @@ namespace WMoSS.Pages.Movies
                         Movies = Movies.OrderByDescending(m => m.Title);
                         break;
                     case "rating":
-                        Movies = Movies.OrderByDescending(m => m.Rating);
+                        Movies = Movies.OrderBy(m => m.Rating);
                         break;
-                    case "popular":
-                        // TODO
+                    default:
                         break;
-                    
                 }
             }
         }

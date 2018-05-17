@@ -35,13 +35,13 @@ namespace WMoSS.Pages.Movies
                 switch (sort)
                 {
                     case "title-a-z":
-                        Movies.OrderBy(m => m.Title);
+                        Movies = Movies.OrderBy(m => m.Title);
                         break;
                     case "title-z-a":
-                        Movies.OrderByDescending(m => m.Title);
+                        Movies = Movies.OrderByDescending(m => m.Title);
                         break;
                     case "rating":
-                        Movies.OrderBy(m => m.Rating);
+                        Movies = Movies.OrderBy(m => m.Rating);
                         break;
                     default:
                         break;
