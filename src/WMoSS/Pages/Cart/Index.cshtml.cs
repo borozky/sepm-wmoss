@@ -117,7 +117,7 @@ namespace WMoSS.Pages.Cart
 
             if (SelectSeats == true)
             {
-                return RedirectToPage("/Seats/Select", new { id = movieSession.Id });
+                return RedirectToPage("/Seats/Select", new { id = movieSession.Id, returnUrl = Request.Path });
             }
             else
             {
