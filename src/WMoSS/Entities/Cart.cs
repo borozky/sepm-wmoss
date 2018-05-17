@@ -99,17 +99,19 @@ namespace WMoSS.Entities
             session.Set("cart", this);
         }
 
+        public int RemainingSeats => CartItems.Sum(c => c.RemainingSeats);
+
         public double GstRate { get; set; } = 0.1;
         public double GstPrice => TotalPrice * GstRate;
     }
 
     public class CartItem
     {
-        [Required]
+        [Required(ErrorMessage = "Movie session is required")]
         public int? MovieSessionId { get; set; }
         public MovieSession MovieSession { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Ticket quantity is required")]
         [Range(1, 15)]
         public int? TicketQuantity { get; set; }
 
@@ -134,5 +136,7 @@ namespace WMoSS.Entities
                 return unitPrice * ticketQty;
             }
         }
+
+        public int RemainingSeats => ((TicketQuantity ?? 0) - (Seats == null ? 0 : Seats.Count));
     }
 }

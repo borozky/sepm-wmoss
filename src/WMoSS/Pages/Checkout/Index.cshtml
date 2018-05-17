@@ -14,31 +14,126 @@
     </div>
 }
 
-@*<div class="container clearfix">
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/card/2.4.0/card.min.js"></script>
+    <script>
+            var card = new Card({
+                form: '#CheckoutForm',
+                container: '.card-wrapper',
 
-    <form asp-page="/Checkout/Index" method="post">
+                formSelectors: {
+                    numberInput: '#Order_CardNumber', // optional — default input[name="number"]
+                    expiryInput: '#Order_Expiry', // optional — default input[name="expiry"]
+                    cvcInput: '#CVV', // optional — default input[name="cvc"]
+                    nameInput: '#Order_FullName' // optional - defaults input[name="name"]
+                },
+            });
+    </script>
+}
 
-        <h4>Enter your details</h4>
-        <input type="hidden" asp-for="Order.TotalPrice" value="@Model.Cart.TotalPrice" />
-        <input asp-for="Order.FullName"  placeholder="Full name"/><br/>
-        <span asp-validation-for="Order.FullName" class="text-danger"></span><br/>
-        <input asp-for="Order.MailingAddress" placeholder="Mailing address"/><br/>
-        <span asp-validation-for="Order.MailingAddress" class="text-danger"></span><br/>
-        <input asp-for="Order.EmailAddress" placeholder="Email address"/><br/>
-        <span asp-validation-for="Order.EmailAddress" class="text-danger"></span><br />
-        <input asp-for="Order.CardNumber" placeholder="Card number"/><br/>
-        <span asp-validation-for="Order.CardNumber" class="text-danger"></span><br />
-        <input asp-for="Order.Expiry" placeholder="MM/YY"/><br/>
-        <span asp-validation-for="Order.Expiry" class="text-danger"></span><br />
-        <input asp-for="CVV" placeholder="CVV" required /><br/>
-
-        <button type="submit">Submit</button>
-
-    </form>
-
-</div>*@
 
 <div class="container clearfix">
+
+    <div class="clearfix margin sidebar-right">
+        <div class="fixed-sidebar">
+
+            <div id="CartSummary">
+                <h4>Cart Summary</h4>
+
+                <div id="CartSummaryItemList">
+                    @foreach (var cartItem in Model.Cart.CartItems)
+                    {
+                        <div class="cart-summary-item has-image clearfix">
+                            <img src="@(cartItem.MovieSession.Movie.PosterFileName ?? "http://placeholt.it/120x188")" class="img-responsive" alt="Image"/>
+
+                            <div class="movie-title">
+                                @cartItem.MovieSession.Movie.Title @string.Format("({0:yyyy})", cartItem.MovieSession.Movie.ReleaseDate.GetValueOrDefault())
+                            </div>
+                            <span class="num-tickets">@string.Format("{0} Ticket", cartItem.TicketQuantity)</span>
+                            <span class="amount">@string.Format("{0:C2}", cartItem.TotalPrice)</span>
+                        </div>
+                    }
+                </div><!-- end #CartSummaryItemList-->
+
+                <div class="text-right" id="CartSummaryPricing">
+                    GST (Included): <span id="GSTPrice">@string.Format("{0:C2}", Model.Cart.GstPrice)</span><br />
+                    Total: <span id="TotalPrice">@string.Format("{0:C2}", Model.Cart.TotalPrice)</span>
+                </div>
+            </div><!-- end #CartSummary -->
+
+        </div>
+        <div class="responsive-content">
+            <div class="inner">
+
+                <form asp-page="/Checkout/Index" method="post" id="CheckoutForm">
+                    <input type="hidden" asp-for="Order.TotalPrice" value="@Model.Cart.TotalPrice" />
+
+                    <div class="card-wrapper"></div>
+
+                    <table>
+                        <tr>
+                            <td><label asp-for="Order.FullName">Full name</label></td>
+                            <td>
+                                <input asp-for="Order.FullName"  required/>
+                                <br /><span asp-validation-for="Order.FullName" class="text-danger"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label asp-for="Order.CardNumber">Card Number</label>
+                            </td>
+                            <td>
+                                <input asp-for="Order.CardNumber" required/>
+                                <br /><span asp-validation-for="Order.CardNumber" class="text-danger"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label asp-for="Order.Expiry">Expiry</label>
+                            </td>
+                            <td>
+                                <input asp-for="Order.Expiry" required/>
+                                <br /><span asp-validation-for="Order.Expiry" class="text-danger"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label asp-for="CVV">CVV</label>
+                            </td>
+                            <td>
+                                <input asp-for="CVV" required />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label asp-for="Order.MailingAddress">Mailing Address</label></td>
+                            <td>
+                                <input asp-for="Order.MailingAddress" required/><br />
+                                <span asp-validation-for="Order.MailingAddress" class="text-danger"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label asp-for="Order.EmailAddress">Email</label></td>
+                            <td>
+                                <input asp-for="Order.EmailAddress" required/><br />
+                                <span asp-validation-for="Order.EmailAddress" class="text-danger"></span>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <button type="submit">Proceed to payment</button><br/>
+                    <small><a asp-page="/Cart/Index">Cancel and return back to your cart</a></small>
+
+                </form><!-- end #CheckoutForm -->
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+@*<div class="container clearfix">
     <div class="col-md-6">
         <form asp-page="/Checkout/Index" method="post">
             <input type="hidden" asp-for="Order.TotalPrice" value="@Model.Cart.TotalPrice" />
@@ -103,4 +198,4 @@
         </div>
     </div>
 
-</div>
+</div>*@

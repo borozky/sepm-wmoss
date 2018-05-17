@@ -39,6 +39,13 @@ namespace WMoSS.Pages.Checkout
                 return RedirectToPage("/Cart/Index");
             }
 
+            // If there are remaining seats to be filled in
+            if (cart.RemainingSeats != 0)
+            {
+                TempData["Danger"] = $"There are still {cart.RemainingSeats} seat{(cart.RemainingSeats != 1 ? "s" : "")} remaining to be filled in";
+                return RedirectToPage("/Cart/Index");
+            }
+
             //// If a seat is missing, redirect back to cart page
             //var hasSelectedAllSeats = cart.CartItems.All(
             //    ci => ci.Seats != null && 

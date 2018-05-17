@@ -25,6 +25,20 @@
             display: inline-block;
             float: right;
         }
+
+        &.has-image {
+            padding-left: 65px;
+            position: relative;
+            height: 90px;
+
+            img {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 54px;
+                height: 80px;
+            }
+        }
     }
 }
 
