@@ -8,6 +8,7 @@ using WMoSS.Data;
 using Microsoft.EntityFrameworkCore;
 using WMoSS.Entities;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace WMoSS.Pages.Checkout
 {
@@ -87,7 +88,8 @@ namespace WMoSS.Pages.Checkout
             // Validate order
             if (!ModelState.IsValid)
             {
-                TempData["Danger"] = ModelState.Values.Select(v => v.Errors).FirstOrDefault();
+                var modelErrors = GetModelErrors(ModelState);
+                TempData["Danger"] = modelErrors.FirstOrDefault();
                 return Page();
             }
 
@@ -168,6 +170,19 @@ namespace WMoSS.Pages.Checkout
 
             TempData["Success"] = "Successfully booked";
             return RedirectToPage("/Order/Details", new { id = Order.Id });
+        }
+
+        private string[] GetModelErrors(ModelStateDictionary _modelState)
+        {
+            var modelErrors = new List<string>();
+            foreach (var modelState in _modelState.Values)
+            {
+                foreach (var modelError in modelState.Errors)
+                {
+                    modelErrors.Add(modelError.ErrorMessage);
+                }
+            }
+            return modelErrors.ToArray();
         }
     }
 
