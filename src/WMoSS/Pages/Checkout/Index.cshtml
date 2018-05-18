@@ -67,7 +67,7 @@
         <div class="responsive-content">
             <div class="inner">
 
-                <form asp-page="/Checkout/Index" method="post" id="CheckoutForm" novalidate>
+                <form asp-page="/Checkout/Index" method="post" id="CheckoutForm">
                     <input type="hidden" asp-for="Order.TotalPrice" value="@Model.Cart.TotalPrice" />
 
                     <div class="card-wrapper"></div>
