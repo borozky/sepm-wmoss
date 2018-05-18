@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using WMoSS.Entities;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.ComponentModel.DataAnnotations;
 
 namespace WMoSS.Pages.Checkout
 {
@@ -23,10 +24,6 @@ namespace WMoSS.Pages.Checkout
 
         [BindProperty]
         public Entities.Order Order { get; set; }
-
-        [BindProperty]
-        public string CVV { get; set; }
-        
 
         public Entities.Cart Cart;
 
@@ -88,6 +85,19 @@ namespace WMoSS.Pages.Checkout
             // Validate order
             if (!ModelState.IsValid)
             {
+                // Get movie sessions based on cart's movie session ids
+                var sessionIds = Cart.CartItems.Select(ci => ci.MovieSessionId);
+                var sessions = await _context.MovieSessions
+                    .Include(ms => ms.Movie)
+                    .Include(ms => ms.Theater)
+                    .Where(ms => sessionIds.Contains(ms.Id))
+                    .AsNoTracking()
+                    .ToListAsync();
+                foreach (var cartItem in Cart.CartItems)
+                {
+                    cartItem.MovieSession = sessions.FirstOrDefault(ms => ms.Id == cartItem.MovieSessionId);
+                }
+
                 var modelErrors = GetModelErrors(ModelState);
                 TempData["Danger"] = modelErrors.FirstOrDefault();
                 return Page();
