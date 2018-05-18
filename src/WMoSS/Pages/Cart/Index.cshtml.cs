@@ -64,7 +64,7 @@ namespace WMoSS.Pages.Cart
             if (!ModelState.IsValid)
             {
                 var modelErrors = GetModelErrors(ModelState);
-                TempData["Danger"] = modelErrors.First();
+                TempData["Danger"] = modelErrors.FirstOrDefault();
                 return RedirectToLocal(ReturnUrl);
             }
 
@@ -155,8 +155,7 @@ namespace WMoSS.Pages.Cart
         {
             if (!ModelState.IsValid)
             {
-                var error = ModelState.Values.Select(v => v.Errors).FirstOrDefault();
-                TempData["Danger"] = error;
+                TempData["Danger"] = GetModelErrors(ModelState).FirstOrDefault();
                 return Page();
             }
 

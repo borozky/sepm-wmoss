@@ -15,6 +15,8 @@
 }
 
 @section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/card/2.4.0/card.min.js"></script>
     <script>
             var card = new Card({
@@ -24,7 +26,7 @@
                 formSelectors: {
                     numberInput: '#Order_CardNumber', // optional — default input[name="number"]
                     expiryInput: '#Order_Expiry', // optional — default input[name="expiry"]
-                    cvcInput: '#CVV', // optional — default input[name="cvc"]
+                    cvcInput: '#Order_CVV', // optional — default input[name="cvc"]
                     nameInput: '#Order_FullName' // optional - defaults input[name="name"]
                 },
             });
@@ -65,7 +67,7 @@
         <div class="responsive-content">
             <div class="inner">
 
-                <form asp-page="/Checkout/Index" method="post" id="CheckoutForm">
+                <form asp-page="/Checkout/Index" method="post" id="CheckoutForm" novalidate>
                     <input type="hidden" asp-for="Order.TotalPrice" value="@Model.Cart.TotalPrice" />
 
                     <div class="card-wrapper"></div>
@@ -98,10 +100,11 @@
                         </tr>
                         <tr>
                             <td>
-                                <label asp-for="CVV">CVV</label>
+                                <label asp-for="Order.CVV">CVV</label>
                             </td>
                             <td>
-                                <input asp-for="CVV" required />
+                                <input asp-for="Order.CVV" required />
+                                <br /><span asp-validation-for="Order.CVV" class="text-danger"></span>
                             </td>
                         </tr>
                         <tr>

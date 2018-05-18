@@ -66,7 +66,7 @@ namespace WMoSS.Pages.Seats
             if (ModelState.IsValid == false)
             {
                 var modelErrors = GetModelErrors(ModelState);
-                TempData["Danger"] = modelErrors.First();
+                TempData["Danger"] = modelErrors.FirstOrDefault();
                 return RedirectToLocal(ReturnUrl);
             }
 
