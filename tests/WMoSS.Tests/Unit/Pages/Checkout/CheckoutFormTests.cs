@@ -62,10 +62,10 @@ namespace WMoSS.Tests.Unit.Pages.Checkout
                     EmailAddress = "someone123@email.com",
                     CardNumber = "4111111111111111",
                     Expiry = "10/20",
+                    CVV = "123"
                 };
 
                 checkoutIndexModel.Order = order;
-                checkoutIndexModel.CVV = "123";
 
                 checkoutIndexModel.Cart = cart;
                 var jsonCart = JsonConvert.SerializeObject(cart);
@@ -104,10 +104,10 @@ namespace WMoSS.Tests.Unit.Pages.Checkout
                 EmailAddress = "someone123@email.com",
                 CardNumber = "4111111111111111",
                 Expiry = "10/20",
+                CVV = "123"
             };
 
             checkoutIndexModel.Order = order;
-            checkoutIndexModel.CVV = "123";
 
             checkoutIndexModel.Cart = cart;
             var jsonCart = JsonConvert.SerializeObject(cart);
@@ -175,10 +175,10 @@ namespace WMoSS.Tests.Unit.Pages.Checkout
                     EmailAddress = "someone123@email.com",
                     CardNumber = "4111111111111111",
                     Expiry = "10/20",
+                    CVV = "123"
                 };
 
                 checkoutIndexModel.Order = order;
-                checkoutIndexModel.CVV = "123";
 
                 checkoutIndexModel.Cart = cart;
                 var jsonCart = JsonConvert.SerializeObject(cart);
@@ -231,10 +231,10 @@ namespace WMoSS.Tests.Unit.Pages.Checkout
                     EmailAddress = "someone123@email.com",
                     CardNumber = "4111111111111111",
                     Expiry = "10/20",
+                    CVV = "123"
                 };
 
                 checkoutIndexModel.Order = order;
-                checkoutIndexModel.CVV = "123";
 
                 checkoutIndexModel.Cart = cart;
                 var jsonCart = JsonConvert.SerializeObject(cart);
@@ -296,10 +296,10 @@ namespace WMoSS.Tests.Unit.Pages.Checkout
                     EmailAddress = "someone123@email.com",
                     CardNumber = "4111111111111111",
                     Expiry = "10/20",
+                    CVV = "123"
                 };
 
                 checkoutIndexModel.Order = order;
-                checkoutIndexModel.CVV = "123";
 
                 checkoutIndexModel.Cart = cart;
                 var jsonCart = JsonConvert.SerializeObject(cart);
